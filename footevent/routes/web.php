@@ -8,4 +8,4 @@ Route::get('/', function () {
 });
 
 Route::get("auth/login",[AuthController::class,'index'])->name("login");
-Route::resources("auth",AuthController::class);
+Route::resource("auth",AuthController::class);

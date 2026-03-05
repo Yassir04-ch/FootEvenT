@@ -17,7 +17,7 @@ public function index(){
 }
 
 
-public function show(){
+public function create(){
   return view("auth.login");
     
 }

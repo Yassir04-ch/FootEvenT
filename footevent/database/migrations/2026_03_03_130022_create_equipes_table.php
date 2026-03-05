@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreignId('tournoi_id')->constrained('tournois')->onDelete('cascade');
             $table->timestamps();
         });
-    }
+    } 
 
     /**
      * Reverse the migrations.

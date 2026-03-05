@@ -94,7 +94,6 @@
                 <label class="text-gray-400 text-xs font-medium uppercase tracking-widest mb-2 block">Confirmer le mot de passe</label>
                 <input
                     type="password"
-                    name="password_confirmation"
                     placeholder="••••••••"
                     required
                     class="w-full bg-gray-900 border border-gray-700 text-white placeholder-gray-600 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-green-400 transition-all"
@@ -112,7 +111,7 @@
 
         <p class="text-center text-gray-500 text-sm mt-6">
             Déjà un compte ?
-            <a href="{{ route('auth.show') }}" class="text-green-400 hover:underline font-medium">Se connecter</a>
+            <a href="{{ route('auth.create') }}" class="text-green-400 hover:underline font-medium">Se connecter</a>
         </p>
 
     </div>
