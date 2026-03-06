@@ -26,7 +26,7 @@ class RegisterRequest extends FormRequest
             "lastname"=>"required|string",
             "email"=>"required|email",
             "password"=>"required|string",
-            "role_id"=>"required"
+            "role_id"=>"required",
             ];
     }
 }

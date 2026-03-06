@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\RegisterRequest;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -11,8 +12,8 @@ class AuthController extends Controller
 {
 
 public function index(){
-
-  return view("auth.register");
+  $roles = Role::where('name','!=','Administrateur')->get();
+  return view("auth.register",compact('roles'));
 
 }
 
@@ -32,8 +33,8 @@ public function login(Request $request)
     if(Auth::attempt($login)){
        $request->session()->regenerate();
 
-            $user = Auth::user();
- 
+        $user = Auth::user();
+        $role = $user->role->name; 
          return redirect()->route('home.index');
 
         }
@@ -51,9 +52,16 @@ public function login(Request $request)
 
        $user = User::create($validation);
         Auth::login($user);
-        return Redirect()->route("home.index");
+        return Redirect('/');
     }
 
+
+    public function logout()
+    {
+       Auth::logout();
+       return view('auth.login');
+      
+    }
 
 }
 

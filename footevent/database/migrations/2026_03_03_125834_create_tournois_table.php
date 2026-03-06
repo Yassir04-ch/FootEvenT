@@ -18,7 +18,7 @@ return new class extends Migration
             $table->date('date_debut');
             $table->date('date_fin');
             $table->integer('nbEquipes');
-            $table->string('status');
+            $table->enum('status',['en_attente', 'en_cours', 'termine'])->default('en_attente');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->timestamps();
         });

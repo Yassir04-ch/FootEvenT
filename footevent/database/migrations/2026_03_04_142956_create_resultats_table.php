@@ -16,6 +16,8 @@ return new class extends Migration
             $table->integer('scoreEq1');
             $table->integer('scoreEq2');
             $table->date('date');
+            $table->foreignId('game_id')->constrained('games')->onDelete('cascade');
+            $table->foreignId('equipe_gagnante_id')->nullable()->constrained('equipes')->onDelete('set null');
             $table->timestamps();
         });
     }

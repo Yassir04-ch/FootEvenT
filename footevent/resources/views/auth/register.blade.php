@@ -6,11 +6,8 @@
     <title>FootEvenT — Inscription</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Outfit', sans-serif; }
-    </style>
 </head>
-<body class="bg-gray-900 min-h-screen flex items-center justify-center py-10">
+<body class="bg-gray-900 min-h-screen flex items-center justify-center">
 
     <div class="bg-gray-800 border border-gray-700 rounded-3xl p-10 w-full max-w-md shadow-2xl">
 
@@ -24,8 +21,14 @@
             <span style="font-family:'Bebas Neue',cursive;" class="text-3xl text-green-400 tracking-widest">FootEvenT</span>
         </div>
 
-        <h1 class="text-white text-2xl font-semibold mb-1">Créer un compte ⚽</h1>
+        <h1 class="text-white text-2xl font-semibold mb-1">Créer un compte 🚀</h1>
         <p class="text-gray-400 text-sm mb-8">Rejoignez la communauté FootEvenT</p>
+
+        @if(session('error'))
+            <div class="bg-red-900 border border-red-700 text-red-300 text-sm rounded-xl px-4 py-3 mb-6">
+                {{ session('error') }}
+            </div>
+        @endif
 
         <form method="POST" action="{{ route('auth.store') }}" class="space-y-5">
             @csrf
@@ -51,6 +54,7 @@
                      placeholder="Votre nom"
                     required
                     class="w-full bg-gray-900 border border-gray-700 text-white placeholder-gray-600 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-green-400 transition-all"/>
+                
             </div>
 
             <!-- Email -->
@@ -62,19 +66,6 @@
                      placeholder="votre@email.com"
                     required
                     class="w-full bg-gray-900 border border-gray-700 text-white placeholder-gray-600 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-green-400 transition-all"/>
-               
-            </div>
-
-            <!-- Role -->
-            <div>
-                <label class="text-gray-400 text-xs font-medium uppercase tracking-widest mb-2 block">Rôle</label>
-                <select
-                    name="role_id"
-                    required
-                    class="w-full bg-gray-900 border border-gray-700 text-white rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-green-400 transition-all">
-                    <option value="" disabled selected>Choisir un rôle...</option>
-                    
-                </select>
                 
             </div>
 
@@ -87,32 +78,36 @@
                     placeholder="••••••••"
                     required
                     class="w-full bg-gray-900 border border-gray-700 text-white placeholder-gray-600 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-green-400 transition-all"/>
+               
             </div>
 
-            <!-- Confirm Password -->
+            <!-- Role -->
             <div>
-                <label class="text-gray-400 text-xs font-medium uppercase tracking-widest mb-2 block">Confirmer le mot de passe</label>
-                <input
-                    type="password"
-                    placeholder="••••••••"
-                    required
-                    class="w-full bg-gray-900 border border-gray-700 text-white placeholder-gray-600 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-green-400 transition-all"
-                />
+                <label class="text-gray-400 text-xs font-medium uppercase tracking-widest mb-2 block">Rôle</label>
+                <select name="role_id" required class="w-full bg-gray-900 border border-gray-700 text-white rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-green-400 transition-all appearance-none cursor-pointer">
+                     @foreach($roles as $role)
+                        <option value="{{ $role->id }}" class="text-white bg-gray-900">
+                            {{ $role->name}}
+                        </option>
+                    @endforeach
+                </select>
+              
             </div>
 
             <!-- Submit -->
             <button
                 type="submit"
                 class="w-full bg-green-400 hover:bg-green-300 text-gray-900 font-semibold rounded-xl py-3 text-sm transition-all">
-                Créer mon compte
+                S'inscrire
             </button>
 
         </form>
 
-        <p class="text-center text-gray-500 text-sm mt-6">
-            Déjà un compte ?
-            <a href="{{ route('auth.create') }}" class="text-green-400 hover:underline font-medium">Se connecter</a>
-        </p>
+        <a href="{{ route('login') }}">
+            <p class="text-center text-gray-500 text-sm mt-6">
+                Déjà un compte ? <span class="text-green-400 hover:text-green-300">Se connecter</span>
+            </p>
+        </a>
 
     </div>
 

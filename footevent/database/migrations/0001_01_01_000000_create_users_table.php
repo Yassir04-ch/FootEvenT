@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignId('role_id')->constrained('roles')->onDelete('cascade');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->enum('status_account',['banni','active'])->default('active');
             $table->rememberToken();
             $table->timestamps();
         });
