@@ -103,7 +103,7 @@
 
         </form>
 
-        <a href="{{ route('login') }}">
+        <a href="{{ route('auth.create') }}">
             <p class="text-center text-gray-500 text-sm mt-6">
                 Déjà un compte ? <span class="text-green-400 hover:text-green-300">Se connecter</span>
             </p>

@@ -38,10 +38,9 @@
                     <div class="text-sm font-semibold text-white leading-none">{{ auth()->user()->firstname }}</div>
                  </div>
             </div>
-            <form method="POST" action="{{ route('logout') }}">
+            <form method="POST" action="{{ route('auth.destroy') }}">
                 @csrf
-                @method('DELETE')
-                <button type="submit" class="px-5 py-2 border border-gray-600 rounded-lg text-gray-400 text-sm font-medium hover:border-red-500 hover:text-red-400">
+                 <button type="submit" class="px-5 py-2 border border-gray-600 rounded-lg text-gray-400 text-sm font-medium hover:border-red-500 hover:text-red-400">
                     Déconnexion
                 </button>
             </form>
@@ -231,7 +230,7 @@
     <h2 class="tracking-widest mb-4 text-white" style="font-family:'Bebas Neue',cursive;font-size:clamp(2.5rem,5vw,4.5rem)">PRÊT À JOUER ?</h2>
     <p class="text-gray-400 text-base mb-9 font-light">Rejoignez des centaines d'équipes sur FootEvenT et participez aux meilleurs tournois.</p>
     <div class="flex gap-4 justify-center flex-wrap">
-        <a href="{{rout('auth.index')}}" class="px-8 py-3.5 bg-green-400 rounded-xl text-gray-900 font-bold hover:bg-green-300 no-underline">Créer mon compte gratuitement</a>
+        <a href="{{route('auth.index')}}" class="px-8 py-3.5 bg-green-400 rounded-xl text-gray-900 font-bold hover:bg-green-300 no-underline">Créer mon compte gratuitement</a>
         <a href="{{route('auth.create')}}" class="px-8 py-3.5 border border-gray-600 rounded-xl text-white font-medium hover:border-gray-400 no-underline">Se connecter</a>
     </div>
 </div>

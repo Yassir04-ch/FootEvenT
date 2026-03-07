@@ -33,9 +33,19 @@ public function login(Request $request)
     if(Auth::attempt($login)){
        $request->session()->regenerate();
 
-        $user = Auth::user();
-        $role = $user->role->name; 
-         return redirect()->route('home.index');
+       $role = Auth::user()->role->name;
+
+       if($role == "Organisateur" ){
+          return view('organisateur.index');
+       }
+       else if($role == "Administrateur" ){
+          return view('admin.index');
+       }
+       else{
+          return view('joueur.index');
+       }
+
+          return redirect('/');
 
         }
         else {
@@ -56,12 +66,12 @@ public function login(Request $request)
     }
 
 
-    public function logout()
-    {
-       Auth::logout();
-       return view('auth.login');
-      
-    }
+    public function destroy(Request $request)
+  {
+      Auth::logout();
+      $request->session()->invalidate();
+       return redirect('/');
+  }
 
 }
 

@@ -11,6 +11,8 @@ Route::get('/login', function () {
     return view('auth.login');
 });
 
-Route::get("auth/login",[AuthController::class,'index'])->name("login");
-Route::get("auth/logout",[AuthController::class,'logout'])->name("logout");
+Route::post("/auth/login",[AuthController::class,'login'])->name("login");
+Route::post('/auth/logout', [AuthController::class, 'destroy'])->name('auth.destroy');
 Route::resource("auth",AuthController::class);
+
+

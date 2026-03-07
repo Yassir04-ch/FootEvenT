@@ -12,7 +12,7 @@ class JoueurController extends Controller
      */
     public function index()
     {
-        //
+        return view("joueur.index");
     }
 
     /**
