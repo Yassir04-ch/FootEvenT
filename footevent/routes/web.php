@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\TournoiController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -14,5 +15,6 @@ Route::get('/login', function () {
 Route::post("/auth/login",[AuthController::class,'login'])->name("login");
 Route::post('/auth/logout', [AuthController::class, 'destroy'])->name('auth.destroy');
 Route::resource("auth",AuthController::class);
+Route::resource("tournois",TournoiController::class);
 
 

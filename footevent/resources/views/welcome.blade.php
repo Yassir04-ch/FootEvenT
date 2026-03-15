@@ -19,7 +19,7 @@
 
     <ul class="hidden md:flex gap-9 list-none">
         <li><a href="#features" class="text-gray-400 no-underline text-sm font-medium hover:text-white">Fonctionnalités</a></li>
-        <li><a href="#tournois" class="text-gray-400 no-underline text-sm font-medium hover:text-white">Tournois</a></li>
+        <li><a href="{{route('tournois.index')}}" class="text-gray-400 no-underline text-sm font-medium hover:text-white">Tournois</a></li>
         <li><a href="#classement" class="text-gray-400 no-underline text-sm font-medium hover:text-white">Classement</a></li>
     </ul>
 
@@ -74,7 +74,7 @@
             <a href="register.html" class="flex items-center gap-2 px-8 py-3 bg-green-400 rounded-xl text-gray-900 font-bold text-base hover:bg-green-300 no-underline">
                 Commencer gratuitement →
             </a>
-            <a href="#tournois" class="px-8 py-3 border border-gray-600 rounded-xl text-white font-medium text-base hover:border-gray-400 no-underline">Voir les tournois</a>
+            <a href="{{route('tournois.index')}}" class="px-8 py-3 border border-gray-600 rounded-xl text-white font-medium text-base hover:border-gray-400 no-underline">Voir les tournois</a>
         </div>
     </div>
 </section>

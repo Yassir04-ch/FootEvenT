@@ -2,17 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreTournoiRequest;
 use App\Models\Tournoi;
-use Illuminate\Http\Request;
+ use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TournoiController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+   public function index(Request $request)
     {
-        //
+        $tournois = Tournoi::with('user');
+
+        return view('tournois.index', compact('tournois'));
     }
 
     /**
@@ -20,15 +24,19 @@ class TournoiController extends Controller
      */
     public function create()
     {
-        //
+        return view('tournoi.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreTournoiRequest $request)
     {
-        //
+    $validated = $request->validated();
+    $validated['user_id'] = Auth::id();
+     
+    Tournoi::create($validated);
+    return redirect()->route('tournois.index')->with("success","Tournoi creer avec success");    
     }
 
     /**
@@ -36,7 +44,7 @@ class TournoiController extends Controller
      */
     public function show(Tournoi $tournoi)
     {
-        //
+        
     }
 
     /**

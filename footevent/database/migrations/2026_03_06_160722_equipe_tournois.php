@@ -12,11 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('equipe_tourois', function (Blueprint $table) {
-        $table->id();
-        $table->foreignId('equipe_id')->constrained('equipes')->onDelete('cascade');
-        $table->foreignId('tournoi_id')->constrained('tournois')->onDelete('cascade');
-        $table->unique(['equipe_id', 'tournoi_id']);
-        $table->timestamps();
+            $table->id();
+            $table->foreignId('equipe_id')->constrained('equipes')->onDelete('cascade');
+            $table->foreignId('tournoi_id')->constrained('tournois')->onDelete('cascade');
+            $table->enum('statut', ['en_attente', 'validee', 'refusee'])->default('en_attente');
+            $table->unique(['equipe_id', 'tournoi_id']);
+            $table->timestamps();
         });
     }
 
@@ -25,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('equipe_touroi');
+        Schema::dropIfExists('equipe_tourois');
     }
 };

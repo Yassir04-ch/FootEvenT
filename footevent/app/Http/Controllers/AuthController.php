@@ -59,7 +59,7 @@ public function login(Request $request)
     public function store(RegisterRequest $request){
 
       $validation = $request->validated();
-
+      $validation['password'] = bcrypt($validation['password']);
        $user = User::create($validation);
         Auth::login($user);
         return Redirect('/');

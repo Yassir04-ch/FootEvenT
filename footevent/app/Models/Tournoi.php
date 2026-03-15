@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Tournoi extends Model
 {
-    protected $fillable = ['name_tournoi', 'lieu', 'date_debut', 'date_fin', 'nbEquipes', 'status', 'user_id'];
+    protected $fillable = ['name_tournoi','description', 'lieu', 'date_debut', 'date_fin', 'nbEquipes', 'status', 'user_id'];
 
     public function user()
     {
@@ -15,7 +15,7 @@ class Tournoi extends Model
 
     public function equipes()
     {
-        return $this->hasMany(Equipe::class);
+        return $this->belongsToMany(Equipe::class, 'equipe_tourois')->withPivot('statut')->withTimestamps();
     }
 
     public function games()
