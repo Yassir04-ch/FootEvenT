@@ -41,9 +41,11 @@ class TournoiController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Tournoi $tournoi)
+   public function show(Tournoi $tournoi)
     {
-        
+      $tournoi->load('user');
+
+        return view('tournoi.show', compact('tournoi'));
     }
 
     /**
