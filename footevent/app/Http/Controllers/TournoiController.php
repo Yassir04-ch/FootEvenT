@@ -14,9 +14,8 @@ class TournoiController extends Controller
      */
    public function index(Request $request)
     {
-        $tournois = Tournoi::with('user');
-
-        return view('tournois.index', compact('tournois'));
+        $tournois = Tournoi::with('user')->get();
+        return view('tournoi.index', compact('tournois'));
     }
 
     /**
