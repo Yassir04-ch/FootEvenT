@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreTournoiRequest;
+use App\Http\Requests\UpdateTournoiRequest;
 use App\Models\Tournoi;
  use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -53,15 +54,18 @@ class TournoiController extends Controller
      */
     public function edit(Tournoi $tournoi)
     {
-        //
+        return view('tournoi.update',compact('tournoi'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Tournoi $tournoi)
+    public function update(UpdateTournoiRequest $request, Tournoi $tournoi)
     {
-        //
+        dd('hello');
+        $validated = $request->validated();
+        $tournoi->update($validated);
+        return redirect()->route('tournois.show', $tournoi)->with('success', 'Tournoi mis à jour avec succès.');
     }
 
     /**

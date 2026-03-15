@@ -33,7 +33,9 @@
     @if(!auth()->user())
       <a href="{{route('login')}}" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-400 border border-gray-700 hover:border-gray-500 hover:text-gray-100 transition-colors">Connexion</a>
     @endif
+    @if(auth()->user()->role->name == "organisateur")
       <a href="{{route('tournois.create')}}" class="px-4 py-2 rounded-lg text-sm font-semibold bg-green-400 text-gray-950 hover:bg-green-300 transition-colors">+ Nouveau tournoi</a>
+    @endif
     </div>
   </nav>
 
