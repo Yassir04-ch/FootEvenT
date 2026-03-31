@@ -67,7 +67,7 @@
   </div>
   @endif
 
-
+  <!-- Hero -->
   <section class="px-8 pt-16 pb-10 flex items-end justify-between gap-8">
     <div>
       <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-green-950 border border-green-800 text-green-400 text-xs font-medium tracking-widest uppercase mb-5">
@@ -99,9 +99,9 @@
     </div>
   </section>
 
-
+  <!-- Grid -->
   <div class="px-8 pb-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-    @foreach($equipes as $equipe)
+    @forelse($equipes as $equipe)
     <div class="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden hover:border-green-800 hover:-translate-y-1 transition-all duration-200">
       <div class="h-1.5 bg-gradient-to-r
         @if($equipe->status == 'validee') from-green-900 to-green-500
@@ -140,7 +140,8 @@
         </div>
       </div>
 
-       @if(auth()->check() && auth()->user()->role->name == 'admin' && $equipe->status == 'en_attente')
+      <!-- Admin actions -->
+      @if(auth()->check() && auth()->user()->role->name == 'admin' && $equipe->status == 'en_attente')
       <div class="px-5 py-3 bg-gray-950/50 border-t border-gray-800 flex gap-2">
         <form action="{{ route('equipes.valider', $equipe) }}" method="POST" class="flex-1">
           @csrf
@@ -179,7 +180,7 @@
       <p class="font-bebas text-2xl tracking-wide">Aucune équipe pour l'instant</p>
       <p class="text-sm mt-1">Soyez le premier à créer une équipe !</p>
     </div>
-    @endforeach
+    @endforelse
   </div>
 
 </body>
