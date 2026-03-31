@@ -70,9 +70,8 @@
           <label class="block text-xs font-semibold text-gray-400 uppercase tracking-widest mb-2">Nom de l'équipe *</label>
           <input
             type="text"
-            name="name"
-            value="{{ old('name') }}"
-            placeholder="Ex: FC Atlas, AS Rapid..."
+            name="name_equipe"
+             placeholder="Ex: FC Atlas, AS Rapid..."
             class="w-full bg-gray-950 border border-gray-700 rounded-xl px-4 py-3 text-sm text-gray-100 placeholder-gray-600 focus:outline-none focus:border-green-600 focus:ring-1 focus:ring-green-600/30 transition-colors"
             required
           >
@@ -83,31 +82,12 @@
         <div>
           <label class="block text-xs font-semibold text-gray-400 uppercase tracking-widest mb-2">Ville</label>
           <input
-            type="text"
-            name="ville"
-            value="{{ old('ville') }}"
-            placeholder="Ex: Casablanca, Rabat..."
+            type="number"
+            name="nbJoueur"
             class="w-full bg-gray-950 border border-gray-700 rounded-xl px-4 py-3 text-sm text-gray-100 placeholder-gray-600 focus:outline-none focus:border-green-600 focus:ring-1 focus:ring-green-600/30 transition-colors"
           >
           @error('ville')<p class="text-xs text-red-400 mt-1">{{ $message }}</p>@enderror
-        </div>
-
-        <!-- Catégorie -->
-        <div>
-          <label class="block text-xs font-semibold text-gray-400 uppercase tracking-widest mb-2">Catégorie</label>
-          <select
-            name="categorie"
-            class="w-full bg-gray-950 border border-gray-700 rounded-xl px-4 py-3 text-sm text-gray-100 focus:outline-none focus:border-green-600 focus:ring-1 focus:ring-green-600/30 transition-colors"
-          >
-            <option value="" class="text-gray-600">Sélectionner une catégorie</option>
-            <option value="senior" {{ old('categorie') == 'senior' ? 'selected' : '' }}>Senior</option>
-            <option value="u21" {{ old('categorie') == 'u21' ? 'selected' : '' }}>U21</option>
-            <option value="u18" {{ old('categorie') == 'u18' ? 'selected' : '' }}>U18</option>
-            <option value="u16" {{ old('categorie') == 'u16' ? 'selected' : '' }}>U16</option>
-            <option value="feminin" {{ old('categorie') == 'feminin' ? 'selected' : '' }}>Féminin</option>
-          </select>
-          @error('categorie')<p class="text-xs text-red-400 mt-1">{{ $message }}</p>@enderror
-        </div>
+        </div>        
 
         <!-- Description -->
         <div>
