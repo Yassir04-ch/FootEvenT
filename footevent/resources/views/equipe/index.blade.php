@@ -119,15 +119,6 @@
             <span class="text-xs font-semibold px-2.5 py-1 rounded-full uppercase tracking-wider bg-red-950 text-red-400 border border-red-800">Refusée</span>
           @endif
 
-          <!-- Nombre de joueurs -->
-          <span class="text-xs text-gray-400 flex items-center gap-1">
-            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0"/>
-            </svg>
-            {{ $equipe->joueurs_count ?? $equipe->joueurs->count() }} joueurs
-          </span>
-        </div>
-
         <h2 class="font-bebas text-2xl tracking-wide leading-tight mb-2">{{ $equipe->name }}</h2>
 
         <div class="flex flex-wrap gap-x-4 gap-y-1 text-xs text-gray-400">
@@ -141,7 +132,7 @@
       </div>
 
       <!-- Admin actions -->
-      @if(auth()->check() && auth()->user()->role->name == 'admin' && $equipe->status == 'en_attente')
+      @if(auth()->check() && auth()->user()->role->name == 'Administrateur' && $equipe->status == 'en_attente')
       <div class="px-5 py-3 bg-gray-950/50 border-t border-gray-800 flex gap-2">
         <form action="{{ route('equipes.valider', $equipe) }}" method="POST" class="flex-1">
           @csrf
@@ -162,7 +153,7 @@
       <div class="px-5 py-3 flex items-center justify-between border-t border-gray-800">
         <div class="flex items-center gap-2 text-xs text-gray-400">
           <div class="w-6 h-6 rounded-full bg-green-950 border border-green-800 flex items-center justify-center text-green-400 font-bold text-xs">
-            {{ strtoupper(substr($equipe->user->firstname ?? 'X', 0, 1)) }}{{ strtoupper(substr($equipe->user->lastname ?? '', 0, 1)) }}
+            {{ $equipe->user->firstname}} {{$equipe->user->lastname}}
           </div>
           {{ $equipe->user->firstname ?? '' }} {{ $equipe->user->lastname ?? '' }}
         </div>
