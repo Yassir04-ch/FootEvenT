@@ -11,7 +11,7 @@ class UpdateEquipeRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,9 @@ class UpdateEquipeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+             'name_equipe' => "required|string|max:100",
+             'nbJoueur'    => "required|integer|min:5|max:25",
+             'tournoi_id'  => "required|exists:tournois,id",
         ];
     }
 }

@@ -5,74 +5,72 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreTournoiRequest;
 use App\Http\Requests\UpdateTournoiRequest;
 use App\Models\Tournoi;
- use Illuminate\Http\Request;
+use App\Service\TournoiService;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class TournoiController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-   public function index(Request $request)
+    private $service;
+
+    public function __construct(TournoiService $service)
     {
-        $tournois = Tournoi::with('user')->get();
+        $this->service = $service;
+    }
+
+    public function index(Request $request)
+    {
+        $tournois = $this->service->getAll($request);
         return view('tournoi.index', compact('tournois'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+
+     public function create()
     {
         return view('tournoi.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+ 
     public function store(StoreTournoiRequest $request)
     {
-    $validated = $request->validated();
-    $validated['user_id'] = Auth::id();
-     
-    Tournoi::create($validated);
-    return redirect()->route('tournois.index')->with("success","Tournoi creer avec success");    
+        $result = $this->service->create($request->validated(), Auth::id());
+        return redirect()->route('tournois.index')->with('success', $result['message']);
     }
 
-    /**
-     * Display the specified resource.
-     */
-   public function show(Tournoi $tournoi)
-    {
-      $tournoi->load('user');
 
+    public function show(Tournoi $tournoi)
+    {
+        $tournoi = $this->service->show($tournoi);
         return view('tournoi.show', compact('tournoi'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+
     public function edit(Tournoi $tournoi)
     {
-        return view('tournoi.update',compact('tournoi'));
+        return view('tournoi.update', compact('tournoi'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+
     public function update(UpdateTournoiRequest $request, Tournoi $tournoi)
     {
-        dd('hello');
-        $validated = $request->validated();
-        $tournoi->update($validated);
-        return redirect()->route('tournois.show', $tournoi)->with('success', 'Tournoi mis à jour avec succès.');
+        $result = $this->service->update($request->validated(), $tournoi, Auth::id());
+
+        if (!$result['success']) {
+            return back()->with('error', $result['message']);
+        }
+
+        return redirect()->route('tournois.show', $tournoi)->with('success', $result['message']);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+
     public function destroy(Tournoi $tournoi)
     {
-        //
+        $result = $this->service->delete($tournoi, Auth::id());
+
+        if (!$result['success']) {
+            return back()->with('error', $result['message']);
+        }
+
+        return redirect()->route('tournois.index')->with('success', $result['message']);
     }
 }

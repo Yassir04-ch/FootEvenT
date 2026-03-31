@@ -2,78 +2,69 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
-use App\Models\Role;
-use App\Models\User;
+use App\Service\AuthService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
+    private $service;
 
-public function index(){
-  $roles = Role::where('name','!=','Administrateur')->get();
-  return view("auth.register",compact('roles'));
+    public function __construct(AuthService $service)
+    {
+        $this->service = $service;
+    }
 
-}
+     public function index()
+    {
+        $roles = $this->service->getRoles();
+        return view('auth.register', compact('roles'));
+    }
 
+     public function create()
+    {
+        return view('auth.login');
+    }
 
-public function create(){
-  return view("auth.login");
-    
-}
+     public function store(RegisterRequest $request)
+    {
+        $this->service->register($request->validated());
+        return redirect('/');
+    }
 
-public function login(Request $request)
-{
-    $login = $request->validate([
-        "email"=>"required|email",
-        "password"=>"required|string",
-    ]);
+ 
+    public function login(LoginRequest $request)
+    {
+        $validated = $request->validated();
 
-    if(Auth::attempt($login)){
-       $request->session()->regenerate();
+        $result = $this->service->login($validated);
 
-       $role = Auth::user()->role->name;
+        if (!$result['success']) {
+            return back()->with('error', $result['message']);
+        }
 
-       if($role == "Organisateur" ){
+        $request->session()->regenerate();
+
+       if($result['role'] == "Organisateur" ){
           return view('organisateur.index');
        }
-       else if($role == "Administrateur" ){
+       else if($result['role'] == "Administrateur" ){
           return view('admin.index');
        }
-       else{
+       else if($result['role'] == "joueur"){
           return view('joueur.index');
+       }else{
+          return redirect('/');
        }
 
-          return redirect('/');
+     }
 
-        }
-        else {
-
-         return back()->with('error', 'Your email or  password not correct');
-
-        }
-
+     public function destroy(Request $request)
+    {
+        $this->service->logout();
+        $request->session()->invalidate();
+        return redirect('/');
     }
-
-    public function store(RegisterRequest $request){
-
-      $validation = $request->validated();
-      $validation['password'] = bcrypt($validation['password']);
-       $user = User::create($validation);
-        Auth::login($user);
-        return Redirect('/');
-    }
-
-
-    public function destroy(Request $request)
-  {
-      Auth::logout();
-      $request->session()->invalidate();
-       return redirect('/');
-  }
-
 }
-
-
-
