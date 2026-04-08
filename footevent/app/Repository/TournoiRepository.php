@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Repository;
-
 use App\Models\Tournoi;
 use Illuminate\Http\Request;
 
@@ -29,7 +28,6 @@ class TournoiRepository
     {
         $tournoi = Tournoi::create($data);
         return $tournoi;
-
     }
 
     public function update(Tournoi $tournoi,array $data)
@@ -42,4 +40,5 @@ class TournoiRepository
     {
         $tournoi->delete();
     }
+
 }

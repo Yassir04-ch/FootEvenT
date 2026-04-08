@@ -60,58 +60,60 @@
     @endif
 
     <!-- Form -->
-    <form action="{{ route('equipes.store') }}" method="POST" class="space-y-6">
-      @csrf
+   <form action="{{ route('equipes.store') }}" method="POST" class="space-y-6">
+  @csrf
 
-      <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 space-y-5">
+  <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 space-y-5">
 
-        <!-- Nom -->
-        <div>
-          <label class="block text-xs font-semibold text-gray-400 uppercase tracking-widest mb-2">Nom de l'équipe *</label>
-          <input
-            type="text"
-            name="name_equipe"
-             placeholder="Ex: FC Atlas, AS Rapid..."
-            class="w-full bg-gray-950 border border-gray-700 rounded-xl px-4 py-3 text-sm text-gray-100 placeholder-gray-600 focus:outline-none focus:border-green-600 focus:ring-1 focus:ring-green-600/30 transition-colors"
-            required
-          >
-          @error('name')<p class="text-xs text-red-400 mt-1">{{ $message }}</p>@enderror
-        </div>
+    <!-- Nom -->
+    <div>
+      <label class="block text-xs font-semibold text-gray-400 uppercase tracking-widest mb-2">Nom de l'équipe *</label>
+      <input
+        type="text"
+        name="name_equipe"
+        placeholder="Ex: FC Atlas, AS Rapid..."
+        class="w-full bg-gray-950 border border-gray-700 rounded-xl px-4 py-3 text-sm text-gray-100 placeholder-gray-600 focus:outline-none focus:border-green-600 focus:ring-1 focus:ring-green-600/30 transition-colors"
+        required
+      >
+     </div>  
+    <!-- Tournoi -->
+    <div>
+      <label class="block text-xs font-semibold text-gray-400 uppercase tracking-widest mb-2">Tournoi *</label>
+      <select
+        name="tournoi_id"
+         class="w-full bg-gray-950 border border-gray-700 rounded-xl px-4 py-3 text-sm text-gray-100 focus:outline-none focus:border-green-600 focus:ring-1 focus:ring-green-600/30 transition-colors"
+      >
+        <option value="">Sélectionner un tournoi</option>
+        @foreach($tournois as $tournoi)
+          <option value="{{ $tournoi->id }}">
+            {{ $tournoi->name_tournoi}}
+          </option>
+        @endforeach
+      </select>
+     </div>
 
-        <!-- Ville -->
-        <div>
-          <label class="block text-xs font-semibold text-gray-400 uppercase tracking-widest mb-2">Ville</label>
-          <input
-            type="number"
-            name="nbJoueur"
-            class="w-full bg-gray-950 border border-gray-700 rounded-xl px-4 py-3 text-sm text-gray-100 placeholder-gray-600 focus:outline-none focus:border-green-600 focus:ring-1 focus:ring-green-600/30 transition-colors"
-          >
-          @error('ville')<p class="text-xs text-red-400 mt-1">{{ $message }}</p>@enderror
-        </div>        
+    <!-- Description -->
+    <div>
+      <label class="block text-xs font-semibold text-gray-400 uppercase tracking-widest mb-2">Description <span class="normal-case text-gray-600 font-normal">(optionnel)</span></label>
+      <textarea
+        name="description"
+        rows="3"
+        placeholder="Décrivez votre équipe..."
+        class="w-full bg-gray-950 border border-gray-700 rounded-xl px-4 py-3 text-sm text-gray-100 placeholder-gray-600 focus:outline-none focus:border-green-600 focus:ring-1 focus:ring-green-600/30 transition-colors resize-none"
+      ></textarea>
+     </div>
+  </div>
 
-        <!-- Description -->
-        <div>
-          <label class="block text-xs font-semibold text-gray-400 uppercase tracking-widest mb-2">Description <span class="normal-case text-gray-600 font-normal">(optionnel)</span></label>
-          <textarea
-            name="description"
-            rows="3"
-            placeholder="Décrivez votre équipe..."
-            class="w-full bg-gray-950 border border-gray-700 rounded-xl px-4 py-3 text-sm text-gray-100 placeholder-gray-600 focus:outline-none focus:border-green-600 focus:ring-1 focus:ring-green-600/30 transition-colors resize-none"
-          >{{ old('description') }}</textarea>
-          @error('description')<p class="text-xs text-red-400 mt-1">{{ $message }}</p>@enderror
-        </div>
-      </div>
-
-      <!-- Actions -->
-      <div class="flex gap-3">
-        <a href="{{ route('equipes.index') }}" class="flex-1 text-center px-6 py-3 rounded-xl border border-gray-700 text-sm font-medium text-gray-400 hover:border-gray-500 hover:text-gray-100 transition-colors">
-          Annuler
-        </a>
-        <button type="submit" class="flex-1 px-6 py-3 rounded-xl bg-green-400 text-gray-950 text-sm font-semibold hover:bg-green-300 transition-colors">
-          Créer l'équipe →
-        </button>
-      </div>
-    </form>
+  <!-- Actions -->
+  <div class="flex gap-3">
+    <a href="{{ route('equipes.index') }}" class="flex-1 text-center px-6 py-3 rounded-xl border border-gray-700 text-sm font-medium text-gray-400 hover:border-gray-500 hover:text-gray-100 transition-colors">
+      Annuler
+    </a>
+    <button type="submit" class="flex-1 px-6 py-3 rounded-xl bg-green-400 text-gray-950 text-sm font-semibold hover:bg-green-300 transition-colors">
+      Créer l'équipe →
+    </button>
+  </div>
+</form>
   </div>
 
 </body>

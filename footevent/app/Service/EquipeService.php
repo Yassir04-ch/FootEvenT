@@ -39,33 +39,39 @@ class EquipeService
     {
         $tournoi = Tournoi::find($validated['tournoi_id']);
 
+        if (!$tournoi) {
+            return ['success' => false, 'message' => 'Tournoi introuvable.'];
+        }
+
         if ($tournoi->status !== 'en_attente') {
             return ['success' => false, 'message' => "Ce tournoi n'accepte pas d'inscriptions."];
         }
 
-        $nbequipe = Equipe::where('tournoi_id', $validated['tournoi_id'])->where('statut', 'validee')->count();
-
-        if ($nbequipe >= $tournoi->nbEquipes) {
+         $nbEquipes = $tournoi->equipes()->wherePivot('statut', 'validee')->count();
+        if ($nbEquipes >= $tournoi->nbEquipes) {
             return ['success' => false, 'message' => 'Le nombre des equipes du tournoi est complet.'];
         }
 
-        $inscrir = Equipe::where('tournoi_id', $validated['tournoi_id'])->where('capitaine_id', $user_id)->exists();
-
-        if ($inscrir) {
-            return ['success' => false, 'message' => 'Vous avez déja une équipe dans ce tournoi.'];
+         $capitane = $tournoi->equipes()->where('capitaine_id', $user_id)->exists();
+        if ($capitane) {
+            return ['success' => false, 'message' => 'Vous avez déjà une équipe dans ce tournoi.'];
         }
-       
-        $equipe = $this->repository->create([
-            'name_equipe'  => $validated['name_equipe'],
-            'nbJoueur'     => $validated['nbJoueur'],
-            'tournoi_id'   => $validated['tournoi_id'],
-            'capitaine_id' => $user_id,
-            'statut'       => 'en_attente',
-        ]);
 
-        return ['success' => true, 'message' => 'Equipe crée avec succès.', 'equipe' => $equipe];
+         $equipe = $this->repository->create([
+            'name_equipe'  => $validated['name_equipe'],
+            'description'  => $validated['description'],
+            'capitaine_id' => $user_id,
+         ]);
+
+         $equipe->tournois()->attach($validated['tournoi_id'], ['statut' => 'en_attente']);
+
+        return ['success' => true, 'message' => 'Equipe créée avec succès.', 'equipe' => $equipe];
     }
 
+    public function tournoiEnattente(){
+        $tournois = $this->repository->tournoiEnattente();
+        return $tournois;
+    }
 
     public function update( $validated, Equipe $equipe, $user_id)
     {

@@ -3,19 +3,26 @@
 namespace App\Repository;
 
 use App\Models\Equipe;
+use App\Models\Tournoi;
 
 class EquipeRepository
 {
     public function getAll()
     {
-        $equipes = Equipe::with(['tournoi', 'capitaine', 'joueurs'])->get();
+        $equipes = Equipe::with(['tournois', 'capitaine', 'joueurs'])->get();
         return $equipes;
     }
 
     public function findById(Equipe $equipe)
     {
-        $equipe = $equipe->load(['tournoi', 'capitaine', 'joueurs', 'gamesAsEquipe1', 'gamesAsEquipe2']);
+        $equipe = $equipe->load(['tournois', 'capitaine', 'joueurs', 'gamesAsEquipe1', 'gamesAsEquipe2']);
         return $equipe;
+    }
+
+      public function tournoiEnattente()
+    {
+         $tournois = Tournoi::where("status","en_attente")->get();
+         return $tournois;
     }
 
     public function create($data)

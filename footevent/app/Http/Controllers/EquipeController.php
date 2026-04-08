@@ -26,14 +26,15 @@ class EquipeController extends Controller
 
      public function create()
     {
-        return view('equipe.create');
+        $tournois = $this->service->tournoiEnattente();
+         return view('equipe.create',compact('tournois'));
     }
 
      public function store(EquipeRequest $request)
     {
         $validated = $request->validated();
-        $userid =  Auth::id();
-        $result = $this->service->create($validated,$userid);
+        $user_id =  Auth::id();
+        $result = $this->service->create($validated,$user_id);
 
         if (!$result['success']) {
             return back()->with('error', $result['message']);

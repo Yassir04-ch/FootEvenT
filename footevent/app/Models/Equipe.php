@@ -6,8 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Equipe extends Model
 {
-    protected $fillable = ['name_equipe','statut','nbJoueur','capitaine_id'];
-
+    protected $fillable = ['name_equipe', 'statut', 'nbJoueur', 'description', 'capitaine_id'];
  
      public function capitaine()
     {
@@ -16,13 +15,13 @@ class Equipe extends Model
 
      public function tournois()
     {
-        return $this->belongsToMany(Tournoi::class, 'equipe_tourois')->withPivot('statut')->withTimestamps();
+        return $this->belongsToMany(Tournoi::class, 'equipe_tournois')->withPivot('statut')->withTimestamps();
     }
 
 
     public function joueurs()
     {
-        return $this->belongsToMany(User::class, 'equipe_joueur');
+        return $this->belongsToMany(User::class, 'joueurs');
     }
 
 

@@ -32,7 +32,7 @@
     </div>
 
     <div class="flex items-center gap-3">
-      @if(!auth()->user())
+      @if(!auth()->check())
         <a href="{{route('login')}}" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-400 border border-gray-700 hover:border-gray-500 hover:text-gray-100 transition-colors">Connexion</a>
       @endif
       @if(auth()->check() && auth()->user()->role->name == "joueur")
@@ -83,79 +83,53 @@
       </p>
     </div>
 
-    <div class="flex-shrink-0 grid grid-cols-3 divide-x divide-gray-800 border border-gray-800 rounded-2xl overflow-hidden">
+    <div class="flex-shrink-0 grid grid-cols-2 divide-x divide-gray-800 border border-gray-800 rounded-2xl overflow-hidden">
       <div class="px-8 py-5 bg-gray-900 text-center">
         <div class="font-bebas text-4xl text-green-400 leading-none mb-1">{{ $equipes->count() }}</div>
         <div class="text-xs text-gray-500 uppercase tracking-widest">Équipes</div>
       </div>
       <div class="px-8 py-5 bg-gray-900 text-center">
-        <div class="font-bebas text-4xl text-green-400 leading-none mb-1">{{ $equipes->where('status','validee')->count() }}</div>
-        <div class="text-xs text-gray-500 uppercase tracking-widest">Validées</div>
-      </div>
-      <div class="px-8 py-5 bg-gray-900 text-center">
-        <div class="font-bebas text-4xl text-green-400 leading-none mb-1">{{ $equipes->where('status','en_attente')->count() }}</div>
-        <div class="text-xs text-gray-500 uppercase tracking-widest">En attente</div>
+        <div class="font-bebas text-4xl text-green-400 leading-none mb-1">{{ $equipes->sum('nbJoueur') }}</div>
+        <div class="text-xs text-gray-500 uppercase tracking-widest">Joueurs</div>
       </div>
     </div>
   </section>
 
-  <!-- Grid -->
-  <div class="px-8 pb-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+   <div class="px-8 pb-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
     @forelse($equipes as $equipe)
+    @php $statut = $equipe->tournois->first()?->pivot->statut ?? null @endphp
     <div class="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden hover:border-green-800 hover:-translate-y-1 transition-all duration-200">
-      <div class="h-1.5 bg-gradient-to-r
-        @if($equipe->status == 'validee') from-green-900 to-green-500
-        @elseif($equipe->status == 'en_attente') from-yellow-900 to-yellow-500
-        @else from-red-900 to-red-500 @endif">
+
+      <div class="h-1.5 bg-gradient-to-r from-green-900 to-green-500">
       </div>
+
       <div class="p-5">
-        <div class="flex items-center justify-between mb-4">
-          <!-- Status badge -->
-          @if($equipe->status == 'validee')
-            <span class="text-xs font-semibold px-2.5 py-1 rounded-full uppercase tracking-wider bg-green-950 text-green-400 border border-green-800">Validée</span>
-          @elseif($equipe->status == 'en_attente')
-            <span class="text-xs font-semibold px-2.5 py-1 rounded-full uppercase tracking-wider bg-yellow-950 text-yellow-400 border border-yellow-800">En attente</span>
-          @else
-            <span class="text-xs font-semibold px-2.5 py-1 rounded-full uppercase tracking-wider bg-red-950 text-red-400 border border-red-800">Refusée</span>
-          @endif
+        <div class="flex items-center justify-between mb-3">
 
-        <h2 class="font-bebas text-2xl tracking-wide leading-tight mb-2">{{ $equipe->name }}</h2>
-
-        <div class="flex flex-wrap gap-x-4 gap-y-1 text-xs text-gray-400">
-          @if($equipe->ville)
-            <span>📍 {{ $equipe->ville }}</span>
-          @endif
-          @if($equipe->categorie)
-            <span>🏷️ {{ $equipe->categorie }}</span>
-          @endif
+          <!-- Nb joueurs -->
+          <span class="text-xs text-gray-400 flex items-center gap-1">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0"/>
+            </svg>
+            {{ $equipe->joueurs->count()}} joueurs
+          </span>
         </div>
-      </div>
 
-      <!-- Admin actions -->
-      @if(auth()->check() && auth()->user()->role->name == 'Administrateur' && $equipe->status == 'en_attente')
-      <div class="px-5 py-3 bg-gray-950/50 border-t border-gray-800 flex gap-2">
-        <form action="{{ route('equipes.valider', $equipe) }}" method="POST" class="flex-1">
-          @csrf
-          <button type="submit" class="w-full text-xs font-semibold py-1.5 rounded-lg bg-green-950 border border-green-800 text-green-400 hover:bg-green-900 transition-colors">
-            ✓ Valider
-          </button>
-        </form>
-        <form action="{{ route('equipes.refuser', $equipe) }}" method="POST" class="flex-1">
-          @csrf
-          <button type="submit" class="w-full text-xs font-semibold py-1.5 rounded-lg bg-red-950 border border-red-800 text-red-400 hover:bg-red-900 transition-colors">
-            ✕ Refuser
-          </button>
-        </form>
-      </div>
-      @endif
+        <!-- Nom -->
+        <h2 class="font-bebas text-2xl tracking-wide leading-tight mb-2">{{ $equipe->name_equipe }}</h2>
+
+            <p class="text-xs text-gray-500 mb-2">🏆 {{ $equipe->tournois->first()->name_tournoi }}</p>
+ 
+            <p class="text-xs text-gray-400 leading-relaxed line-clamp-2">{{ $equipe->description }}</p>
+       </div>      
 
       <!-- Footer -->
       <div class="px-5 py-3 flex items-center justify-between border-t border-gray-800">
         <div class="flex items-center gap-2 text-xs text-gray-400">
           <div class="w-6 h-6 rounded-full bg-green-950 border border-green-800 flex items-center justify-center text-green-400 font-bold text-xs">
-            {{ $equipe->user->firstname}} {{$equipe->user->lastname}}
+            {{ strtoupper(substr($equipe->capitaine->firstname ?? 'X', 0, 1)) }}{{ strtoupper(substr($equipe->capitaine->lastname ?? '', 0, 1)) }}
           </div>
-          {{ $equipe->user->firstname ?? '' }} {{ $equipe->user->lastname ?? '' }}
+          {{ $equipe->capitaine->firstname }} {{ $equipe->capitaine->lastname}}
         </div>
         <a href="{{ route('equipes.show', $equipe) }}" class="flex items-center gap-1 text-xs font-medium px-3 py-1.5 rounded-lg border border-gray-700 text-gray-300 hover:border-green-600 hover:text-green-400 transition-colors">
           Voir
