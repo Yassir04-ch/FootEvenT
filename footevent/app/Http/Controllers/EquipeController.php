@@ -93,4 +93,5 @@ class EquipeController extends Controller
         $this->service->refuserEquipe($equipe);
         return back()->with('success',"Equipe refusée");
     }
+    
 }

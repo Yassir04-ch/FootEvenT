@@ -87,7 +87,7 @@
                 <p class="text-xs text-gray-400 mt-0.5">Samedi, 07 Mars 2026</p>
             </div>
             <div class="flex items-center gap-3">
-                <a href="create-tournoi.html" class="flex items-center gap-2 px-5 py-2 bg-green-400 rounded-xl text-gray-900 font-bold text-sm hover:bg-green-300 no-underline">
+                <a href="{{route('tournois.create')}}" class="flex items-center gap-2 px-5 py-2 bg-green-400 rounded-xl text-gray-900 font-bold text-sm hover:bg-green-300 no-underline">
                     + Créer un tournoi
                 </a>
                 <div class="relative">

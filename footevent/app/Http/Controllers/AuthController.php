@@ -47,14 +47,14 @@ class AuthController extends Controller
 
         $request->session()->regenerate();
 
-       if($result['role'] == "Organisateur" ){
-          return view('organisateur.index');
+       if($result['role'] == "organisateur" ){
+         return redirect()->route('organisateur.index');
        }
        else if($result['role'] == "Administrateur" ){
-          return view('admin.index');
+         return redirect()->route('admin.index');
        }
        else if($result['role'] == "joueur"){
-          return view('joueur.index');
+         return redirect()->route('joueur.index');
        }else{
           return redirect('/');
        }

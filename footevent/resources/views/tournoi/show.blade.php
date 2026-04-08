@@ -47,8 +47,7 @@
     </div>
     @endif
 
-  <!-- ─── Flash success ─── -->
-  <div class="px-8 pt-4">
+   <div class="px-8 pt-4">
     <div class="flex items-center gap-3 px-5 py-4 bg-green-950 border border-green-800 rounded-2xl">
       <div class="w-8 h-8 rounded-lg bg-green-900 border border-green-700 flex items-center justify-center flex-shrink-0">
         <svg class="w-4 h-4 text-green-400" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
@@ -62,15 +61,13 @@
 
   <div class="max-w-6xl mx-auto px-8 py-10">
 
-    <!-- Breadcrumb -->
-    <div class="flex items-center gap-2 text-xs text-gray-500 mb-8">
+     <div class="flex items-center gap-2 text-xs text-gray-500 mb-8">
       <a href="#" class="hover:text-green-400 transition-colors">Tournois</a>
       <span>/</span>
       <span class="text-gray-300">Coupe du Printemps 2025</span>
     </div>
 
-    <!-- ─── Header tournoi ─── -->
-    <div class="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden mb-6">
+     <div class="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden mb-6">
       <div class="h-1.5 bg-gradient-to-r from-blue-900 to-blue-600"></div>
       <div class="p-8">
         <div class="flex items-start justify-between gap-6">

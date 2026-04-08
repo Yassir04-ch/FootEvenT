@@ -13,11 +13,9 @@ return new class extends Migration
     {
         Schema::create('joueurs', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('poste');
+            $table->enum('poste', ['gardien', 'defenseur', 'milieu', 'attaquant']);
             $table->integer('age');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->foreignId('equipe_id')->nullable()->constrained('equipes')->onDelete('set null');
             $table->timestamps();
         });
     }

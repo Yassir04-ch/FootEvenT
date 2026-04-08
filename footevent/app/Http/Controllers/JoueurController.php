@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Joueur;
+use App\Models\Equipe;
 use Illuminate\Http\Request;
 
 class JoueurController extends Controller
@@ -61,5 +62,25 @@ class JoueurController extends Controller
     public function destroy(Joueur $joueur)
     {
         //
+    }
+
+
+    public function joinEquipe(Equipe $equipe)
+    {
+
+     $user_id = Auth::id();
+
+     if ($equipe->capitaine_id === $user_id) {
+        return back()->with('error', 'Vous êtes déjà le capitaine de cette équipe.');
+     }
+
+     $chek = $equipe->joueurs()->where('user_id', $user_id)->exists();
+
+     if ($chek){
+        return back()->with('error', 'Vous êtes déjà dans cette équipe.');
+     }
+
+
+
     }
 }

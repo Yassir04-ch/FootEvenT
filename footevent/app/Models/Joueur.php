@@ -15,6 +15,12 @@ class Joueur extends Model
 
     public function equipes()
     {
-        return $this->belongsToMany(Equipe::class, 'equipe_joueur');
+        return $this->belongsToMany(Equipe::class, 'equipe_joueur')->wethPivot('statut')->withTimestamps();
     }
+
+    public function activeJoueur()
+    {
+        return $this->equipes()->wherePivot('status', 'actif')->exists();
+    }
+
 }

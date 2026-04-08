@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Equipe extends Model
 {
-    protected $fillable = ['name_equipe', 'statut', 'nbJoueur', 'description', 'capitaine_id'];
+    protected $fillable = ['name_equipe', 'nbJoueur', 'description', 'capitaine_id'];
  
      public function capitaine()
     {
@@ -21,7 +21,8 @@ class Equipe extends Model
 
     public function joueurs()
     {
-        return $this->belongsToMany(User::class, 'joueurs');
+            return $this->belongsToMany(User::class, 'equipe_joueur')->withPivot('statut')->withTimestamps();
+
     }
 
 

@@ -30,10 +30,8 @@
             </div>
         @endif
 
-        <form method="POST" action="{{route("login")}}"  class="space-y-5">
+        <form method="POST" action="{{route('login')}}"  class="space-y-5">
             @csrf
-
-            <!-- Email -->
             <div>
                 <label class="text-gray-400 text-xs font-medium uppercase tracking-widest mb-2 block">Email</label>
                 <input
@@ -44,7 +42,6 @@
                     class="w-full bg-gray-900 border border-gray-700 text-white placeholder-gray-600 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-green-400 transition-all"/>
             </div>
 
-            <!-- Password -->
             <div>
                 <label class="text-gray-400 text-xs font-medium uppercase tracking-widest mb-2 block">Mot de passe</label>
                 <input
@@ -55,7 +52,6 @@
                     class="w-full bg-gray-900 border border-gray-700 text-white placeholder-gray-600 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-green-400 transition-all"/>
             </div>
 
-            <!-- Submit -->
             <button
                 type="submit"
                 class="w-full bg-green-400 hover:bg-green-300 text-gray-900 font-semibold rounded-xl py-3 text-sm transition-all">
