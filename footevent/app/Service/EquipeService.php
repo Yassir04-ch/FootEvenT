@@ -35,7 +35,7 @@ class EquipeService
     }
 
 
-    public function create($validated, $user_id)
+    public function create($validated, $capitane_id)
     {
         $tournoi = Tournoi::find($validated['tournoi_id']);
 
@@ -52,7 +52,7 @@ class EquipeService
             return ['success' => false, 'message' => 'Le nombre des equipes du tournoi est complet.'];
         }
 
-         $capitane = $tournoi->equipes()->where('capitaine_id', $user_id)->exists();
+         $capitane = $tournoi->equipes()->where('capitaine_id', $capitane_id)->exists();
         if ($capitane) {
             return ['success' => false, 'message' => 'Vous avez déjà une équipe dans ce tournoi.'];
         }
@@ -60,7 +60,7 @@ class EquipeService
          $equipe = $this->repository->create([
             'name_equipe'  => $validated['name_equipe'],
             'description'  => $validated['description'],
-            'capitaine_id' => $user_id,
+            'capitaine_id' => $capitane_id,
          ]);
 
          $equipe->tournois()->attach($validated['tournoi_id'], ['statut' => 'en_attente']);
@@ -113,5 +113,26 @@ class EquipeService
     {
         $equipe = $this->repository->refuserEquipe($equipe);
         return $equipe;
+    }
+
+     public function joinEquipe($joueur, Equipe $equipe)
+    {
+       
+        if ($this->repository->checkJoueur($joueur, $equipe)) {
+            return ['success' => false, 'message' => 'Vous êtes déjà dans cette équipe.'];
+        }
+
+        if ($this->repository->UserActiveInEquipe($joueur)) {
+            return ['success' => false, 'message' => 'Vous êtes déjà actif dans une autre équipe.'];
+        }
+
+        $this->repository->ajouterJoueur($joueur, $equipe);
+
+        return ['success' => true, 'message' => 'Vous avez rejoint équipe avec succès.'];
+    }
+
+    public function equipeTournois(Equipe $equipe){
+       $tournois = $this->repository->equipeTournois($equipe);
+       return $tournois;
     }
 }

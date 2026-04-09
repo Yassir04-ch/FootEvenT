@@ -21,8 +21,13 @@
       <div class="p-5">
         <div class="flex items-center justify-between mb-3">
           <span class="text-xs text-gray-400">{{ $equipe->joueurs->count() }} joueurs</span>
-          <span class="text-xs text-gray-400">🏆 {{ $equipe->tournois->first()?->name_tournoi }}</span>
-        </div>
+            <span class="text-xs text-gray-400">
+                🏆 
+                @foreach($tournois as $tournoi)
+                    {{ $tournoi->name_tournoi }} 
+                @endforeach
+          </span> 
+      </div>
         <h1 class="font-bebas text-4xl text-green-400 mb-2">{{ $equipe->name_equipe }}</h1>
         <p class="text-gray-400 text-sm mb-4">{{ $equipe->description }}</p>
 
@@ -56,11 +61,11 @@
       @forelse($equipe->joueurs as $joueur)
       <div class="bg-gray-900 border border-gray-800 rounded-2xl p-5 flex items-center gap-3 hover:border-green-800 transition-all duration-200">
         <div class="w-10 h-10 rounded-full bg-green-950 border border-green-800 flex items-center justify-center text-green-400 font-bold">
-          {{ strtoupper(substr($joueur->firstname ?? 'X',0,1)) }}{{ strtoupper(substr($joueur->lastname ?? '',0,1)) }}
+          {{ strtoupper(substr($joueur->user->firstname ?? 'X',0,1)) }}{{ strtoupper(substr($joueur->user->lastname ?? '',0,1)) }}
         </div>
         <div>
-          <p class="text-sm font-medium">{{ $joueur->firstname }} {{ $joueur->lastname }}</p>
-          <p class="text-xs text-gray-500">{{ $joueur->email }}</p>
+          <p class="text-sm font-medium">{{ $joueur->user->firstname }} {{ $joueur->user->lastname }}</p>
+          <p class="text-xs text-gray-500">{{ $joueur->user->email }}</p>
         </div>
       </div>
       @empty

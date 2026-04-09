@@ -41,20 +41,6 @@ class EquipeRepository
         $equipe->delete();
     }
 
-
-    public function validerEquipe(Equipe $equipe)
-    {
-        $equipe->update(['statut' => 'validee']);
-        return $equipe;
-    }
-
-    public function refuserEquipe(Equipe $equipe)
-    {
-        $equipe->update(['statut' => 'refusee']);
-        return $equipe;
-    }
-
-
     public function getByTournoi($tournoi_id)
     {
          $equipes = Equipe::with(['capitaine', 'joueurs'])->where('tournoi_id', $tournoi_id)->get();
@@ -64,7 +50,31 @@ class EquipeRepository
 
     public function getByStatut($statut)
     {
-        $equipes = Equipe::with(['tournoi', 'capitaine'])->where('statut', $statut)->get();
+        $equipes = Equipe::with(['tournois', 'capitaine'])->where('statut', $statut)->get();
         return $equipes;
+    }
+
+     public function checkJoueur(Joueur $joueur, Equipe $equipe)
+    {
+        $chek = $equipe->joueurs()->where('user_id', $joueur->user_id)->exists();
+        return $check;
+
+    }
+
+
+    public function UserActiveInEquipe(User $user)
+    {
+        $check = $user->joueur->equipes()->wherePivot('statut', 'actif')->exists();
+        return $check;
+    }
+
+    public function ajouterJoueur(User $user, Equipe $equipe)
+    {
+        $equipe->joueurs()->attach($user->joueur->id, ['statut' => 'actif']);
+    }
+
+    public function equipeTournois(Equipe $equipe){
+       $tournois =  $equipe->tournois->where('pivot.statut', 'validee');
+       return $tournois;
     }
 }

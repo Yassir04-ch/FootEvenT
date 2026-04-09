@@ -31,7 +31,18 @@ class AuthController extends Controller
      public function store(RegisterRequest $request)
     {
         $this->service->register($request->validated());
-        return redirect('/');
+        $user = Auth::user();
+         if($user->role->name == "organisateur" ){
+                return redirect()->route('organisateur.index');
+            }
+            else if($user->role->name  == "Administrateur" ){
+                return redirect()->route('admin.index');
+            }
+            else if($user->role->name == "joueur"){
+                return redirect()->route('joueurs.create');
+            }else{
+                return redirect('/');
+            }   
     }
 
  
@@ -54,7 +65,7 @@ class AuthController extends Controller
          return redirect()->route('admin.index');
        }
        else if($result['role'] == "joueur"){
-         return redirect()->route('joueur.index');
+         return redirect()->route('joueurs.index');
        }else{
           return redirect('/');
        }

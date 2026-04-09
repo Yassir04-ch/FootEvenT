@@ -21,8 +21,7 @@ class Equipe extends Model
 
     public function joueurs()
     {
-            return $this->belongsToMany(User::class, 'equipe_joueur')->withPivot('statut')->withTimestamps();
-
+        return $this->belongsToMany(Joueur::class, 'equipe_joueur')->withPivot('statut')->withTimestamps();
     }
 
 

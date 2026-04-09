@@ -14,9 +14,9 @@ return new class extends Migration
       Schema::create('equipe_joueur', function (Blueprint $table) {
         $table->id();
         $table->foreignId('equipe_id')->constrained('equipes')->onDelete('cascade');
-        $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+        $table->foreignId('joueur_id')->constrained('joueurs')->onDelete('cascade');
         $table->enum('statut', ['actif', 'left','en_attente'])->default('en_attente');
-        $table->unique(['equipe_id', 'user_id']);
+        $table->unique(['equipe_id', 'joueur_id']);
         $table->timestamps();
      });
     }

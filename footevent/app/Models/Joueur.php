@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Joueur extends Model
 {
-    protected $fillable = ['name', 'poste', 'age', 'user_id'];
+    protected $fillable = ['poste', 'age', 'user_id'];
 
     public function user()
     {
@@ -15,12 +15,12 @@ class Joueur extends Model
 
     public function equipes()
     {
-        return $this->belongsToMany(Equipe::class, 'equipe_joueur')->wethPivot('statut')->withTimestamps();
+        return $this->belongsToMany(Equipe::class, 'equipe_joueur')->withPivot('statut')->withTimestamps();
     }
 
     public function activeJoueur()
     {
-        return $this->equipes()->wherePivot('status', 'actif')->exists();
+        return $this->equipes()->wherePivot('statut', 'actif')->exists();
     }
 
 }

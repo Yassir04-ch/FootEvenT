@@ -4,16 +4,30 @@ namespace App\Http\Controllers;
 
 use App\Models\Joueur;
 use App\Models\Equipe;
+use App\Models\Tournoi;
 use Illuminate\Http\Request;
+use App\Service\JoueurService;
+use App\Http\Requests\JoueurRequest;
+use Illuminate\Support\Facades\Auth;
+
 
 class JoueurController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    
+    private $service;
+
+    public function __construct(JoueurService $service)
+    {
+        $this->service = $service;
+    }
+
     public function index()
     {
-        return view("joueur.index");
+        $user = Auth::user();
+        $joueur = $user->joueur;
+        $tournois = Tournoi::where('status','en_attente')->take(3)->get();
+        $equipe = $joueur->equipes()->wherePivot('statut', 'en_attente')->exists();
+        return view('joueur.index', compact('joueur', 'user','equipe'));
     }
 
     /**
@@ -21,15 +35,25 @@ class JoueurController extends Controller
      */
     public function create()
     {
-        //
+        return view("joueur.create");
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'poste' => "required|string|max:100",
+            'age'  => "required|integer",
+        ]);
+        $result = $this->service->createJoueur($validated);
+
+        if (!$result['success']) {
+            return back()->with('error', $result['message'])->withInput();
+        }
+
+        return redirect()->route('equipes.index')->with('success', $result['message']);
     }
 
     /**
@@ -67,20 +91,16 @@ class JoueurController extends Controller
 
     public function joinEquipe(Equipe $equipe)
     {
+        $user = Auth::user();
+        $joueur = $user->joueur;
 
-     $user_id = Auth::id();
+        $result = $this->service->joinEquipe($joueur, $equipe);
 
-     if ($equipe->capitaine_id === $user_id) {
-        return back()->with('error', 'Vous êtes déjà le capitaine de cette équipe.');
-     }
+        if ($result['success']) {
+         return back()->with('success', $result['message']);
+        }
 
-     $chek = $equipe->joueurs()->where('user_id', $user_id)->exists();
-
-     if ($chek){
-        return back()->with('error', 'Vous êtes déjà dans cette équipe.');
-     }
-
-
-
+         return back()->with('error', $result['message']);
     }
+
 }

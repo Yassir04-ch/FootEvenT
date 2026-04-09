@@ -33,8 +33,9 @@ class EquipeController extends Controller
      public function store(EquipeRequest $request)
     {
         $validated = $request->validated();
-        $user_id =  Auth::id();
-        $result = $this->service->create($validated,$user_id);
+        $user =  Auth::user();
+        $capitan_id = $user->id;
+        $result = $this->service->create($validated,$capitan_id);
 
         if (!$result['success']) {
             return back()->with('error', $result['message']);
@@ -46,8 +47,9 @@ class EquipeController extends Controller
 
     public function show(Equipe $equipe)
     {
-        $equipe = $this->service->show($equipe);
-        return view('equipe.show', compact('equipe'));
+        $tournois = $this->service->equipeTournois($equipe);
+         $equipe = $this->service->show($equipe);
+        return view('equipe.show', compact('equipe','tournois'));
     }
 
      public function edit(Equipe $equipe)
@@ -93,5 +95,5 @@ class EquipeController extends Controller
         $this->service->refuserEquipe($equipe);
         return back()->with('success',"Equipe refusée");
     }
-    
+
 }
