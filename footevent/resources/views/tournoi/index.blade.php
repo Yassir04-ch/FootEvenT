@@ -153,7 +153,7 @@
       <div class="px-5 py-3 flex items-center justify-between border-t border-gray-800">
         <div class="flex items-center gap-2 text-xs text-gray-400">
           <div class="w-6 h-6 rounded-full bg-green-950 border border-green-800 flex items-center justify-center text-green-400 font-bold text-xs">KA</div>
-           {{$tournoi->user->firstname}} {{$tournoi->user->lastname}}
+           {{$tournoi->organisateur->firstname ?? 'N/A'}} {{$tournoi->organisateur->lastname ?? 'N/A'}}
         </div>
         <a href="{{route('tournois.show',$tournoi)}}" class="flex items-center gap-1 text-xs font-medium px-3 py-1.5 rounded-lg border border-gray-700 text-gray-300 hover:border-green-600 hover:text-green-400 transition-colors">
           Voir

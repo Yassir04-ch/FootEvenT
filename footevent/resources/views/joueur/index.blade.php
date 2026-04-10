@@ -146,10 +146,10 @@
                             <div class="flex items-center justify-between text-xs text-gray-400">
                                 <span>👥 {{ $equipe->nbJoueur }} joueurs</span>
                                 <div class="flex gap-2">
-                                    <a href="{{ route('equipes.show', $equipe) }}" class="px-3 py-1.5 rounded-lg border border-gray-600 text-gray-300 hover:border-green-600 hover:text-green-400 transition-colors">
-                                        Voir l'équipe
+                                    <a href="{{ route('equipes.joueurs', $equipe) }}" class="px-3 py-1.5 rounded-lg border border-gray-600 text-gray-300 hover:border-green-600 hover:text-green-400 transition-colors">
+                                        Voir joueurs
                                     </a>
-                                    <form action="{{ route('equipes.leave', $equipe) }}" method="POST">
+                                    <form action=" " method="POST">
                                         @csrf
                                         <button type="submit" class="px-3 py-1.5 rounded-lg border border-gray-600 text-gray-400 hover:border-red-600 hover:text-red-400 transition-colors">
                                             Quitter
@@ -160,11 +160,10 @@
                         </div>
                         @endforeach
 
-                        <!-- Demandes en attente -->
-                        @if($equipe)
+                         @if($equipes)
                         <div class="mt-4">
                             <p class="text-xs text-gray-500 uppercase tracking-widest mb-3">Demandes en attente</p>
-                            @foreach($joueur->equipes()->wherePivot('statut', 'en_attente')->get() as $equipe)
+                            @foreach($equipes as $equipe)
                             <div class="flex items-center justify-between bg-gray-700/50 rounded-xl px-4 py-3 mb-2">
                                 <span class="text-sm text-gray-300">{{ $equipe->name_equipe }}</span>
                                 <span class="text-xs text-yellow-400 bg-yellow-950 border border-yellow-800 px-2 py-0.5 rounded-full">En attente</span>

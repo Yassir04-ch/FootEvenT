@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\EquipeRequest;
 use App\Http\Requests\UpdateEquipeRequest;
 use App\Models\Equipe;
+use App\Models\Joueur;
 use App\Service\EquipeService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -45,11 +46,46 @@ class EquipeController extends Controller
     }
 
 
+    public function joueurs(Equipe $equipe)
+    {
+        $equipe = $this->service->show($equipe);
+        $joueursActifs = $this->service->getJoueursActifs($equipe);
+        $joueursEnAttente = $this->service->getJoueursEnAttente($equipe);
+
+        $isActif = false;
+        $isEnAttente = false;
+
+        if (Auth::check()) {
+            $joueur = Auth::user()->joueur;
+            if ($joueur) {
+                $isActif = $joueur->activeJoueur();
+                $isEnAttente = $joueur->equipes()->where('equipe_id', $equipe->id)->wherePivot('statut', 'en_attente')->exists();
+            }
+        }
+
+        return view('equipe.joueurs', compact('equipe', 'joueursActifs', 'joueursEnAttente', 'isActif', 'isEnAttente'));
+    }
+
+
     public function show(Equipe $equipe)
     {
         $tournois = $this->service->equipeTournois($equipe);
-         $equipe = $this->service->show($equipe);
-        return view('equipe.show', compact('equipe','tournois'));
+        $equipe = $this->service->show($equipe);
+        $joueurs = $equipe->joueurs()->wherePivot('statut','actif')->get();
+        $isActif = false;
+        $isEnAttente = false;
+        if (Auth::check()) {
+        $user = Auth::user();
+        $joueur = $user->joueur;
+        if ($joueur) {
+            $isActif = $joueur->activeJoueur();
+            $isEnAttente = $joueur->equipes()
+                ->where('equipe_id', $equipe->id)
+                ->wherePivot('statut', 'en_attente')
+                ->exists();
+         }
+      }
+        return view('equipe.show', compact('equipe','tournois','joueurs','isEnAttente'));
     }
 
      public function edit(Equipe $equipe)
@@ -94,6 +130,24 @@ class EquipeController extends Controller
     {
         $this->service->refuserEquipe($equipe);
         return back()->with('success',"Equipe refusée");
+    }
+
+    public function validerJoueur(Equipe $equipe, Joueur $joueur)
+    {
+        $result = $this->service->validerJoueur($equipe, $joueur);
+        if (!$result['success']) {
+            return back()->with('error', $result['message']);
+        }
+        return back()->with('success', $result['message']);
+    }
+
+    public function refuserJoueur(Equipe $equipe, Joueur $joueur)
+    {
+        $result = $this->service->refuserJoueur($equipe, $joueur);
+        if (!$result['success']) {
+            return back()->with('error', $result['message']);
+        }
+        return back()->with('success', $result['message']);
     }
 
 }

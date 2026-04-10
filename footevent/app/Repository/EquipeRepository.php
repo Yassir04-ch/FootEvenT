@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Models\Equipe;
 use App\Models\Tournoi;
+use App\Models\Joueur;
 
 class EquipeRepository
 {
@@ -68,13 +69,33 @@ class EquipeRepository
         return $check;
     }
 
-    public function ajouterJoueur(User $user, Equipe $equipe)
+    public function validerJoueur(Equipe $equipe, Joueur $joueur)
     {
-        $equipe->joueurs()->attach($user->joueur->id, ['statut' => 'actif']);
-    }
+        $equipe->joueurs()->updateExistingPivot($joueur->id, ['statut' => 'actif']);
+
+     }
+
+     public function refuserJoueur(Equipe $equipe, Joueur $joueur)
+    {
+
+        $equipe->joueurs()->updateExistingPivot($joueur->id, ['statut' => 'refusee']);
+
+     }
 
     public function equipeTournois(Equipe $equipe){
        $tournois =  $equipe->tournois->where('pivot.statut', 'validee');
        return $tournois;
     }
+    
+    public function getJoueursActifs(Equipe $equipe)
+    {
+        return $equipe->joueurs()->wherePivot('statut', 'actif')->with('user')->get();
+    }
+
+    public function getJoueursEnAttente(Equipe $equipe)
+    {
+        return $equipe->joueurs()->wherePivot('statut', 'en_attente')->with('user')->get();
+    }
+
+
 }

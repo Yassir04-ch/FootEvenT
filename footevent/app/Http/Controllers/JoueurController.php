@@ -26,8 +26,8 @@ class JoueurController extends Controller
         $user = Auth::user();
         $joueur = $user->joueur;
         $tournois = Tournoi::where('status','en_attente')->take(3)->get();
-        $equipe = $joueur->equipes()->wherePivot('statut', 'en_attente')->exists();
-        return view('joueur.index', compact('joueur', 'user','equipe'));
+        $equipes = $joueur->equipes()->wherePivot('statut', 'en_attente')->exists();
+        return view('joueur.index', compact('joueur', 'user','equipes'));
     }
 
     /**
@@ -53,7 +53,7 @@ class JoueurController extends Controller
             return back()->with('error', $result['message'])->withInput();
         }
 
-        return redirect()->route('equipes.index')->with('success', $result['message']);
+        return redirect()->route('joueur.index')->with('success', $result['message']);
     }
 
     /**
@@ -93,6 +93,7 @@ class JoueurController extends Controller
     {
         $user = Auth::user();
         $joueur = $user->joueur;
+        dd($joueur);
 
         $result = $this->service->joinEquipe($joueur, $equipe);
 

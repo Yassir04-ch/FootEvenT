@@ -55,4 +55,17 @@ class TournoiService
         $this->repository->delete($tournoi);
         return ['success' => true, 'message' => 'Tournoi supprimé avec succès.'];
     }
+
+    public function validerEquipe(Equipe $equipe)
+    {
+        $equipe = $this->repository->validerEquipe($equipe);
+        return $equipe;
+    }
+
+    public function refuserEquipe(Equipe $equipe)
+    {
+        $equipe = $this->repository->refuserEquipe($equipe);
+        return $equipe;
+    }
+    
 }

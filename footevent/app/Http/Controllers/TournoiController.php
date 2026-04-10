@@ -33,8 +33,15 @@ class TournoiController extends Controller
  
     public function store(StoreTournoiRequest $request)
     {
-        $result = $this->service->create($request->validated(), Auth::id());
+        $organisateur_id = Auth::id();
+        $validated = $request->validated();
+        $result = $this->service->create($validated,$organisateur_id);
         return redirect()->route('tournois.index')->with('success', $result['message']);
+    }
+
+    public function equipes(Tournoi $tournoi){
+        $equipes = $tournoi->equipes()->get();
+        return view('tournoi.equipes',compact('tournoi','equipes'));
     }
 
 
@@ -73,4 +80,6 @@ class TournoiController extends Controller
 
         return redirect()->route('tournois.index')->with('success', $result['message']);
     }
-}
+    
+
+ }

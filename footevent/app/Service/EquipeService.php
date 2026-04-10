@@ -4,6 +4,7 @@ namespace App\Service;
 
 use App\Models\Equipe;
 use App\Models\Tournoi;
+use App\Models\Joueur;
 use App\Repository\EquipeRepository;
 
 class EquipeService
@@ -103,18 +104,6 @@ class EquipeService
     }
 
 
-    public function validerEquipe(Equipe $equipe)
-    {
-        $equipe = $this->repository->validerEquipe($equipe);
-        return $equipe;
-    }
-
-    public function refuserEquipe(Equipe $equipe)
-    {
-        $equipe = $this->repository->refuserEquipe($equipe);
-        return $equipe;
-    }
-
      public function joinEquipe($joueur, Equipe $equipe)
     {
        
@@ -135,4 +124,43 @@ class EquipeService
        $tournois = $this->repository->equipeTournois($equipe);
        return $tournois;
     }
+
+    public function validerJoueur(Equipe $equipe, Joueur $joueur)
+    {
+        $membre = $equipe->joueurs()->where('joueur_id', $joueur->id)->wherePivot('statut', 'en_attente')->exists();
+
+        if (!$membre) {
+            return ['success' => false, 'message' => 'Demande introuvable.'];
+        }
+
+        $this->repository->validerJoueur($equipe, $joueur);
+
+        return ['success' => true, 'message' => 'Joueur validé avec succès.'];
+    }
+
+    public function refuserJoueur(Equipe $equipe, Joueur $joueur)
+    {
+        $membre = $equipe->joueurs()->where('joueur_id', $joueur->id)->exists();
+
+        if (!$membre) {
+            return ['success' => false, 'message' => 'Joueur introuvable.'];
+        }
+
+        $this->repository->refuserJoueur($equipe, $joueur);
+
+        return ['success' => true, 'message' => 'Joueur refusé.'];
+    }
+
+    public function getJoueursActifs(Equipe $equipe)
+    {
+        return $this->repository->getJoueursActifs($equipe);
+    }
+
+    public function getJoueursEnAttente(Equipe $equipe)
+    {
+        return $this->repository->getJoueursEnAttente($equipe);
+    }
+
+
+
 }

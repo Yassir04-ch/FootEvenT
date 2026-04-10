@@ -8,7 +8,7 @@ class TournoiRepository
 {
     public function getAll(Request $request)
     {
-        $tournoi = Tournoi::with('user');
+        $tournoi = Tournoi::with('organisateur');
 
         if ($request->has('status')) {
             $tournoi->where('status', $request->status);
@@ -19,7 +19,7 @@ class TournoiRepository
 
     public function findById(Tournoi $tournoi)
     {
-        $tournoi = $tournoi->load('user');
+        $tournoi = $tournoi->load('organisateur');
         return $tournoi;
 
     }
@@ -39,6 +39,14 @@ class TournoiRepository
     public function delete(Tournoi $tournoi)
     {
         $tournoi->delete();
+    }
+
+    public function validerEquipe($equipe , $tournoi_id){
+         $equipe->tournois()->attach($tournoi_id, ['statut' => 'validee']);
+    }
+
+     public function refuserEquipe($equipe , $tournoi_id){
+         $equipe->tournois()->attach($tournoi_id, ['statut' => 'refusee']);
     }
 
 }
