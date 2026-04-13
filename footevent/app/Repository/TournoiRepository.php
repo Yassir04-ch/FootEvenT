@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 use App\Models\Tournoi;
+use App\Models\Equipe;
 use Illuminate\Http\Request;
 
 class TournoiRepository
@@ -40,13 +41,30 @@ class TournoiRepository
     {
         $tournoi->delete();
     }
+    
+    public function joinTournoi(Tournoi $tournoi, Equipe $equipe)
+    {
+        $equipe->tournois()->attach($tournoi->id, ['statut' => 'en_attente']);
+    }
 
-    public function validerEquipe($equipe , $tournoi_id){
-         $equipe->tournois()->attach($tournoi_id, ['statut' => 'validee']);
+    public function validerEquipe($equipe , $tournoi_id ){
+        
+         $equipe->tournois()->updateExistingPivot($tournoi_id, ['statut' => 'validee']);
     }
 
      public function refuserEquipe($equipe , $tournoi_id){
-         $equipe->tournois()->attach($tournoi_id, ['statut' => 'refusee']);
+         $equipe->tournois()->updateExistingPivot($tournoi_id, ['statut' => 'refusee']);
     }
+    
+    public function getEquipesValidees(Tournoi $tournoi)
+    {
+        return $tournoi->equipes()->wherePivot('statut', 'validee')->with('capitaine')->get();
+    }
+
+    public function getEquipesEnAttente(Tournoi $tournoi)
+    {
+        return $tournoi->equipes()->wherePivot('statut', 'en_attente')->with('capitaine')->get();
+    }
+    
 
 }

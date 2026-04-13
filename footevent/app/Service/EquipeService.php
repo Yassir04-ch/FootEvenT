@@ -151,6 +151,16 @@ class EquipeService
         return ['success' => true, 'message' => 'Joueur refusé.'];
     }
 
+    public function leftJoueur(Equipe $equipe, Joueur $joueur){
+        $membre = $equipe->joueurs()->wher('joueur_id',$joueur->id)->exists();
+          if (!$membre) {
+            return ['success' => false, 'message' => 'Joueur introuvable.'];
+        }
+        $this->repository->leftJoueur($equipe, $joueur);
+        return ['success' => true, 'message' => 'Joueur est left.'];
+
+    }
+
     public function getJoueursActifs(Equipe $equipe)
     {
         return $this->repository->getJoueursActifs($equipe);

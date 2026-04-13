@@ -21,8 +21,7 @@ class OrganisateurController extends Controller
          $organisateur = Auth::user();
          $tournois = $this->service->Tournois($organisateur);
          foreach ($tournois as $tournoi) {
-        // Load only validated teams
-        $tournoi->equipesValidees = $tournoi->equipes()->wherePivot('statut', 'validee')->get();
+         $tournoi->equipesValidees = $tournoi->equipes()->wherePivot('statut', 'validee')->get();
          }
          return view('organisateur.tournois',compact('tournois'));
     }

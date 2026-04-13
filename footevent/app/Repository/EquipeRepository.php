@@ -82,6 +82,12 @@ class EquipeRepository
 
      }
 
+     public function leftJoueur(Equipe $equipe, Joueur $joueur){
+
+      $equipe->joueurs()->updateExistingPivot($joueur->id,['status'=>'left']);
+      
+     }
+
     public function equipeTournois(Equipe $equipe){
        $tournois =  $equipe->tournois->where('pivot.statut', 'validee');
        return $tournois;

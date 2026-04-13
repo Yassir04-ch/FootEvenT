@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\Models\Tournoi;
+use App\Models\Equipe;
 use App\Repository\TournoiRepository;
 use Illuminate\Http\Request;
 
@@ -56,16 +57,67 @@ class TournoiService
         return ['success' => true, 'message' => 'Tournoi supprimé avec succès.'];
     }
 
-    public function validerEquipe(Equipe $equipe)
+    public function joinTournoi(Tournoi $tournoi, $equipe_id, $user_id)
     {
-        $equipe = $this->repository->validerEquipe($equipe);
-        return $equipe;
-    }
+        $equipe = Equipe::find($equipe_id);
 
-    public function refuserEquipe(Equipe $equipe)
-    {
-        $equipe = $this->repository->refuserEquipe($equipe);
-        return $equipe;
+        if (!$equipe) {
+            return ['success' => false, 'message' => 'Équipe introuvable.'];
+        }
+
+         if ($equipe->capitaine_id !== $user_id) {
+            return ['success' => false, 'message' => 'Seul le capitaine peut inscrire l\'équipe.'];
+        }
+
+         if ($tournoi->status !== 'en_attente') {
+            return ['success' => false, 'message' => 'Ce tournoi n\'accepte plus d\'inscriptions.'];
+        }
+
+         $dejajoin = $equipe->tournois()->where('tournoi_id', $tournoi->id)->exists();
+        if ($dejajoin) {
+            return ['success' => false, 'message' => 'Votre équipe est déja inscrite dans ce tournoi.'];
+        }
+
+         $nbEquipes = $tournoi->equipes()->wherePivot('statut', 'validee')->count();
+        if ($nbEquipes >= $tournoi->nbEquipes) {
+            return ['success' => false, 'message' => 'Le tournoi est complet.'];
+        }
+
+        $this->repository->joinTournoi($tournoi, $equipe);
+
+        return ['success' => true, 'message' => "Demande dinscription envoyée avec succès"];
+
     }
     
+    public function validerEquipe(Tournoi $tournoi,Equipe $equipe,$user_id)
+    {
+        if ($tournoi->user_id != $user_id) {
+            return ['success' => false, 'message' => 'Action non autorisée.'];
+        }
+        $tournoi_id = $tournoi->id;
+        $this->repository->validerEquipe($equipe,$tournoi_id);
+        return ['success' => true, 'message' => 'Équipe validée avec succès.'];
+    }
+
+    public function refuserEquipe(Tournoi $tournoi,Equipe $equipe,$user_id)
+    {
+         if ($tournoi->user_id != $user_id) {
+            return ['success' => false, 'message' => 'Action non autorisée.'];
+        }
+        $tournoi_id = $tournoi->id;
+        $this->repository->refuserEquipe($equipe,$tournoi_id);
+        return ['success' => true, 'message' => 'Équipe refusée.'];
+    }
+
+    public function getEquipesValidees(Tournoi $tournoi)
+    {
+        return $this->repository->getEquipesValidees($tournoi);
+    }
+
+    public function getEquipesEnAttente(Tournoi $tournoi)
+    {
+        return $this->repository->getEquipesEnAttente($tournoi);
+    }
+
+
 }

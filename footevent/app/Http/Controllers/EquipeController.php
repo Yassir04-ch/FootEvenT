@@ -138,6 +138,7 @@ class EquipeController extends Controller
         if (!$result['success']) {
             return back()->with('error', $result['message']);
         }
+        $equipe->nbJoueur++;
         return back()->with('success', $result['message']);
     }
 
@@ -148,6 +149,10 @@ class EquipeController extends Controller
             return back()->with('error', $result['message']);
         }
         return back()->with('success', $result['message']);
+    }
+
+    public function leftJoueur(){
+        
     }
 
 }

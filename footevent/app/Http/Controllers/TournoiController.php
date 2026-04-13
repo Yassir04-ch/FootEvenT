@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreTournoiRequest;
 use App\Http\Requests\UpdateTournoiRequest;
 use App\Models\Tournoi;
+use App\Models\Equipe;
 use App\Service\TournoiService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -44,11 +45,33 @@ class TournoiController extends Controller
         return view('tournoi.equipes',compact('tournoi','equipes'));
     }
 
-
     public function show(Tournoi $tournoi)
     {
         $tournoi = $this->service->show($tournoi);
-        return view('tournoi.show', compact('tournoi'));
+
+        $equipesValidees = $this->service->getEquipesValidees($tournoi);
+        $equipesEnAttente = $this->service->getEquipesEnAttente($tournoi);
+
+        $monEquipe = null;
+        $dejaInscrit = false;
+        $statutInscription = null;
+        $user_id = Auth::id();
+
+        if (Auth::check() && Auth::user()->role->name == 'joueur') {
+            $monEquipe = Equipe::where('capitaine_id',$user_id)->first();
+            if ($monEquipe) {
+                $inscription = $monEquipe->tournois()->where('tournoi_id', $tournoi->id)->first();
+                if ($inscription) {
+                $dejaInscrit = true;
+                $statutInscription = $inscription->pivot->statut;
+                } else {
+                    $dejaInscrit = false;
+                    $statutInscription = null;
+                }
+            }
+        }
+
+        return view('tournoi.show', compact('tournoi','equipesValidees','equipesEnAttente','monEquipe','dejaInscrit','statutInscription'));
     }
 
 
@@ -80,6 +103,42 @@ class TournoiController extends Controller
 
         return redirect()->route('tournois.index')->with('success', $result['message']);
     }
-    
+
+    public function joinTournoi(Tournoi $tournoi, Request $request)
+    {
+        $user_id =  Auth::id();
+        $equipe_id = $request->equipe_id;
+        $result = $this->service->joinTournoi($tournoi, $equipe_id,$user_id);
+
+        if (!$result['success']) {
+            return back()->with('error', $result['message']);
+        }
+
+        return back()->with('success', $result['message']);
+    }
+
+    public function validerEquipe(Tournoi $tournoi, Equipe $equipe)
+    {
+        $user_id =  Auth::id();
+        $result = $this->service->validerEquipe($tournoi, $equipe,$user_id);
+
+        if (!$result['success']) {
+            return back()->with('error', $result['message']);
+        }
+
+        return back()->with('success', $result['message']);
+    }
+
+    public function refuserEquipe(Tournoi $tournoi,Equipe $equipe)
+    {
+        $user_id =  Auth::id();
+        $result = $this->service->refuserEquipe($tournoi, $equipe,$user_id);
+
+        if (!$result['success']) {
+            return back()->with('error', $result['message']);
+        }
+        return back()->with('success', $result['message']);
+    }
+
 
  }
