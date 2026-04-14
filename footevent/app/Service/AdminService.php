@@ -1,0 +1,28 @@
+<?php
+
+namespace App\Service;
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+class AdminService {
+
+  public function banniUser(User $user){
+    if($user->status_account == 'banni'){
+        return ['success'=>false,'message'=>'compte est déja banni'];
+    }
+    if($user->role->name == 'Administrateur'){
+        return ['success'=>false,'message'=>'impossible  banni un  Administrateur'];
+    }
+     $user->update(['status_account'=>'banni']);
+     return ['success'=>true,'message'=>'compte est banni'];
+  }
+
+  public function activeUser(User $user){
+    
+    if($user->status_account == 'active'){
+        return ['success'=>false,'message'=>'compte est déja active'];
+    }
+    $user->update(['status_account'=>'active']);
+    return ['success'=>true,'message'=>'compte est active'];
+  }
+
+}

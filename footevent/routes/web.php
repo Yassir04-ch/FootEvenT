@@ -14,6 +14,8 @@ Route::get('/', function () {
 
 Route::post("/auth/login",[AuthController::class,'login'])->name("login");
 Route::post('/auth/logout', [AuthController::class, 'destroy'])->name('auth.destroy');
+Route::get('/auth/profile', [AuthController::class, 'profile'])->name('auth.profile');
+Route::get('/auth/update', [AuthController::class, 'update'])->name('auth.update');
 Route::resource("auth",AuthController::class);
 
 
@@ -34,6 +36,11 @@ Route::post("/equipes/{equipe}/join", [JoueurController::class,'joinEquipe'])->n
 Route::resource("equipes", EquipeController::class);
 
 Route::get("/organisateur/tournois", [OrganisateurController::class,'Tournois'])->name('organisateur.tournois');
-
-Route::resource("admin", AdminController::class);
 Route::resource("organisateur", OrganisateurController::class);
+
+Route::put('/admin/{user}/banni',[AdminController::class,'banniUser'])->name('user.banni');
+Route::put('/admin/{user}/active',[AdminController::class,'activeUser'])->name('user.active');
+Route::get('/admin/tournois',[AdminController::class,'tournois'])->name('admin.tournois');
+Route::get('/admin',[AdminController::class,'index'])->name('admin.index');
+
+

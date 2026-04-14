@@ -30,14 +30,14 @@
 
             <div class="text-xs text-gray-600 uppercase tracking-widest px-3 mb-2">Principal</div>
 
-            <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-xl bg-green-400 bg-opacity-10 border border-green-400 border-opacity-20 text-green-400 text-sm font-medium no-underline">
+            <a href="" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-400 text-sm font-medium hover:bg-gray-800 hover:text-white no-underline">
                 <span class="text-base">📊</span> Dashboard
             </a>
-            <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-400 text-sm font-medium hover:bg-gray-800 hover:text-white no-underline">
+            <a href="" class="flex items-center gap-3 px-3 py-2.5 rounded-xl bg-green-400 bg-opacity-10 border border-green-400 border-opacity-20 text-green-400 text-sm font-medium no-underline">
                 <span class="text-base">👤</span> Utilisateurs
-                <span class="ml-auto bg-gray-700 text-gray-300 text-xs px-2 py-0.5 rounded-full">48</span>
+                <span class="ml-auto bg-gray-700 text-gray-300 text-xs px-2 py-0.5 rounded-full">{{$users->count()}}</span>
             </a>
-            <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-400 text-sm font-medium hover:bg-gray-800 hover:text-white no-underline">
+            <a href="{{route('admin.tournois')}}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-400 text-sm font-medium hover:bg-gray-800 hover:text-white no-underline">
                 <span class="text-base">🏆</span> Tournois
                 <span class="ml-auto bg-gray-700 text-gray-300 text-xs px-2 py-0.5 rounded-full">12</span>
             </a>
@@ -58,24 +58,14 @@
                 <span class="text-base">🔔</span> Notifications
                 <span class="ml-auto bg-green-400 text-gray-900 text-xs px-2 py-0.5 rounded-full font-bold">3</span>
             </a>
-            <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-400 text-sm font-medium hover:bg-gray-800 hover:text-white no-underline">
-                <span class="text-base">⚙️</span> Paramètres
-            </a>
+             <form method="POST" action="{{ route('auth.destroy') }}">
+                @csrf
+                 <button type="submit" class="px-5 py-2 border border-gray-600 rounded-lg text-gray-400 text-sm font-medium hover:border-red-500 hover:text-red-400">
+                    Déconnexion
+                </button>
+            </form>
         </nav>
 
-        <!-- Admin info -->
-        <div class="px-4 py-4 border-t border-gray-800">
-            <div class="flex items-center gap-3 bg-gray-800 rounded-xl px-3 py-3">
-                <div class="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center text-white font-bold text-sm">A</div>
-                <div class="flex-1 min-w-0">
-                    <div class="text-sm font-semibold text-white truncate">Administrateur</div>
-                    <div class="text-xs text-red-400">Super Admin</div>
-                </div>
-            </div>
-            <a href="login.html" class="mt-3 flex items-center gap-2 px-3 py-2 text-gray-500 text-xs hover:text-red-400 no-underline">
-                🚪 Déconnexion
-            </a>
-        </div>
     </aside>
 
     <!-- MAIN -->
@@ -107,27 +97,24 @@
                         <span class="text-gray-400 text-sm">Utilisateurs</span>
                         <div class="w-9 h-9 bg-blue-900 rounded-xl flex items-center justify-center text-lg">👤</div>
                     </div>
-                    <div class="text-3xl font-bold text-white" style="font-family:'Bebas Neue',cursive">48</div>
-                    <div class="text-xs text-green-400 mt-1">+5 ce mois</div>
-                </div>
+                    <div class="text-3xl font-bold text-white" style="font-family:'Bebas Neue',cursive">{{$users->count()}}</div>
+                 </div>
 
                 <div class="bg-gray-800 rounded-2xl border border-gray-700 p-6">
                     <div class="flex items-center justify-between mb-4">
                         <span class="text-gray-400 text-sm">Tournois</span>
                         <div class="w-9 h-9 bg-green-900 rounded-xl flex items-center justify-center text-lg">🏆</div>
                     </div>
-                    <div class="text-3xl font-bold text-white" style="font-family:'Bebas Neue',cursive">12</div>
-                    <div class="text-xs text-green-400 mt-1">3 en cours</div>
-                </div>
+                    <div class="text-3xl font-bold text-white" style="font-family:'Bebas Neue',cursive">{{$nbtournois}}</div>
+                 </div>
 
                 <div class="bg-gray-800 rounded-2xl border border-gray-700 p-6">
                     <div class="flex items-center justify-between mb-4">
                         <span class="text-gray-400 text-sm">Équipes</span>
                         <div class="w-9 h-9 bg-purple-900 rounded-xl flex items-center justify-center text-lg">👥</div>
                     </div>
-                    <div class="text-3xl font-bold text-white" style="font-family:'Bebas Neue',cursive">36</div>
-                    <div class="text-xs text-yellow-400 mt-1">4 en attente</div>
-                </div>
+                    <div class="text-3xl font-bold text-white" style="font-family:'Bebas Neue',cursive">{{$nbequipes}}</div>
+                 </div>
 
                 <div class="bg-gray-800 rounded-2xl border border-gray-700 p-6">
                     <div class="flex items-center justify-between mb-4">
@@ -146,9 +133,8 @@
                 <!-- USERS TABLE -->
                 <div class="lg:col-span-2 bg-gray-800 rounded-2xl border border-gray-700 p-6">
                     <div class="flex items-center justify-between mb-6">
-                        <h2 class="text-base font-bold text-white">Derniers Utilisateurs</h2>
-                        <a href="#" class="text-xs text-green-400 hover:text-green-300 no-underline">Voir tous →</a>
-                    </div>
+                        <h2 class="text-base font-bold text-white">Utilisateurs</h2>
+                     </div>
                     <div class="overflow-x-auto">
                         <table class="w-full text-sm">
                             <thead>
@@ -160,143 +146,49 @@
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-700">
+                                @foreach($users as $user)
                                 <tr class="hover:bg-gray-700 hover:bg-opacity-30">
                                     <td class="py-3">
                                         <div class="flex items-center gap-3">
                                             <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold text-xs">Y</div>
                                             <div>
-                                                <div class="text-white font-medium">Youssef El Amrani</div>
-                                                <div class="text-gray-500 text-xs">youssef@email.com</div>
+                                                <div class="text-white font-medium">{{$user->firstname}}  {{$user->lastname}}</div>
+                                                <div class="text-gray-500 text-xs">{{$user->email}}</div>
                                             </div>
                                         </div>
                                     </td>
-                                    <td class="py-3"><span class="bg-blue-900 text-blue-400 text-xs px-2 py-1 rounded-full">Joueur</span></td>
-                                    <td class="py-3"><span class="bg-green-900 text-green-400 text-xs px-2 py-1 rounded-full">Actif</span></td>
+                                    <td class="py-3"><span class="bg-blue-900 text-blue-400 text-xs px-2 py-1 rounded-full">{{$user->role->name}}</span></td>
+                                    <td class="py-3"><span class="@if($user->status_account == 'active')bg-blue-900 text-blue-400
+                                        @else bg-red-900 text-red-400
+                                        @endif
+                                        text-xs px-2 py-1 rounded-full">{{$user->status_account}}</span></td>
                                     <td class="py-3">
                                         <div class="flex gap-2">
-                                            <button class="text-xs text-gray-400 hover:text-yellow-400">✏️</button>
-                                            <button class="text-xs text-gray-400 hover:text-red-400">🗑️</button>
-                                        </div>
+                                         @if($user->status_account == 'banni')
+                                          <form action="{{route('user.active',$user)}}" method="POST">
+                                            @csrf
+                                            @method('put')
+                                             <button type="submit" class="text-xs text-gray-400 hover:text-green-400">✓</button>
+                                           </form>
+                                           @else
+                                            <form action="{{route('user.banni',$user)}}" method="POST">
+                                             @csrf
+                                             @method('put')
+                                             <button type="submit" class="text-xs text-gray-400 hover:text-red-400">✗</button>
+                                           </form>
+                                           @endif
+                                         </div>
                                     </td>
                                 </tr>
-                                <tr class="hover:bg-gray-700 hover:bg-opacity-30">
-                                    <td class="py-3">
-                                        <div class="flex items-center gap-3">
-                                            <div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-white font-bold text-xs">K</div>
-                                            <div>
-                                                <div class="text-white font-medium">Karim Benzara</div>
-                                                <div class="text-gray-500 text-xs">karim@email.com</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="py-3"><span class="bg-green-900 text-green-400 text-xs px-2 py-1 rounded-full">Organisateur</span></td>
-                                    <td class="py-3"><span class="bg-green-900 text-green-400 text-xs px-2 py-1 rounded-full">Actif</span></td>
-                                    <td class="py-3">
-                                        <div class="flex gap-2">
-                                            <button class="text-xs text-gray-400 hover:text-yellow-400">✏️</button>
-                                            <button class="text-xs text-gray-400 hover:text-red-400">🗑️</button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr class="hover:bg-gray-700 hover:bg-opacity-30">
-                                    <td class="py-3">
-                                        <div class="flex items-center gap-3">
-                                            <div class="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center text-white font-bold text-xs">S</div>
-                                            <div>
-                                                <div class="text-white font-medium">Sara Moussaoui</div>
-                                                <div class="text-gray-500 text-xs">sara@email.com</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="py-3"><span class="bg-blue-900 text-blue-400 text-xs px-2 py-1 rounded-full">Joueur</span></td>
-                                    <td class="py-3"><span class="bg-red-900 text-red-400 text-xs px-2 py-1 rounded-full">Désactivé</span></td>
-                                    <td class="py-3">
-                                        <div class="flex gap-2">
-                                            <button class="text-xs text-gray-400 hover:text-yellow-400">✏️</button>
-                                            <button class="text-xs text-gray-400 hover:text-red-400">🗑️</button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr class="hover:bg-gray-700 hover:bg-opacity-30">
-                                    <td class="py-3">
-                                        <div class="flex items-center gap-3">
-                                            <div class="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center text-white font-bold text-xs">M</div>
-                                            <div>
-                                                <div class="text-white font-medium">Mohamed Tazi</div>
-                                                <div class="text-gray-500 text-xs">med@email.com</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="py-3"><span class="bg-green-900 text-green-400 text-xs px-2 py-1 rounded-full">Organisateur</span></td>
-                                    <td class="py-3"><span class="bg-green-900 text-green-400 text-xs px-2 py-1 rounded-full">Actif</span></td>
-                                    <td class="py-3">
-                                        <div class="flex gap-2">
-                                            <button class="text-xs text-gray-400 hover:text-yellow-400">✏️</button>
-                                            <button class="text-xs text-gray-400 hover:text-red-400">🗑️</button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr class="hover:bg-gray-700 hover:bg-opacity-30">
-                                    <td class="py-3">
-                                        <div class="flex items-center gap-3">
-                                            <div class="w-8 h-8 bg-pink-500 rounded-full flex items-center justify-center text-white font-bold text-xs">F</div>
-                                            <div>
-                                                <div class="text-white font-medium">Fatima Zohra</div>
-                                                <div class="text-gray-500 text-xs">fatima@email.com</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="py-3"><span class="bg-blue-900 text-blue-400 text-xs px-2 py-1 rounded-full">Joueur</span></td>
-                                    <td class="py-3"><span class="bg-green-900 text-green-400 text-xs px-2 py-1 rounded-full">Actif</span></td>
-                                    <td class="py-3">
-                                        <div class="flex gap-2">
-                                            <button class="text-xs text-gray-400 hover:text-yellow-400">✏️</button>
-                                            <button class="text-xs text-gray-400 hover:text-red-400">🗑️</button>
-                                        </div>
-                                    </td>
-                                </tr>
+                                @endforeach
+                               
                             </tbody>
                         </table>
                     </div>
                 </div>
 
                 <!-- RIGHT PANEL -->
-                <div class="flex flex-col gap-5">
-
-                    <!-- Tournois actifs -->
-                    <div class="bg-gray-800 rounded-2xl border border-gray-700 p-6">
-                        <div class="flex items-center justify-between mb-4">
-                            <h3 class="text-base font-bold text-white">Tournois Actifs</h3>
-                            <a href="#" class="text-xs text-green-400 no-underline">Voir →</a>
-                        </div>
-                        <div class="flex flex-col gap-3">
-                            <div class="flex items-center gap-3">
-                                <div class="w-2 h-2 bg-green-400 rounded-full flex-shrink-0"></div>
-                                <div class="flex-1 min-w-0">
-                                    <div class="text-sm text-white truncate">Championnat Regional 2026</div>
-                                    <div class="text-xs text-gray-400">16 équipes • Casablanca</div>
-                                </div>
-                                <span class="text-xs text-green-400 bg-green-900 px-2 py-0.5 rounded-full">Live</span>
-                            </div>
-                            <div class="flex items-center gap-3">
-                                <div class="w-2 h-2 bg-blue-400 rounded-full flex-shrink-0"></div>
-                                <div class="flex-1 min-w-0">
-                                    <div class="text-sm text-white truncate">Coupe de Printemps</div>
-                                    <div class="text-xs text-gray-400">12 équipes • Rabat</div>
-                                </div>
-                                <span class="text-xs text-blue-400 bg-blue-900 px-2 py-0.5 rounded-full">Ouvert</span>
-                            </div>
-                            <div class="flex items-center gap-3">
-                                <div class="w-2 h-2 bg-yellow-400 rounded-full flex-shrink-0"></div>
-                                <div class="flex-1 min-w-0">
-                                    <div class="text-sm text-white truncate">Tournoi de l'Été</div>
-                                    <div class="text-xs text-gray-400">16 équipes • Marrakech</div>
-                                </div>
-                                <span class="text-xs text-yellow-400 bg-yellow-900 px-2 py-0.5 rounded-full">Bientôt</span>
-                            </div>
-                        </div>
-                    </div>
-
+                <div class="flex flex-col gap-5">            
                     <!-- Équipes en attente -->
                     <div class="bg-gray-800 rounded-2xl border border-yellow-700 border-opacity-40 p-6">
                         <div class="flex items-center justify-between mb-4">
@@ -340,47 +232,7 @@
                 </div>
             </div>
 
-            <!-- RECENT ACTIVITY -->
-            <div class="bg-gray-800 rounded-2xl border border-gray-700 p-6">
-                <h2 class="text-base font-bold text-white mb-5">Activité Récente</h2>
-                <div class="flex flex-col gap-4">
-                    <div class="flex items-start gap-4">
-                        <div class="w-8 h-8 bg-green-900 rounded-full flex items-center justify-center text-sm flex-shrink-0">✅</div>
-                        <div class="flex-1">
-                            <p class="text-sm text-white">Nouvel utilisateur inscrit — <span class="text-green-400">Youssef El Amrani</span></p>
-                            <p class="text-xs text-gray-500 mt-0.5">Il y a 10 minutes</p>
-                        </div>
-                    </div>
-                    <div class="flex items-start gap-4">
-                        <div class="w-8 h-8 bg-blue-900 rounded-full flex items-center justify-center text-sm flex-shrink-0">🏆</div>
-                        <div class="flex-1">
-                            <p class="text-sm text-white">Nouveau tournoi créé — <span class="text-blue-400">Coupe de Printemps</span></p>
-                            <p class="text-xs text-gray-500 mt-0.5">Il y a 1 heure</p>
-                        </div>
-                    </div>
-                    <div class="flex items-start gap-4">
-                        <div class="w-8 h-8 bg-yellow-900 rounded-full flex items-center justify-center text-sm flex-shrink-0">👥</div>
-                        <div class="flex-1">
-                            <p class="text-sm text-white">Équipe en attente de validation — <span class="text-yellow-400">FC Casablanca</span></p>
-                            <p class="text-xs text-gray-500 mt-0.5">Il y a 2 heures</p>
-                        </div>
-                    </div>
-                    <div class="flex items-start gap-4">
-                        <div class="w-8 h-8 bg-red-900 rounded-full flex items-center justify-center text-sm flex-shrink-0">🚫</div>
-                        <div class="flex-1">
-                            <p class="text-sm text-white">Compte désactivé — <span class="text-red-400">Sara Moussaoui</span></p>
-                            <p class="text-xs text-gray-500 mt-0.5">Il y a 3 heures</p>
-                        </div>
-                    </div>
-                    <div class="flex items-start gap-4">
-                        <div class="w-8 h-8 bg-green-900 rounded-full flex items-center justify-center text-sm flex-shrink-0">⚽</div>
-                        <div class="flex-1">
-                            <p class="text-sm text-white">Match terminé — <span class="text-green-400">FC Casa 2 - 1 Raja Fes</span></p>
-                            <p class="text-xs text-gray-500 mt-0.5">Il y a 5 heures</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+             
 
         </div>
     </main>

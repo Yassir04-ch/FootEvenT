@@ -118,8 +118,7 @@
   <!-- ─── Grid ─── -->
   <div class="px-8 pb-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
   @foreach($tournois as $tournoi)
-    <!-- Card 1 — Championnat / Ouvert -->
-    <div class="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden hover:border-green-800 hover:-translate-y-1 transition-all duration-200">
+     <div class="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden hover:border-green-800 hover:-translate-y-1 transition-all duration-200">
       <div class="h-1.5 bg-gradient-to-r from-blue-900 to-blue-600"></div>
       <div class="p-5">
         <div class="flex items-center justify-between mb-4">
@@ -153,7 +152,7 @@
       <div class="px-5 py-3 flex items-center justify-between border-t border-gray-800">
         <div class="flex items-center gap-2 text-xs text-gray-400">
           <div class="w-6 h-6 rounded-full bg-green-950 border border-green-800 flex items-center justify-center text-green-400 font-bold text-xs">KA</div>
-           {{$tournoi->organisateur->firstname ?? 'N/A'}} {{$tournoi->organisateur->lastname ?? 'N/A'}}
+           {{$tournoi->organisateur->firstname}} {{$tournoi->organisateur->lastname}}
         </div>
         <a href="{{route('tournois.show',$tournoi)}}" class="flex items-center gap-1 text-xs font-medium px-3 py-1.5 rounded-lg border border-gray-700 text-gray-300 hover:border-green-600 hover:text-green-400 transition-colors">
           Voir

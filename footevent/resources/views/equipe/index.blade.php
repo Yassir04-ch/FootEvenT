@@ -93,8 +93,7 @@
 
    <div class="px-8 pb-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
     @forelse($equipes as $equipe)
-    @php $statut = $equipe->tournois->first()?->pivot->statut ?? null @endphp
-    <div class="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden hover:border-green-800 hover:-translate-y-1 transition-all duration-200">
+     <div class="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden hover:border-green-800 hover:-translate-y-1 transition-all duration-200">
 
       <div class="h-1.5 bg-gradient-to-r from-green-900 to-green-500">
       </div>
@@ -123,7 +122,7 @@
       <div class="px-5 py-3 flex items-center justify-between border-t border-gray-800">
         <div class="flex items-center gap-2 text-xs text-gray-400">
           <div class="w-6 h-6 rounded-full bg-green-950 border border-green-800 flex items-center justify-center text-green-400 font-bold text-xs">
-            {{ strtoupper(substr($equipe->capitaine->firstname ?? 'X', 0, 1)) }}{{ strtoupper(substr($equipe->capitaine->lastname ?? '', 0, 1)) }}
+            {{ strtoupper(substr($equipe->capitaine->firstname, 0, 1)) }}{{ strtoupper(substr($equipe->capitaine->lastname, 0, 1)) }}
           </div>
           {{ $equipe->capitaine->firstname }} {{ $equipe->capitaine->lastname}}
         </div>

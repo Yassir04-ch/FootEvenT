@@ -33,13 +33,19 @@ class AuthService
         if (!Auth::attempt($credentials)) {
             return ['success' => false, 'message' => 'Email ou mot de passe incorrect.'];
         }
-
-        $role = Auth::user()->role->name;
+        $user = Auth::user();
+        if($user->status_account == "banni"){
+            return ['success'=>false , "message"=>'Votre Compte est bloqué'];
+        }
+        $role = $user->role->name;
         return ['success' => true, 'role' => $role];
     }
 
     public function logout()
     {
         Auth::logout();
+        return redirect('/');
     }
+
+    
 }

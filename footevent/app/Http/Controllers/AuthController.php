@@ -6,6 +6,7 @@ use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Service\AuthService;
 use Illuminate\Http\Request;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
@@ -77,5 +78,14 @@ class AuthController extends Controller
         $this->service->logout();
         $request->session()->invalidate();
         return redirect('/');
+    }
+
+    public function profile(){
+        $user = User::with('role','joueur')->where('id',Auth::id())->first();
+        return view('auth.profile',compact('user'));
+    }
+
+    public function update(){
+        
     }
 }
