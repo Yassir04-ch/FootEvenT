@@ -17,11 +17,7 @@
       </div>
       <span class="font-bebas text-2xl text-green-400 tracking-widest">FootEvenT</span>
     </div>
-    <div class="flex items-center gap-1">
-      <a href="{{ route('tournois.index') }}" class="px-4 py-2 rounded-lg text-sm font-medium bg-gray-800 text-gray-100">Tournois</a>
-      <a href="{{ route('equipes.index') }}" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-gray-100 hover:bg-gray-800 transition-colors">Équipes</a>
-      <a href="#" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-gray-100 hover:bg-gray-800 transition-colors">Matchs</a>
-    </div>
+
     <div class="flex items-center gap-2 text-sm text-gray-400">
       @if(auth()->check())
         <div class="w-7 h-7 rounded-full bg-green-950 border border-green-800 flex items-center justify-center text-green-400 font-bold text-xs">
@@ -98,6 +94,12 @@
                 <span class="w-5 h-5 rounded-full bg-gray-950 text-green-400 text-xs font-bold flex items-center justify-center">{{ $equipesEnAttente->count() }}</span>
               @endif
             </a>
+              @if($equipesValidees->count() > 0)
+             <a href="{{ route('games.create', $tournoi) }}" class="flex items-center gap-2 px-4 py-2 rounded-xl bg-green-400 text-gray-950 text-sm font-semibold hover:bg-green-300 transition-colors">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              Gérer Match
+            </a>
+              @endif
             <form action="{{ route('tournois.destroy', $tournoi) }}" method="POST" >
               @csrf @method('DELETE')
               <button type="submit" class="w-full flex items-center gap-2 px-4 py-2 rounded-xl border border-gray-700 text-sm text-gray-400 hover:border-red-700 hover:text-red-400 transition-colors">

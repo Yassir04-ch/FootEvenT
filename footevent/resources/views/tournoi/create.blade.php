@@ -6,18 +6,6 @@
 <title>FootEvenT — Créer un tournoi</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
-<script>
-  tailwind.config = {
-    theme: {
-      extend: {
-        fontFamily: {
-          bebas: ['"Bebas Neue"', 'cursive'],
-          outfit: ['Outfit', 'sans-serif'],
-        }
-      }
-    }
-  }
-</script>
 </head>
 <body class="bg-gray-950 text-gray-100 font-outfit min-h-screen">
 

@@ -58,13 +58,18 @@ class TournoiRepository
     
     public function getEquipesValidees(Tournoi $tournoi)
     {
-        return $tournoi->equipes()->wherePivot('statut', 'validee')->with('capitaine')->get();
+        $equipesvalide = $tournoi->equipes()->wherePivot('statut', 'validee')->with('capitaine')->get();
+        return $equipesvalide;
     }
 
     public function getEquipesEnAttente(Tournoi $tournoi)
     {
-        return $tournoi->equipes()->wherePivot('statut', 'en_attente')->with('capitaine')->get();
+        $tournoiEnattente = $tournoi->equipes()->wherePivot('statut', 'en_attente')->with('capitaine')->get();
+        return $tournoiEnattente;
     }
     
+    public function demarerTournoi($tournoi){
+        $tournoi->update(['status'=>'en_cours']);
+    }
 
 }

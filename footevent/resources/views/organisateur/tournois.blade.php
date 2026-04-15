@@ -101,8 +101,9 @@
            <div class="flex gap-2 flex-wrap mb-2">
     @if($tournoi->status == 'en_attente')
         <a href="{{ route('tournois.edit', $tournoi) }}" class="px-3 py-1.5 bg-gray-700 border border-gray-600 rounded-lg text-white text-xs hover:bg-gray-600 no-underline">Modifier</a>
-        <form action="#" method="POST">
+        <form action="{{route('tournois.demarer',$tournoi)}}" method="POST">
             @csrf
+            @method('put')
             <button type="submit" class="px-3 py-1.5 bg-green-400 rounded-lg text-gray-900 text-xs font-bold hover:bg-green-300">Démarrer</button>
         </form>
     @elseif($tournoi->status == 'en_cours')

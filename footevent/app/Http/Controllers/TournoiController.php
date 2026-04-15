@@ -95,13 +95,13 @@ class TournoiController extends Controller
 
     public function destroy(Tournoi $tournoi)
     {
-        $result = $this->service->delete($tournoi, Auth::id());
+        $result = $this->service->delete($tournoi);
 
         if (!$result['success']) {
             return back()->with('error', $result['message']);
         }
 
-        return redirect()->route('tournois.index')->with('success', $result['message']);
+        return back()->with('success', $result['message']);
     }
 
     public function joinTournoi(Tournoi $tournoi, Request $request)
@@ -138,6 +138,14 @@ class TournoiController extends Controller
             return back()->with('error', $result['message']);
         }
         return back()->with('success', $result['message']);
+    }
+
+    public function demarerTournoi(Tournoi $tournoi){
+      $result = $this->service->demarerTournoi($tournoi);
+      if(!$result['success']){
+        return back()->with('error',$result['message']);
+      }
+        return back()->with('success',$result['message']);
     }
 
 

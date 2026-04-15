@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Service;
-
+use Illuminate\Support\Facades\Auth;
 use App\Models\Tournoi;
 use App\Models\Equipe;
 use App\Repository\TournoiRepository;
@@ -47,14 +47,19 @@ class TournoiService
         return ['success' => true, 'message' => 'Tournoi mis à jour avec succès.', 'tournoi' => $tournoi];
     }
 
-    public function delete(Tournoi $tournoi, $userId) 
+    public function delete(Tournoi $tournoi) 
     {
-         if ($tournoi->user_id !== $userId) {
-            return ['success' => false, 'message' => 'Action non autorisée.'];
+        $user = Auth::user();
+        if ($user->role->name == 'Administrateur') {
+            $this->repository->delete($tournoi);
+            return ['success' => true,'message' => 'Tournoi supprimé avec succès'];
         }
+        if ($tournoi->user_id == $user->id) {
+            $this->repository->delete($tournoi);
+            return ['success' => true,'message' => 'Tournoi supprimé avec succès'];
+        }
+        return ['success' => false,'message' => 'Action non autorisée'];
 
-        $this->repository->delete($tournoi);
-        return ['success' => true, 'message' => 'Tournoi supprimé avec succès.'];
     }
 
     public function joinTournoi(Tournoi $tournoi, $equipe_id, $user_id)
@@ -117,6 +122,19 @@ class TournoiService
     public function getEquipesEnAttente(Tournoi $tournoi)
     {
         return $this->repository->getEquipesEnAttente($tournoi);
+    }
+
+    public function demarerTournoi(Tournoi $tournoi){
+        if($tournoi->status == 'en_cours'){
+            return['success'=>false , 'message'=>'tournoi est déja en cours'];
+        }
+        if($tournoi->status == 'termine'){
+            return['success'=>false , 'message'=>'tournoi est terminée'];
+        }
+
+        $this->repository->demarerTournoi($tournoi);
+        return['success'=>true,'message'=>'tournoi en cours'];
+
     }
 
 

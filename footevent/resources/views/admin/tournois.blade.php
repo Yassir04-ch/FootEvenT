@@ -86,11 +86,9 @@
             </div>
         </div>
 
-        <!-- CONTENT -->
-        <div class="flex-1 px-8 py-8 overflow-y-auto">
+         <div class="flex-1 px-8 py-8 overflow-y-auto">
 
-            <!-- STATS CARDS -->
-            <div class="grid grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
+             <div class="grid grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
 
                 <div class="bg-gray-800 rounded-2xl border border-gray-700 p-6">
                     <div class="flex items-center justify-between mb-4">
@@ -137,7 +135,7 @@
                                     <th class="text-left pb-3 font-medium">Date fin</th>
                                     <th class="text-left pb-3 font-medium">Équipes</th>
                                     <th class="text-left pb-3 font-medium">Status</th>
-                                    <th class="text-left pb-3 font-medium">Voir</th>
+                                    <th class="text-left pb-3 font-medium">Action</th>
                                 </tr>
                             </thead>
 
@@ -145,8 +143,7 @@
                             @foreach($tournois as $tournoi)
                             <tr class="hover:bg-gray-700/40 transition">
 
-                                <!-- Tournoi -->
-                                <td class="py-4">
+                                 <td class="py-4">
                                     <div class="flex items-center gap-3">
                                         <div class="w-9 h-9 bg-green-500 rounded-full flex items-center justify-center text-white font-bold text-xs">
                                             {{ strtoupper(substr($tournoi->name_tournoi,0,1)) }}
@@ -160,34 +157,50 @@
                                     </div>
                                 </td>
 
-                                <!-- Lieu -->
-                                <td class="py-4 text-gray-300">{{$tournoi->lieu}}</td>
+                                 <td class="py-4 text-gray-300">{{$tournoi->lieu}}</td>
 
-                                <!-- Dates -->
-                                <td class="py-4 text-gray-300">{{$tournoi->date_debut}}</td>
+                                 <td class="py-4 text-gray-300">{{$tournoi->date_debut}}</td>
                                 <td class="py-4 text-gray-300">{{$tournoi->date_fin}}</td>
 
-                                <!-- Équipes -->
-                                <td class="py-4">
+                                 <td class="py-4">
                                     <span class="bg-blue-900 text-blue-400 text-xs px-2 py-1 rounded-full">
                                         {{$tournoi->nbEquipes}}
                                     </span>
                                 </td>
 
-                                <!-- Status -->
-                                <td class="py-4">
+                                 <td class="py-4">
                                     <span class="text-xs px-2 py-1 rounded-full bg-gray-700 text-gray-300">
                                         {{$tournoi->status}}
                                     </span>
                                 </td>
 
-                                 <td class="py-4">
-                                  <a href="{{route('tournois.show',$tournoi)}}" class="flex items-center gap-1 text-xs font-medium px-3 py-1.5 rounded-lg border border-gray-700 text-gray-300 hover:border-green-600 hover:text-green-400 transition-colors">
-                                    Voir
-                                    <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                                    </a>
-                                </td>
+                               <td class="py-4">
 
+                                    <div class="flex items-center gap-3">
+
+                                         <a href="{{ route('tournois.show', $tournoi) }}" class="inline-flex items-center gap-1 text-xs font-medium px-3 py-1.5 rounded-lg border border-gray-700 text-gray-300 hover:border-green-500 hover:text-green-400 transition">
+                                            Voir
+                                            <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                                <path d="M5 12h14M12 5l7 7-7 7"/>
+                                            </svg>
+                                          </a>
+
+                                       <form action="{{ route('tournois.destroy', $tournoi) }}"
+                                            method="POST"
+                                            onsubmit="return confirm('Are you sure you want to delete this tournoi ?')">
+
+                                            @csrf
+                                            @method('DELETE')
+
+                                            <button type="submit" class="inline-flex items-center gap-1 text-xs font-medium px-3 py-1.5 rounded-lg border border-red-600 text-red-400 hover:bg-red-600 hover:text-white transition">
+                                                Delete
+                                            </button>
+
+                                        </form>
+
+                                    </div>
+
+                                </td>
                             </tr>
                             @endforeach
                             </tbody>
