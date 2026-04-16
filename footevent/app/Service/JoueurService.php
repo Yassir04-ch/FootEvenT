@@ -48,12 +48,13 @@ class JoueurService
         return ['success' => true, 'message' => 'Demande envoyée avec succès.'];
     }
 
-    public function leaveEquipe(Joueur $joueur, Equipe $equipe)
+    public function quitterEquipe(Joueur $joueur, Equipe $equipe)
     {
-
+        if($equipe->capitaine_id == $joueur->user->id){
+            $capitaine = $equipe->joueurs()->wherePivot('statut','actif')->wherePivot('joueur_id','!=',$joueur->id)->first();
+            $equipe->update(['capitaine_id'=>$joueur->user->id]);
+        }
         $joueur->equipes()->updateExistingPivot($equipe->id, ['statut' => 'left']);
-
-        return ['success' => true, 'message' => 'Vous avez quitte équipe.'];
     }
 
 }

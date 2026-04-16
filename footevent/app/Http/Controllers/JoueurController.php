@@ -27,8 +27,9 @@ class JoueurController extends Controller
         $joueur = $user->joueur;
         $tournois = Tournoi::where('status','en_attente')->get();
         $chek = Equipe::where('capitaine_id',$user->id)->exists();
+        $active = $user->joueur->equipes()->wherePivot('statut','actif')->exists();
         $equipes = $joueur->equipes()->wherePivot('statut', 'actif')->with('tournois')->get();
-        return view('joueur.index', compact('joueur', 'user','chek','equipes'));
+        return view('joueur.index', compact('joueur', 'user','chek','equipes','active'));
     }
 
     /**
@@ -99,6 +100,14 @@ class JoueurController extends Controller
         }
 
          return back()->with('error', $result['message']);
+    }
+
+    public function quitterEquipe(Equipe $equipe)
+    {
+       $user = Auth::user();
+       $joueur = $user->joueur;
+       $this->service->quitterEquipe($joueur, $equipe);
+       return redirect()->route('equipes.index')->with('success', "Vous avez quitte équipe");
     }
 
 }

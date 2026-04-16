@@ -137,16 +137,18 @@
                                 <h3 class="font-bold text-white text-lg">{{ $equipe->name_equipe }}</h3>
                                 <span class="text-xs text-green-400 bg-green-950 border border-green-800 px-2.5 py-1 rounded-full font-semibold">Actif</span>
                             </div>
-                             
-                            <p class="text-xs text-gray-400 mb-3">🏆 {{ $equipe->tournois->name_tournoi }}</p>
+                          @foreach($equipe->tournois as $tournoi)  
+                            <p class="text-xs text-gray-400 mb-3">🏆 {{ $tournoi->name_tournoi }} statut : {{$tournoi->status}}</p>
+                          @endforeach
                               <div class="flex items-center justify-between text-xs text-gray-400">
                                 <span>👥 {{ $equipe->nbJoueur }} joueurs</span>
                                 <div class="flex gap-2">
                                     <a href="{{ route('equipes.joueurs', $equipe) }}" class="px-3 py-1.5 rounded-lg border border-gray-600 text-gray-300 hover:border-green-600 hover:text-green-400 transition-colors">
                                         Voir joueurs
                                     </a>
-                                    <form action=" " method="POST">
+                                    <form action="{{route('equipes.quitter',$equipe)}}" method="POST">
                                         @csrf
+                                        @method('put')
                                         <button type="submit" class="px-3 py-1.5 rounded-lg border border-gray-600 text-gray-400 hover:border-red-600 hover:text-red-400 transition-colors">
                                             Quitter
                                         </button>
@@ -167,7 +169,7 @@
                             @endforeach
                         </div>
 
-                        <!-- Empty state -->
+                        @if(!$active)
                         <div class="flex flex-col items-center justify-center py-12 text-center">
                             <div class="w-20 h-20 bg-gray-700 rounded-full flex items-center justify-center text-4xl mb-5">👥</div>
                             <h3 class="text-lg font-semibold text-white mb-2">Vous n'avez pas encore d'équipe</h3>
@@ -183,6 +185,7 @@
                                 </a>
                             </div>
                         </div>
+                        @endif
                 </div>
 
                 <!-- MATCHS -->

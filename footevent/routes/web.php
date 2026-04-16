@@ -37,6 +37,7 @@ Route::post('/equipes/{equipe}/joueurs/{joueur}/refuser', [EquipeController::cla
 
 Route::resource("joueurs", JoueurController::class);
 Route::post("/equipes/{equipe}/join", [JoueurController::class,'joinEquipe'])->name('equipes.join');
+Route::put("/equipes/{equipe}/quitter", [JoueurController::class,'quitterEquipe'])->name('equipes.quitter');
 Route::resource("equipes", EquipeController::class);
 
 Route::get("/organisateur/tournois", [OrganisateurController::class,'Tournois'])->name('organisateur.tournois');

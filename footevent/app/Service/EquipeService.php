@@ -54,16 +54,23 @@ class EquipeService
             return ['success' => false, 'message' => 'Le nombre des equipes du tournoi est complet.'];
         }
 
-         $capitane = $tournoi->equipes()->where('capitaine_id', $capitane_id)->exists();
+        $capitane = $tournoi->equipes()->where('capitaine_id', $capitane_id)->exists();
         if ($capitane) {
             return ['success' => false, 'message' => 'Vous avez déjà une équipe dans ce tournoi.'];
         }
 
-         $equipe = $this->repository->create([
+         $chekactif = $joueur->equipes()->wherePivot('statut', 'actif')->exists();
+
+        if ($chekactif) {
+            return ['success' => false, 'message' => 'Vous êtes déja active dans un équipe'];
+        }
+        dd($chekactif);
+         $data = [
             'name_equipe'  => $validated['name_equipe'],
             'description'  => $validated['description'],
             'capitaine_id' => $capitane_id,
-         ]);
+         ];
+         $equipe = $this->repository->create($data);
 
          $equipe->tournois()->attach($validated['tournoi_id'], ['statut' => 'en_attente']);
          $joueur->equipes()->attach($equipe->id, ['statut' => 'actif']);
