@@ -31,9 +31,6 @@
                 <span class="text-base">🏆</span> Mes Tournois
             </a>
             <a href="{{ route('organisateur.index') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-400 text-sm font-medium hover:bg-gray-800 hover:text-white no-underline">
-                <span class="text-base">👥</span> Équipes
-            </a>
-            <a href="{{ route('organisateur.index') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-400 text-sm font-medium hover:bg-gray-800 hover:text-white no-underline">
                 <span class="text-base">⚽</span> Matchs
             </a>
         </nav>
@@ -131,10 +128,6 @@
             @method('put')
             <button type="submit" class="px-3 py-1.5 bg-red-900 rounded-lg text-red-400 text-xs font-bold hover:bg-red-700">Terminer</button>
         </form>
-
-         <a href="{{ route('games.create', $tournoi) }}" class="px-3 py-1.5 bg-yellow-400 rounded-lg text-gray-900 text-xs font-bold hover:bg-yellow-300">
-            + Créer Match
-        </a>
     @endif
 
          <a href="{{ route('tournoi.equipe', $tournoi->id) }}"

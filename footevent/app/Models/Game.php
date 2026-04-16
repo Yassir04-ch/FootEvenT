@@ -14,12 +14,12 @@ class Game extends Model
 
     public function equipe1()
     {
-        return $this->belongsToMany(Equipe::class, 'equipe1_id');
+        return $this->belongsTo(Equipe::class, 'equipe1_id');
     }
 
     public function equipe2()
     {
-        return $this->belongsToMany(Equipe::class, 'equipe2_id');
+        return $this->belongsTo(Equipe::class, 'equipe2_id');
     }
 
     public function resultat()

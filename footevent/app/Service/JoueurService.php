@@ -52,7 +52,7 @@ class JoueurService
     {
         if($equipe->capitaine_id == $joueur->user->id){
             $capitaine = $equipe->joueurs()->wherePivot('statut','actif')->wherePivot('joueur_id','!=',$joueur->id)->first();
-            $equipe->update(['capitaine_id'=>$joueur->user->id]);
+            $equipe->update(['capitaine_id'=>$capitaine->user->id]);
         }
         $joueur->equipes()->updateExistingPivot($equipe->id, ['statut' => 'left']);
     }

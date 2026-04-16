@@ -64,7 +64,6 @@ class EquipeService
         if ($chekactif) {
             return ['success' => false, 'message' => 'Vous êtes déja active dans un équipe'];
         }
-        dd($chekactif);
          $data = [
             'name_equipe'  => $validated['name_equipe'],
             'description'  => $validated['description'],

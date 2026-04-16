@@ -125,11 +125,15 @@ class TournoiService
     }
 
     public function demarerTournoi(Tournoi $tournoi){
+        $equipes = $tournoi->equipes()->wherePivot('statut','validee')->count();
         if($tournoi->status == 'en_cours'){
-            return['success'=>false , 'message'=>'tournoi est déja en cours'];
+            return['success'=>false , 'message'=>'tournoi est en cours'];
         }
         if($tournoi->status == 'termine'){
-            return['success'=>false , 'message'=>'tournoi est terminée'];
+            return['success'=>false , 'message'=>'tournoi est déja terminée'];
+        }
+        if($tournoi->nbEquipes > $equipes){
+            return['success'=>false , 'message'=>'Le nombre des équipes est pas complet'];
         }
 
         $this->repository->demarerTournoi($tournoi);
@@ -144,6 +148,10 @@ class TournoiService
     
         $this->repository->terminerTournoi($tournoi);
         return['success'=>true,'message'=>'tournoi est terminée'];
+
+    }
+
+    public function eliminerEquipe(){
 
     }
 

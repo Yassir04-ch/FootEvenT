@@ -29,6 +29,20 @@
   <p class="text-sm text-gray-400 mb-8">
     Planifiez un match entre deux équipes.
   </p>
+   @if(session('success'))
+        <div class="px-8 pt-4">
+            <div class="flex items-center gap-3 px-5 py-4 bg-green-950 border border-green-800 rounded-2xl">
+            <p class="text-sm text-green-300 font-medium flex-1">{{ session('success') }}</p>
+            </div>
+        </div>
+      @endif
+    @if(session('error'))
+        <div class="px-8x pt-4">
+            <div class="flex items-center gap-3 px-5 py-4 bg-red-950 border border-red-800 rounded-2xl">
+            <p class="text-sm text-red-300 font-medium flex-1">{{ session('error') }}</p>
+            </div>
+        </div>
+      @endif
 
   <form method="POST" action="{{ route('games.store',$tournoi) }}" class="space-y-6 bg-gray-900 border border-gray-800 rounded-2xl p-6">
     @csrf
@@ -46,7 +60,6 @@
         <label class="text-xs text-gray-400 uppercase mb-2 block">Équipe 1</label>
         <select name="equipe1_id" class="w-full bg-gray-950 border border-gray-700 rounded-xl px-4 py-3 text-sm">
           @foreach($equipes as $equipe)
-          <option value="">Choisir</option>
           <option value="{{$equipe->id}}">{{$equipe->name_equipe}}</option>
           @endforeach        </select>
       </div>
@@ -55,7 +68,6 @@
         <label class="text-xs text-gray-400 uppercase mb-2 block">Équipe 2</label>
         <select name="equipe2_id" class="w-full bg-gray-950 border border-gray-700 rounded-xl px-4 py-3 text-sm">
           @foreach($equipes as $equipe)
-          <option value="">Choisir</option>
           <option value="{{$equipe->id}}">{{$equipe->name_equipe}}</option>
           @endforeach
         </select>
@@ -63,19 +75,23 @@
 
     </div>
 
-    <!-- Date -->
-    <div>
+     <div>
         <label class="text-xs text-gray-400 uppercase mb-2 block">Date</label>
         <input type="date" name="dateMatch"
           class="w-full bg-gray-950 border border-gray-700 rounded-xl px-4 py-3 text-sm">
     </div>
 
-    <!-- Terrain -->
-    <div>
+     <!-- <div>
+        <label class="text-xs text-gray-400 uppercase mb-2 block">Heure</label>
+        <input type="date" name="heure"
+          class="w-full bg-gray-950 border border-gray-700 rounded-xl px-4 py-3 text-sm">
+    </div> -->
+
+     <div>
       <label class="text-xs text-gray-400 uppercase mb-2 block">Terrain</label>
       <input type="text" name="terrain" class="w-full bg-gray-950 border border-gray-700 rounded-xl px-4 py-3 text-sm" placeholder="Stade ...">
     </div>
-    <!-- Button -->
+
     <button type="submit"
       class="w-full bg-green-400 hover:bg-green-300 text-gray-950 font-semibold py-3 rounded-xl transition">
       Créer le match

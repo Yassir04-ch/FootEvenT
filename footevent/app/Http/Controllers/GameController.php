@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Game;
 use Illuminate\Http\Request;
+use App\Http\Requests\GameRequest;
 use App\Service\GameService;
 use App\Models\Tournoi;
 
@@ -23,7 +24,7 @@ class GameController extends Controller
      */
     public function index()
     {
-        $games = $this->gameService->getAllGames();
+        $games = $this->service->getAllGames();
 
         return view('games.index', compact('games'));
     }
@@ -40,12 +41,16 @@ class GameController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-     public function store(GameRequest $request,Tournoi $tournoi)
+     public function store(Request $request,Tournoi $tournoi)
     {
-    
-        $validated = $request->validated($tournoi);
+        $validated = $request->validate([
+            'dateMatch' => 'required',
+            'terrain' => 'required|string|max:255',
+            'equipe1_id' => 'required|exists:equipes,id',
+            'equipe2_id' => 'required|exists:equipes,id',
+        ]);
         $validated['tournoi_id'] = $tournoi->id;
-        $result = $this->gameService->createGame($validated);
+        $result = $this->service->createGame($validated);
         if(!$result['success']){
         return redirect()->back()->with('error', $result['message']);
         }

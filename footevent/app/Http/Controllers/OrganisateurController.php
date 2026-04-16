@@ -25,7 +25,12 @@ class OrganisateurController extends Controller
          }
          return view('organisateur.tournois',compact('tournois'));
     }
-
+     
+    public function matchs(Tournoi $tournoi)
+    {
+      $matchs = Game::where('tournoi_id',$tournoi->id)->get();
+      return view('tournoi.matchs',compact('matchs'));
+    }
     public function statistic(){
 
     }
