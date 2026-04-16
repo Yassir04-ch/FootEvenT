@@ -25,9 +25,10 @@ class JoueurController extends Controller
     {
         $user = Auth::user();
         $joueur = $user->joueur;
-        $tournois = Tournoi::where('status','en_attente')->take(3)->get();
-        $equipes = $joueur->equipes()->wherePivot('statut', 'en_attente')->exists();
-        return view('joueur.index', compact('joueur', 'user','equipes'));
+        $tournois = Tournoi::where('status','en_attente')->get();
+        $chek = Equipe::where('capitaine_id',$user->id)->exists();
+        $equipes = $joueur->equipes()->wherePivot('statut', 'actif')->with('tournois')->get();
+        return view('joueur.index', compact('joueur', 'user','chek','equipes'));
     }
 
     /**
@@ -41,19 +42,16 @@ class JoueurController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-     public function store(Request $request)
+     public function store(JoueurRequest $request)
     {
-        $validated = $request->validate([
-            'poste' => "required|string|max:100",
-            'age'  => "required|integer",
-        ]);
+        $validated = $request->validated();
         $result = $this->service->createJoueur($validated);
 
         if (!$result['success']) {
-            return back()->with('error', $result['message'])->withInput();
+            return back()->with('error', $result['message']);
         }
 
-        return redirect()->route('joueur.index')->with('success', $result['message']);
+        return redirect()->route('joueurs.index')->with('success', $result['message']);
     }
 
     /**
@@ -93,7 +91,6 @@ class JoueurController extends Controller
     {
         $user = Auth::user();
         $joueur = $user->joueur;
-        dd($joueur);
 
         $result = $this->service->joinEquipe($joueur, $equipe);
 

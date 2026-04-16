@@ -5,7 +5,7 @@ namespace App\Service;
 use App\Models\Equipe;
 use App\Models\Tournoi;
 use App\Models\Joueur;
-use App\Repository\EquipeRepository;
+use App\Repositories\EquipeRepository;
 
 class EquipeService
 {
@@ -36,10 +36,11 @@ class EquipeService
     }
 
 
-    public function create($validated, $capitane_id)
+    public function create($validated, $user)
     {
         $tournoi = Tournoi::find($validated['tournoi_id']);
-
+        $capitane_id = $user->id;
+        $joueur = $user->joueur;
         if (!$tournoi) {
             return ['success' => false, 'message' => 'Tournoi introuvable.'];
         }
@@ -65,7 +66,8 @@ class EquipeService
          ]);
 
          $equipe->tournois()->attach($validated['tournoi_id'], ['statut' => 'en_attente']);
-
+         $joueur->equipes()->attach($equipe->id, ['statut' => 'actif']);
+         
         return ['success' => true, 'message' => 'Equipe créée avec succès.', 'equipe' => $equipe];
     }
 

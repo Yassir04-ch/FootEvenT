@@ -6,10 +6,6 @@
 <title>FootEvenT — Équipes du tournoi</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
-<style>
-  .font-bebas { font-family: 'Bebas Neue', cursive; }
-  .font-outfit { font-family: 'Outfit', sans-serif; }
-</style>
 </head>
 <body class="bg-gray-950 text-gray-100 font-outfit min-h-screen">
 
@@ -17,7 +13,7 @@
   <nav class="sticky top-0 z-50 flex items-center justify-between px-8 h-16 bg-gray-950/80 backdrop-blur border-b border-gray-800">
     <div class="flex items-center gap-3">
       <div class="w-9 h-9 bg-green-400 rounded-lg flex items-center justify-center">
-        <svg class="w-5 h-5 fill-gray-950" viewBox="0 0 24 24">
+        <svg class="w-5 h-5 fill-gray-950" viewBox="0 0  24 24">
           <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 2c1.85 0 3.56.56 4.97 1.52L5.52 16.97A7.963 7.963 0 0 1 4 12c0-4.42 3.58-8 8-8zm0 16c-1.85 0-3.56-.56-4.97-1.52L18.48 7.03A7.963 7.963 0 0 1 20 12c0 4.42-3.58 8-8 8z"/>
         </svg>
       </div>

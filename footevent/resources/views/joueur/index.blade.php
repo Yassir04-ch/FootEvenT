@@ -126,24 +126,20 @@
                 <div class="bg-gray-800 rounded-2xl border border-gray-700 p-8">
                     <div class="flex items-center justify-between mb-6">
                         <h2 class="text-xl font-bold text-white">Mon Équipe</h2>
-                        @if($joueur)
                             <span class="text-xs text-gray-500 bg-gray-700 px-3 py-1 rounded-full">
                                 {{ $joueur->equipes()->wherePivot('statut', 'actif')->count() }} équipe
                             </span>
-                        @endif
                     </div>
-
-                    @if($joueur && $joueur->equipes()->wherePivot('statut', 'actif')->exists())
-                        @foreach($joueur->equipes()->wherePivot('statut', 'actif')->with('tournois')->get() as $equipe)
+                        @if($chek)
+                        @foreach($equipes as $equipe)
                         <div class="bg-gray-700 rounded-xl p-5 mb-3">
                             <div class="flex items-center justify-between mb-3">
                                 <h3 class="font-bold text-white text-lg">{{ $equipe->name_equipe }}</h3>
                                 <span class="text-xs text-green-400 bg-green-950 border border-green-800 px-2.5 py-1 rounded-full font-semibold">Actif</span>
                             </div>
-                            @if($equipe->tournois->first())
-                                <p class="text-xs text-gray-400 mb-3">🏆 {{ $equipe->tournois->first()->name_tournoi }}</p>
-                            @endif
-                            <div class="flex items-center justify-between text-xs text-gray-400">
+                             
+                            <p class="text-xs text-gray-400 mb-3">🏆 {{ $equipe->tournois->name_tournoi }}</p>
+                              <div class="flex items-center justify-between text-xs text-gray-400">
                                 <span>👥 {{ $equipe->nbJoueur }} joueurs</span>
                                 <div class="flex gap-2">
                                     <a href="{{ route('equipes.joueurs', $equipe) }}" class="px-3 py-1.5 rounded-lg border border-gray-600 text-gray-300 hover:border-green-600 hover:text-green-400 transition-colors">
@@ -159,8 +155,8 @@
                             </div>
                         </div>
                         @endforeach
+                        @endif
 
-                         @if($equipes)
                         <div class="mt-4">
                             <p class="text-xs text-gray-500 uppercase tracking-widest mb-3">Demandes en attente</p>
                             @foreach($equipes as $equipe)
@@ -170,9 +166,7 @@
                             </div>
                             @endforeach
                         </div>
-                        @endif
 
-                    @else
                         <!-- Empty state -->
                         <div class="flex flex-col items-center justify-center py-12 text-center">
                             <div class="w-20 h-20 bg-gray-700 rounded-full flex items-center justify-center text-4xl mb-5">👥</div>
@@ -189,7 +183,6 @@
                                 </a>
                             </div>
                         </div>
-                    @endif
                 </div>
 
                 <!-- MATCHS -->

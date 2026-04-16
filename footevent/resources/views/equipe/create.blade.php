@@ -32,11 +32,12 @@
 
   <div class="px-8 pt-12 pb-16 max-w-2xl mx-auto">
 
-    <!-- Breadcrumb -->
     <div class="flex items-center gap-2 text-xs text-gray-500 mb-8">
-      <a href="{{ route('equipes.index') }}" class="hover:text-green-400 transition-colors">Équipes</a>
-      <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
-      <span class="text-gray-300">Créer une équipe</span>
+      @if(session('error'))
+    <p class="text-red-400 text-sm mt-6 text-center">
+          {{ session('error') }}
+    </p>
+    @endif
     </div>
 
     <!-- Title -->

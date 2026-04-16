@@ -46,9 +46,12 @@
                     <div class="text-xs text-green-400">Organisateur</div>
                 </div>
             </div>
-            <a href="{{ route('auth.destroy') }}" class="mt-3 flex items-center gap-2 px-3 py-2 text-gray-500 text-xs hover:text-red-400 no-underline">
-                🚪 Déconnexion
-            </a>
+              <form method="POST" action="{{ route('auth.destroy') }}">
+                @csrf
+                 <button type="submit" class="px-5 py-2 border border-gray-600 rounded-lg text-gray-400 text-sm font-medium hover:border-red-500 hover:text-red-400">
+                    Déconnexion
+                </button>
+            </form>
         </div>
     </aside>
 
@@ -107,8 +110,9 @@
             <button type="submit" class="px-3 py-1.5 bg-green-400 rounded-lg text-gray-900 text-xs font-bold hover:bg-green-300">Démarrer</button>
         </form>
     @elseif($tournoi->status == 'en_cours')
-        <form action="#" method="POST">
+        <form action="{{route('tournois.terminer',$tournoi)}}" method="POST">
             @csrf
+            @method('put')
             <button type="submit" class="px-3 py-1.5 bg-red-900 rounded-lg text-red-400 text-xs font-bold hover:bg-red-700">Terminer</button>
         </form>
     @endif

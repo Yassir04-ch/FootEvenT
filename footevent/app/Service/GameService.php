@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Service;
-use App\Repository\GameRepository;
+use App\Repositories\GameRepository;
 
 class GameService
 {

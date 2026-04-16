@@ -147,6 +147,13 @@ class TournoiController extends Controller
       }
         return back()->with('success',$result['message']);
     }
+     public function terminerTournoi(Tournoi $tournoi){
+      $result = $this->service->terminerTournoi($tournoi);
+      if(!$result['success']){
+        return back()->with('error',$result['message']);
+      }
+        return back()->with('success',$result['message']);
+    }
 
 
  }

@@ -7,6 +7,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\JoueurController;
 use App\Http\Controllers\OrganisateurController;
 use App\Http\Controllers\GameController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -16,16 +17,16 @@ Route::get('/', function () {
 Route::post("/auth/login",[AuthController::class,'login'])->name("login");
 Route::post('/auth/logout', [AuthController::class, 'destroy'])->name('auth.destroy');
 Route::get('/auth/profile', [AuthController::class, 'profile'])->name('auth.profile');
-Route::get('/auth/update', [AuthController::class, 'update'])->name('auth.update');
-Route::get('/auth/update', [AuthController::class, 'update'])->name('auth.update');
+Route::get('/auth/edit', [AuthController::class, 'profile'])->name('auth.edit');
+Route::put('/auth/update', [ProfileController::class, 'update'])->name('auth.update');
 Route::resource("auth",AuthController::class);
-
 
 Route::get('/tournoi/{tournoi}/equipes', [TournoiController::class, 'equipes'])->name('tournoi.equipe');
 Route::post('/tournois/{tournoi}/join', [TournoiController::class, 'joinTournoi'])->name('tournois.join');
 Route::post('/tournois/{tournoi}/equipes/{equipe}/valider', [TournoiController::class, 'validerEquipe'])->name('tournois.equipes.valider');
 Route::post('/tournois/{tournoi}/equipes/{equipe}/refuser', [TournoiController::class, 'refuserEquipe'])->name('tournois.equipes.refuser');
 Route::put('/tournois/{tournoi}/demarer', [TournoiController::class, 'demarerTournoi'])->name('tournois.demarer');
+Route::put('/tournois/{tournoi}/terminer', [TournoiController::class, 'terminerTournoi'])->name('tournois.terminer');
 Route::resource('tournois', TournoiController::class);
 
 Route::post('/equipes/{equipe}/valider', [EquipeController::class, 'valider'])->name('equipes.valider');

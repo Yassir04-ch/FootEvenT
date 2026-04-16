@@ -85,7 +85,4 @@ class AuthController extends Controller
         return view('auth.profile',compact('user'));
     }
 
-    public function update(){
-        
-    }
 }

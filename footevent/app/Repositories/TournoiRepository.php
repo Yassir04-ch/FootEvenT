@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repository;
+namespace App\Repositories;
 use App\Models\Tournoi;
 use App\Models\Equipe;
 use Illuminate\Http\Request;
@@ -70,6 +70,10 @@ class TournoiRepository
     
     public function demarerTournoi($tournoi){
         $tournoi->update(['status'=>'en_cours']);
+    }
+
+    public function terminerTournoi($tournoi){
+        $tournoi->update(['status'=>'termine']);
     }
 
 }

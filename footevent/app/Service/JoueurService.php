@@ -3,7 +3,7 @@
 namespace App\Service;
 use App\Models\Equipe;
 use App\Models\Joueur;
-use App\Repository\JoueurRepository;
+use App\Repositories\JoueurRepository;
 use Illuminate\Support\Facades\Auth;
 
 class JoueurService

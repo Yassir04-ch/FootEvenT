@@ -27,13 +27,15 @@
       <a href="{{route('equipes.index')}}" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-gray-100 hover:bg-gray-800 transition-colors">Équipes</a>
       <a href="#" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-gray-100 hover:bg-gray-800 transition-colors">Matchs</a>
       <a href="#" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-gray-100 hover:bg-gray-800 transition-colors">Classements</a>
+      @if(auth()->user())
+      <a href="{{route('auth.profile')}}" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-gray-100 hover:bg-gray-800 transition-colors">Profile</a>
+      @endif
     </div>
 
     <div class="flex items-center gap-3">
     @if(!auth()->user())
-      <a href="{{route('login')}}" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-400 border border-gray-700 hover:border-gray-500 hover:text-gray-100 transition-colors">Connexion</a>
-    @endif
-    @if(auth()->user()->role->name == "organisateur")
+      <a href="{{route('auth.create')}}" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-400 border border-gray-700 hover:border-gray-500 hover:text-gray-100 transition-colors">Connexion</a>
+    @elseif(auth()->user()->role->name == "organisateur")
       <a href="{{route('tournois.create')}}" class="px-4 py-2 rounded-lg text-sm font-semibold bg-green-400 text-gray-950 hover:bg-green-300 transition-colors">+ Nouveau tournoi</a>
     @endif
     </div>
@@ -162,17 +164,6 @@
     </div>
     @endforeach
 
-  </div>
-
-  <!-- ─── Pagination ─── -->
-  <div class="flex justify-center items-center gap-1 pb-16">
-    <a href="#" class="w-9 h-9 rounded-lg border border-gray-700 flex items-center justify-center text-sm text-gray-400 hover:border-green-700 hover:text-green-400 transition-colors">‹</a>
-    <a href="#" class="w-9 h-9 rounded-lg border border-green-700 bg-green-950 flex items-center justify-center text-sm text-green-400">1</a>
-    <a href="#" class="w-9 h-9 rounded-lg border border-gray-700 flex items-center justify-center text-sm text-gray-400 hover:border-green-700 hover:text-green-400 transition-colors">2</a>
-    <a href="#" class="w-9 h-9 rounded-lg border border-gray-700 flex items-center justify-center text-sm text-gray-400 hover:border-green-700 hover:text-green-400 transition-colors">3</a>
-    <span class="text-gray-600 px-1">···</span>
-    <a href="#" class="w-9 h-9 rounded-lg border border-gray-700 flex items-center justify-center text-sm text-gray-400 hover:border-green-700 hover:text-green-400 transition-colors">8</a>
-    <a href="#" class="w-9 h-9 rounded-lg border border-gray-700 flex items-center justify-center text-sm text-gray-400 hover:border-green-700 hover:text-green-400 transition-colors">›</a>
   </div>
 
 </body>

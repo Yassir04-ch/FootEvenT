@@ -36,8 +36,7 @@ class EquipeController extends Controller
         $validated = $request->validated();
         $user =  Auth::user();
         $capitan_id = $user->id;
-        $result = $this->service->create($validated,$capitan_id);
-
+        $result = $this->service->create($validated,$user);
         if (!$result['success']) {
             return back()->with('error', $result['message']);
         }

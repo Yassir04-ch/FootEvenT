@@ -62,10 +62,8 @@
         </div>
     </aside>
 
-    <!-- MAIN -->
     <main class="ml-64 flex-1 flex flex-col">
 
-        <!-- TOP BAR -->
         <div class="sticky top-0 z-30 flex items-center justify-between px-8 py-4 bg-gray-900 border-b border-gray-800">
             <div>
                 <h1 class="text-xl font-bold text-white">Bonjour, {{ auth()->user()->firstname}} 👋</h1>

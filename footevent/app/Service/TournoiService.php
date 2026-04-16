@@ -4,7 +4,7 @@ namespace App\Service;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Tournoi;
 use App\Models\Equipe;
-use App\Repository\TournoiRepository;
+use App\Repositories\TournoiRepository;
 use Illuminate\Http\Request;
 
 class TournoiService
@@ -134,6 +134,16 @@ class TournoiService
 
         $this->repository->demarerTournoi($tournoi);
         return['success'=>true,'message'=>'tournoi en cours'];
+
+    }
+
+     public function terminerTournoi(Tournoi $tournoi){
+        if($tournoi->status == 'termine'){
+            return['success'=>false , 'message'=>'tournoi est déja terminée'];
+        }
+    
+        $this->repository->terminerTournoi($tournoi);
+        return['success'=>true,'message'=>'tournoi est terminée'];
 
     }
 
