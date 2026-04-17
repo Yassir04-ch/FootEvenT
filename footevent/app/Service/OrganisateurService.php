@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Service;
-use App\Repositories\OrganisateurRepoqitory;
+use App\Repositories\OrganisateurRepository;
 use App\Models\Tournoi;
 use App\Models\User;
  
@@ -10,7 +10,7 @@ class OrganisateurService
 
   private $repository;
 
-  public function __construct(OrganisateurRepoqitory $repository){
+  public function __construct(OrganisateurRepository $repository){
     $this->repository = $repository;
   }
 
@@ -20,7 +20,8 @@ class OrganisateurService
   }
 
   public function organisateurMatchs($organisateur){
-    
+    $games = $this->repository->organisateurMatchs($organisateur);
+    return $games;
   }
 
 }

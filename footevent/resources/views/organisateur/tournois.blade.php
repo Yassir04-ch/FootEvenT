@@ -37,6 +37,12 @@
                 <span class="text-base">⚽</span> Matchs
             </a>
         </nav>
+         <form method="POST" action="{{ route('auth.destroy') }}">
+                @csrf
+                 <button type="submit" class="px-5 py-2 border border-gray-600 rounded-lg text-gray-400 text-sm font-medium hover:border-red-500 hover:text-red-400">
+                    Déconnexion
+                </button>
+            </form>
 
         <div class="px-4 py-4 border-t border-gray-800 mt-auto">
             <div class="flex items-center gap-3 bg-gray-800 rounded-xl px-3 py-3">
@@ -46,20 +52,12 @@
                     <div class="text-xs text-green-400">Organisateur</div>
                 </div>
             </div>
-              <form method="POST" action="{{ route('auth.destroy') }}">
-                @csrf
-                 <button type="submit" class="px-5 py-2 border border-gray-600 rounded-lg text-gray-400 text-sm font-medium hover:border-red-500 hover:text-red-400">
-                    Déconnexion
-                </button>
-            </form>
         </div>
     </aside>
 
-    <!-- MAIN -->
-<main class="ml-64 flex-1 flex flex-col">
+ <main class="ml-64 flex-1 flex flex-col">
 
-    <!-- TOP NAVBAR -->
-    <div class="sticky top-0 z-30 flex items-center justify-between px-8 py-4 bg-gray-900 border-b border-gray-800">
+     <div class="sticky top-0 z-30 flex items-center justify-between px-8 py-4 bg-gray-900 border-b border-gray-800">
         <div>
             <h1 class="text-xl font-bold text-white">Bonjour, {{ auth()->user()->firstname ?? 'Organisateur' }} 👋</h1>
          </div>
@@ -75,8 +73,7 @@
         </div>
     </div>
 
-    <!-- CONTENT -->
-    <div class="flex-1 px-8 py-8">
+     <div class="flex-1 px-8 py-8">
 
         <h1 class="text-3xl font-bold text-green-400 mb-6">Mes Tournois</h1>
 
@@ -111,21 +108,19 @@
                 Total équipes: {{ $tournoi->equipes->count() }}
             </h4>
 
-            <!-- Validées / Max -->
             <h4 class="text-green-400 font-semibold mb-2">
                 Validées: {{ $tournoi->equipesValidees->count() }}/{{ $tournoi->nbEquipes }}
             </h4>
 
-            <!-- Boutons d'action -->
            <div class="flex gap-2 flex-wrap mb-2">
-    @if($tournoi->status == 'en_attente')
+      @if($tournoi->status == 'en_attente')
         <a href="{{ route('tournois.edit', $tournoi) }}" class="px-3 py-1.5 bg-gray-700 border border-gray-600 rounded-lg text-white text-xs hover:bg-gray-600 no-underline">Modifier</a>
         <form action="{{route('tournois.demarer',$tournoi)}}" method="POST">
             @csrf
             @method('put')
             <button type="submit" class="px-3 py-1.5 bg-green-400 rounded-lg text-gray-900 text-xs font-bold hover:bg-green-300">Démarrer</button>
         </form>
-    @elseif($tournoi->status == 'en_cours')
+      @elseif($tournoi->status == 'en_cours')
         <form action="{{route('tournois.terminer',$tournoi)}}" method="POST">
             @csrf
             @method('put')
@@ -135,7 +130,7 @@
          <a href="{{ route('games.create', $tournoi) }}" class="px-3 py-1.5 bg-yellow-400 rounded-lg text-gray-900 text-xs font-bold hover:bg-yellow-300">
             + Créer Match
         </a>
-    @endif
+      @endif
 
          <a href="{{ route('tournoi.equipe', $tournoi->id) }}"
             class="px-3 py-1.5 bg-blue-600 rounded-lg text-white text-xs font-bold hover:bg-blue-500 inline-block ml-auto">

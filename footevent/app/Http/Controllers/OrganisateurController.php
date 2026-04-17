@@ -33,8 +33,10 @@ class OrganisateurController extends Controller
       return view('tournoi.matchs',compact('matchs'));
     }
 
-    public function organisateurMatchs(User $organisateur){
-      
+    public function organisateurMatchs(){
+      $organisateur = Auth::user();
+      $games = $this->service->organisateurMatchs($organisateur);
+      return view('organisateur.matchs',compact('games'));
     }
     
 }

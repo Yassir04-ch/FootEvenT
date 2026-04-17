@@ -11,7 +11,6 @@
 
 <div class="flex min-h-screen">
 
-    <!-- SIDEBAR -->
     <aside class="w-64 border-r border-gray-800 flex flex-col fixed top-0 left-0 h-full z-40" style="background:#070a0f">
         <!-- Logo -->
         <div class="px-6 py-6 border-b border-gray-800">
@@ -25,7 +24,7 @@
             </div>
         </div>
 
-        <!-- Nav -->
+
         <nav class="flex-1 px-4 py-6 flex flex-col gap-1">
             <div class="text-xs text-gray-600 uppercase tracking-widest px-3 mb-2">Principal</div>
             <a href="{{ route('organisateur.index') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl bg-green-400 bg-opacity-10 border border-green-400 border-opacity-20 text-green-400 text-sm font-medium no-underline">
@@ -39,26 +38,25 @@
                 <span class="text-base">👥</span> Équipes
                 <span class="ml-auto bg-yellow-400 text-gray-900 text-xs px-2 py-0.5 rounded-full font-bold"> 2</span>
             </a>
-            <a href=" " class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-400 text-sm font-medium hover:bg-gray-800 hover:text-white no-underline">
+            <a href="{{route('organisateur.matchs')}}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-400 text-sm font-medium hover:bg-gray-800 hover:text-white no-underline">
                 <span class="text-base">⚽</span> Matchs
             </a>
         </nav>
-
-        <!-- User info -->
-        <div class="px-4 py-4 border-t border-gray-800">
-            <div class="flex items-center gap-3 bg-gray-800 rounded-xl px-3 py-3">
-                <div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-white font-bold text-sm">{{ strtoupper(substr(auth()->user()->firstname,0,1)) }}</div>
-                <div class="flex-1 min-w-0">
-                    <div class="text-sm font-semibold text-white truncate">{{ auth()->user()->firstname }}</div>
-                    <div class="text-xs text-green-400">Organisateur</div>
-                </div>
-            </div>
-             <form method="POST" action="{{ route('auth.destroy') }}">
+            <form method="POST" action="{{ route('auth.destroy') }}">
                 @csrf
                  <button type="submit" class="px-5 py-2 border border-gray-600 rounded-lg text-gray-400 text-sm font-medium hover:border-red-500 hover:text-red-400">
                     Déconnexion
                 </button>
             </form>
+
+        <div class="px-4 py-4 border-t border-gray-800">
+            <div class="flex items-center gap-3 bg-gray-800 rounded-xl px-3 py-3">
+                <div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-white font-bold text-sm">{{ substr(auth()->user()->firstname,0,1) }}</div>
+                <div class="flex-1 min-w-0">
+                    <div class="text-sm font-semibold text-white truncate">{{ auth()->user()->firstname }}</div>
+                    <div class="text-xs text-green-400">Organisateur</div>
+                </div>
+            </div>
         </div>
     </aside>
 
@@ -81,10 +79,8 @@
             </div>
         </div>
 
-        <!-- CONTENT -->
         <div class="flex-1 px-8 py-8">
 
-            <!-- STATS -->
             <div class="grid grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
                 <div class="bg-gray-800 rounded-2xl border border-gray-700 p-6">
                     <div class="flex items-center justify-between mb-4">

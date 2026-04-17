@@ -41,6 +41,7 @@ Route::put("/equipes/{equipe}/quitter", [JoueurController::class,'quitterEquipe'
 Route::resource("equipes", EquipeController::class);
 
 Route::get("/organisateur/tournois", [OrganisateurController::class,'Tournois'])->name('organisateur.tournois');
+Route::get("/organisateur/matches", [OrganisateurController::class,'organisateurMatchs'])->name('organisateur.matchs');
 Route::resource("organisateur", OrganisateurController::class);
 
 Route::put('/admin/{user}/banni',[AdminController::class,'banniUser'])->name('user.banni');
