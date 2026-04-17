@@ -18,7 +18,8 @@ class TournoiService
 
     public function getAll(Request $request)
     {
-        return $this->repository->getAll($request);
+        $tournois = $this->repository->getAll($request);
+        return $tournois;
     }
 
     public function show(Tournoi $tournoi)

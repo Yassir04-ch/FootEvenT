@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FootEvenT — Tournois</title>
+<title>FootEvenT — games</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
 
@@ -23,9 +23,9 @@
     </div>
 
     <div class="flex items-center gap-1">
-      <a href="#" class="px-4 py-2 rounded-lg text-sm font-medium bg-gray-800 text-gray-100">Tournois</a>
+      <a href="#" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-gray-100 hover:bg-gray-800 transition-colors">Matchs</a>
       <a href="{{route('equipes.index')}}" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-gray-100 hover:bg-gray-800 transition-colors">Équipes</a>
-      <a href="{{route('games.index')}}" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-gray-100 hover:bg-gray-800 transition-colors">Matchs</a>
+      <a href="#" class="px-4 py-2 rounded-lg text-sm font-medium bg-gray-800 text-gray-100">Matchs</a>
       <a href="#" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-gray-100 hover:bg-gray-800 transition-colors">Classements</a>
       @if(auth()->user())
       <a href="{{route('auth.profile')}}" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-gray-100 hover:bg-gray-800 transition-colors">Profile</a>
@@ -36,7 +36,7 @@
     @if(!auth()->user())
       <a href="{{route('auth.create')}}" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-400 border border-gray-700 hover:border-gray-500 hover:text-gray-100 transition-colors">Connexion</a>
     @elseif(auth()->user()->role->name == "organisateur")
-      <a href="{{route('tournois.create')}}" class="px-4 py-2 rounded-lg text-sm font-semibold bg-green-400 text-gray-950 hover:bg-green-300 transition-colors">+ Nouveau tournoi</a>
+      <a href="{{route('games.create')}}" class="px-4 py-2 rounded-lg text-sm font-semibold bg-green-400 text-gray-950 hover:bg-green-300 transition-colors">+ Nouveau game</a>
     @endif
     </div>
   </nav>
@@ -62,11 +62,11 @@
     <div>
       <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-green-950 border border-green-800 text-green-400 text-xs font-medium tracking-widest uppercase mb-5">
         <span class="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse"></span>
-        Saison 2025 en cours
+        Saison 2026 en cours
       </div>
       <h1 class="font-bebas text-7xl leading-none tracking-wide mb-4">
         Tous les<br>
-        <span class="text-green-400">Tournois</span>
+        <span class="text-green-400">Matchs</span>
       </h1>
       <p class="text-sm text-gray-400 font-light max-w-sm leading-relaxed">
         Découvrez et rejoignez les compétitions de football amateur près de chez vous.
@@ -76,7 +76,7 @@
     <div class="flex-shrink-0 grid grid-cols-3 divide-x divide-gray-800 border border-gray-800 rounded-2xl overflow-hidden">
       <div class="px-8 py-5 bg-gray-900 text-center">
         <div class="font-bebas text-4xl text-green-400 leading-none mb-1">{{$countTour}}</div>
-        <div class="text-xs text-gray-500 uppercase tracking-widest">Tournois</div>
+        <div class="text-xs text-gray-500 uppercase tracking-widest">games</div>
       </div>
       <div class="px-8 py-5 bg-gray-900 text-center">
         <div class="font-bebas text-4xl text-green-400 leading-none mb-1">{{$countEqui}}</div>
@@ -94,56 +94,43 @@
     <a href="?">
       <span class="px-4 py-1.5 rounded-full text-xs font-medium border bg-green-950 border-green-700 text-green-400 cursor-pointer">Tous</span>
     </a>
-    <a href="?status=en_attente">
-      <span class="px-4 py-1.5 rounded-full text-xs font-medium border border-gray-700 text-gray-400 hover:border-green-700 hover:text-green-400 transition-colors cursor-pointer">Ouverts</span>
+    <a href="?statut=programme">
+      <span class="px-4 py-1.5 rounded-full text-xs font-medium border border-gray-700 text-gray-400 hover:border-green-700 hover:text-green-400 transition-colors cursor-pointer">programme</span>
     </a>
-    <a href="?status=en_cours">
+    <a href="?statut=en_cours">
       <span class="px-4 py-1.5 rounded-full text-xs font-medium border border-gray-700 text-gray-400 hover:border-green-700 hover:text-green-400 transition-colors cursor-pointer">En cours</span>
     </a>
-    <a href="?status=termine">
+    <a href="?statut=termine">
       <span class="px-4 py-1.5 rounded-full text-xs font-medium border border-gray-700 text-gray-400 hover:border-green-700 hover:text-green-400 transition-colors cursor-pointer">Terminés</span>
     </a>
   </div>
 
   
   <div class="px-8 pb-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-  @foreach($tournois as $tournoi)
+  @foreach($games as $game)
      <div class="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden hover:border-green-800 hover:-translate-y-1 transition-all duration-200">
       <div class="h-1.5 bg-gradient-to-r from-blue-900 to-blue-600"></div>
       <div class="p-5">
         <div class="flex items-center justify-between mb-4">
-          <span class="text-xs font-semibold px-2.5 py-1 rounded-full uppercase tracking-wider bg-blue-950 text-blue-400 border border-blue-800">
-            Élimination
-          </span>
           <span class="flex items-center gap-1.5 text-xs font-medium text-green-400">
-            <span class="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse"></span>
-             {{$tournoi->status}}
+             {{$game->statut}}
           </span>
         </div>
-        <h2 class="font-bebas text-2xl tracking-wide leading-tight mb-2">{{$tournoi->name_tournoi}}</h2>
-        <div class="flex flex-wrap gap-x-4 gap-y-1 text-xs text-gray-400">
-          <span>📍 {{$tournoi->lieu}} </span>
-          <span>{{$tournoi->date_debut}} → {{$tournoi->date_fin}}</span>
+        <h3 class="font-bebas text-2xl tracking-wide leading-tight mb-2">Tournoi : {{$game->tournoi->name_tournoi}}</h3>
+        <div class="flex flex-wrap gap-x-4 gap-y-1 text-xs text-400">
+          <span><b>Terrain</b> : 📍{{$game->terrain}} </span>
         </div>
-      </div>
-      <div class="px-5 py-3 bg-gray-950/50 border-t border-gray-800">
-        <div class="flex justify-between text-xs mb-2">
-          <span class="text-gray-500">Équipes inscrites</span>
-          <span class="font-medium"> 2/{{ $tournoi->nbEquipes}}</span>
+        <div class="flex flex-wrap gap-x-4 gap-y-1 text-xs text-400">
+          <span><b>Date</b> : {{$game->dateMatch}}   -  <b>Heure</b> {{$game->heure}} </span> 
         </div>
+      </div>   
         <div class="h-1 bg-gray-800 rounded-full overflow-hidden mb-3">
-        </div>
-        <div class="flex gap-2 flex-wrap">
-          <span class="text-xs px-2 py-0.5 rounded-full bg-gray-800 text-gray-400 border border-gray-700">2 places restantes</span>
-          <span class="text-xs px-2 py-0.5 rounded-full bg-gray-800 text-gray-400 border border-gray-700">Aller-retour</span>
-        </div>
-      </div>
+       </div>
       <div class="px-5 py-3 flex items-center justify-between border-t border-gray-800">
-        <div class="flex items-center gap-2 text-xs text-gray-400">
-          <div class="w-6 h-6 rounded-full bg-green-950 border border-green-800 flex items-center justify-center text-green-400 font-bold text-xs">KA</div>
-           {{$tournoi->organisateur->firstname}} {{$tournoi->organisateur->lastname}}
-        </div>
-        <a href="{{route('tournois.show',$tournoi)}}" class="flex items-center gap-1 text-xs font-medium px-3 py-1.5 rounded-lg border border-gray-700 text-gray-300 hover:border-green-600 hover:text-green-400 transition-colors">
+        <h4>
+           {{$game->equipe1->name_equipe}}  VS  {{$game->equipe2->name_equipe}}
+        </h4>
+        <a href="{{route('games.show',$game)}}" class="flex items-center gap-1 text-xs font-medium px-3 py-1.5 rounded-lg border border-gray-700 text-gray-300 hover:border-green-600 hover:text-green-400 transition-colors">
           Voir
           <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </a>

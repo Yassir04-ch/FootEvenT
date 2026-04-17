@@ -48,5 +48,7 @@ Route::put('/admin/{user}/active',[AdminController::class,'activeUser'])->name('
 Route::get('/admin/tournois',[AdminController::class,'tournois'])->name('admin.tournois');
 Route::get('/admin',[AdminController::class,'index'])->name('admin.index');
 
+Route::get('/games/index',[GameController::class,'index'])->name('games.index');
 Route::get('/games/{tournoi}/create',[GameController::class,'create'])->name('games.create');
 Route::post('/games/{tournoi}/store',[GameController::class,'store'])->name('games.store');
+Route::get('/games/{game}/store',[GameController::class,'show'])->name('games.show');

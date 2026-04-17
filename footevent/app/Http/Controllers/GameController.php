@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\GameRequest;
 use App\Service\GameService;
 use App\Models\Tournoi;
+use App\Models\Equipe;
 
 class GameController extends Controller
 {
@@ -22,11 +23,13 @@ class GameController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $games = $this->service->getAllGames();
-
-        return view('games.index', compact('games'));
+        $games = $this->service->getAllGames($request);
+        $countTour = Tournoi::count();
+        $countEqui = Equipe::count();
+        $countMatch = Game::count();
+        return view('games.index', compact('games','countTour','countEqui','countMatch'));
     }
 
     /**

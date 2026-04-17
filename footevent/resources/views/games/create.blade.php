@@ -81,11 +81,10 @@
           class="w-full bg-gray-950 border border-gray-700 rounded-xl px-4 py-3 text-sm">
     </div>
 
-     <!-- <div>
-        <label class="text-xs text-gray-400 uppercase mb-2 block">Heure</label>
-        <input type="date" name="heure"
-          class="w-full bg-gray-950 border border-gray-700 rounded-xl px-4 py-3 text-sm">
-    </div> -->
+     <div>
+      <label for="heure">Choisir l'heure :</label>
+      <input type="time" id="heure" name="heure">
+    </div>
 
      <div>
       <label class="text-xs text-gray-400 uppercase mb-2 block">Terrain</label>

@@ -5,7 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Game extends Model
 {
-    protected $fillable = ['dateMatch', 'terrain', 'statut', 'tournoi_id', 'equipe1_id', 'equipe2_id'];
+    protected $fillable = ['dateMatch','heure','terrain', 'statut', 'tournoi_id', 'equipe1_id', 'equipe2_id'];
 
     public function tournoi()
     {

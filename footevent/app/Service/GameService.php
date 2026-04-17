@@ -2,6 +2,7 @@
 
 namespace App\Service;
 use App\Repositories\GameRepository;
+use Illuminate\Http\Request;
 
 class GameService
 {
@@ -24,9 +25,9 @@ class GameService
 
     }
 
-    public function getAllGames()
+    public function getAllGames(Request $request)
     {
-        $games = $this->repository->all();
+        $games = $this->repository->all($request);
         return $games;
     }
 

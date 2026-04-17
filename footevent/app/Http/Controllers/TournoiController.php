@@ -6,6 +6,7 @@ use App\Http\Requests\StoreTournoiRequest;
 use App\Http\Requests\UpdateTournoiRequest;
 use App\Models\Tournoi;
 use App\Models\Equipe;
+use App\Models\Game;
 use App\Service\TournoiService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -21,16 +22,18 @@ class TournoiController extends Controller
 
     public function index(Request $request)
     {
-        $tournois = $this->service->getAll($request);
-        return view('tournoi.index', compact('tournois'));
-    }
 
+        $tournois = $this->service->getAll($request);
+        $countTour = Tournoi::count();
+        $countEqui = Equipe::count();
+        $countMatch = Game::count();
+        return view('tournoi.index', compact('tournois','countTour','countEqui','countMatch'));
+    }
 
      public function create()
     {
         return view('tournoi.create');
     }
-
  
     public function store(StoreTournoiRequest $request)
     {
