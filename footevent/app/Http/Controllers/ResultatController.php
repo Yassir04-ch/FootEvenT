@@ -1,34 +1,49 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Service\ResultatService;
 use App\Models\Resultat;
+use App\Models\Game;
 use Illuminate\Http\Request;
 
 class ResultatController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
+   private $service;
+
+   public function __construct(ResultatService $service){
+     $this->service = $service;
+   }
+    
     public function index()
     {
-        //
+        $resultats = $this->service->getAll();
+        return view('result.index',compact('resultats'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Game $game)
     {
-        //
+        
+        
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request,Game $game)
     {
-        //
+      $validated = $request->validate([
+        'scoreEq1' => 'required|integer',
+        'scoreEq2' => 'required|integer',
+        ]);
+
+        $validated['game_id'] = $game->id;
+
+        $this->service->create($validated,$game);
+        return view('organisateur.matchs')->with('success','resultat du match est ajouter');
     }
 
     /**
