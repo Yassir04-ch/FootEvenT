@@ -85,7 +85,7 @@
         <div class="text-xs text-gray-500 uppercase tracking-widest">Équipes</div>
       </div>
       <div class="px-8 py-5 bg-gray-900 text-center">
-        <div class="font-bebas text-4xl text-green-400 leading-none mb-1">{{ $equipes->sum('nbJoueur') }}</div>
+        <div class="font-bebas text-4xl text-green-400 leading-none mb-1">{{$joueurcount}}</div>
         <div class="text-xs text-gray-500 uppercase tracking-widest">Joueurs</div>
       </div>
     </div>

@@ -31,5 +31,20 @@ class GameService
         return $games;
     }
 
+    public function gamesProgramme(){
+        $gamepro = $this->repository->gamesProgramme();
+        return $gamepro;
+    }
+
+    public function gamestermine(){
+        $gamepro = $this->repository->gamestermine();
+        return $gamepro;
+    } 
+    
+    public function gamesencour(){
+        $gamepro = $this->repository->gamesencour();
+        return $gamepro;
+    }
+
    
 }

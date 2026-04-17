@@ -22,7 +22,8 @@ class EquipeController extends Controller
      public function index()
     {
         $equipes = $this->service->getAll();
-        return view('equipe.index', compact('equipes'));
+        $joueurcount = Joueur::count();
+        return view('equipe.index', compact('equipes','joueurcount'));
     }
 
      public function create()

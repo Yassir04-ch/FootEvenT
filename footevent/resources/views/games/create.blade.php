@@ -83,7 +83,7 @@
 
      <div>
       <label for="heure">Choisir l'heure :</label>
-      <input type="time" id="heure" name="heure">
+      <input type="time" id="heure" name="heure" class="w-full bg-gray-950 border border-gray-700 rounded-xl px-4 py-3 text-sm">
     </div>
 
      <div>

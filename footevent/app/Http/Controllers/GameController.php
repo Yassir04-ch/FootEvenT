@@ -26,10 +26,11 @@ class GameController extends Controller
     public function index(Request $request)
     {
         $games = $this->service->getAllGames($request);
-        $countTour = Tournoi::count();
-        $countEqui = Equipe::count();
+        $gamepro = $this->service->gamesProgramme()->count();
+        $gameter = $this->service->gamestermine()->count();
+        $gamecour = $this->service->gamesencour()->count();
         $countMatch = Game::count();
-        return view('games.index', compact('games','countTour','countEqui','countMatch'));
+        return view('games.index', compact('games','gamepro','gameter','gamecour','countMatch'));
     }
 
     /**

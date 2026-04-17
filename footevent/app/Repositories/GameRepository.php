@@ -23,4 +23,19 @@ class GameRepository
         $game = Game::create($data);
         return $game;
     }
+
+    public function gamesProgramme(){
+      $gameprog = Game::Where('statut','programme')->get();
+      return $gameprog;
+    }
+
+     public function gamestermine(){
+      $gameter = Game::Where('statut','termine')->get();
+      return $gameter;
+    }
+
+     public function gamesencour(){
+      $gamecour = Game::Where('statut','en_cours')->get();
+      return $gamecour;
+    }
 }

@@ -35,30 +35,11 @@
     <div class="flex items-center gap-3">
     @if(!auth()->user())
       <a href="{{route('auth.create')}}" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-400 border border-gray-700 hover:border-gray-500 hover:text-gray-100 transition-colors">Connexion</a>
-    @elseif(auth()->user()->role->name == "organisateur")
-      <a href="{{route('games.create')}}" class="px-4 py-2 rounded-lg text-sm font-semibold bg-green-400 text-gray-950 hover:bg-green-300 transition-colors">+ Nouveau game</a>
     @endif
     </div>
   </nav>
 
-     @if(session('success'))
-    <div class="px-8 pt-4">
-    <div class="flex items-center gap-3 px-5 py-4 bg-green-950 border border-green-800 rounded-2xl">
-        <div class="w-8 h-8 rounded-lg bg-green-900 border border-green-700 flex items-center justify-center flex-shrink-0">
-        <svg class="w-4 h-4 text-green-400" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
-        </svg>
-        </div>
-
-        <p class="text-sm text-green-300 font-medium flex-1">
-        {{ session('success') }}
-        </p>
-    </div>
-    </div>
-    @endif
-
-  
-  <section class="px-8 pt-16 pb-10 flex items-end justify-between gap-8">
+  <section class="px-8 pt-5 pb-10 flex items-end justify-between gap-8">
     <div>
       <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-green-950 border border-green-800 text-green-400 text-xs font-medium tracking-widest uppercase mb-5">
         <span class="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse"></span>
@@ -73,14 +54,18 @@
       </p>
     </div>
 
-    <div class="flex-shrink-0 grid grid-cols-3 divide-x divide-gray-800 border border-gray-800 rounded-2xl overflow-hidden">
+    <div class="flex-shrink-0 grid grid-cols-4 divide-x divide-gray-800 border border-gray-800 rounded-2xl overflow-hidden">
       <div class="px-8 py-5 bg-gray-900 text-center">
-        <div class="font-bebas text-4xl text-green-400 leading-none mb-1">{{$countTour}}</div>
-        <div class="text-xs text-gray-500 uppercase tracking-widest">games</div>
+        <div class="font-bebas text-4xl text-green-400 leading-none mb-1">{{$gamepro}}</div>
+        <div class="text-xs text-gray-500 uppercase tracking-widest">Games Programmer</div>
       </div>
       <div class="px-8 py-5 bg-gray-900 text-center">
-        <div class="font-bebas text-4xl text-green-400 leading-none mb-1">{{$countEqui}}</div>
-        <div class="text-xs text-gray-500 uppercase tracking-widest">Équipes</div>
+        <div class="font-bebas text-4xl text-green-400 leading-none mb-1">{{$gamecour}}</div>
+        <div class="text-xs text-gray-500 uppercase tracking-widest">Games En cours</div>
+      </div>
+      <div class="px-8 py-5 bg-gray-900 text-center">
+        <div class="font-bebas text-4xl text-green-400 leading-none mb-1">{{$gameter}}</div>
+        <div class="text-xs text-gray-500 uppercase tracking-widest">Games Terminer</div>
       </div>
       <div class="px-8 py-5 bg-gray-900 text-center">
         <div class="font-bebas text-4xl text-green-400 leading-none mb-1">{{$countMatch}}</div>

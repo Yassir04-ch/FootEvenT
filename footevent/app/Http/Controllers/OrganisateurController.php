@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Service\OrganisateurService;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 class OrganisateurController extends Controller
 {
@@ -26,17 +27,15 @@ class OrganisateurController extends Controller
          return view('organisateur.tournois',compact('tournois'));
     }
      
-    public function matchs(Tournoi $tournoi)
+    public function matchsTournoi(Tournoi $tournoi)
     {
       $matchs = Game::where('tournoi_id',$tournoi->id)->get();
       return view('tournoi.matchs',compact('matchs'));
     }
-    public function statistic(){
 
+    public function organisateurMatchs(User $organisateur){
+      
     }
-
-    public function show(){
-
-    }
+    
 }
 
