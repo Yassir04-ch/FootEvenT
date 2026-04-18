@@ -92,55 +92,61 @@
   </section>
 
    <div class="px-8 pb-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-    @forelse($equipes as $equipe)
-     <div class="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden hover:border-green-800 hover:-translate-y-1 transition-all duration-200">
+        @forelse($equipes as $equipe)
+      <div class="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden hover:border-green-800 hover:-translate-y-1 transition-all duration-200">
 
-      <div class="h-1.5 bg-gradient-to-r from-green-900 to-green-500">
-      </div>
+        {{-- Image --}}
+        <div class="relative h-36 bg-gray-800 overflow-hidden">
+          @if($equipe->image)
+            <img src="{{ asset('storage/' . $equipe->image) }}" alt="{{ $equipe->name_equipe }}" class="w-full h-full object-cover opacity-70">
+            <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-gray-900"></div>
+          @else
+            <div class="w-full h-full flex items-center justify-center">
+              <svg class="w-12 h-12 text-gray-700" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0"/>
+              </svg>
+            </div>
+          @endif
 
-      <div class="p-5">
-        <div class="flex items-center justify-between mb-3">
-
-          <!-- Nb joueurs -->
-          <span class="text-xs text-gray-400 flex items-center gap-1">
-            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          {{-- Badge joueurs fuq l-image --}}
+          <span class="absolute top-2.5 right-2.5 flex items-center gap-1 text-xs text-gray-400 bg-black/50 border border-gray-700 rounded-full px-2.5 py-1">
+            <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0"/>
             </svg>
-            {{ $equipe->joueurs->count()}} joueurs
+            {{ $equipe->joueurs->count() }} joueurs
           </span>
         </div>
 
-        <!-- Nom -->
-        <h2 class="font-bebas text-2xl tracking-wide leading-tight mb-2">{{ $equipe->name_equipe }}</h2>
-
-            <p class="text-xs text-gray-500 mb-2">🏆 {{ $equipe->tournois->first()->name_tournoi }}</p>
- 
-            <p class="text-xs text-gray-400 leading-relaxed line-clamp-2">{{ $equipe->description }}</p>
-       </div>      
-
-      <!-- Footer -->
-      <div class="px-5 py-3 flex items-center justify-between border-t border-gray-800">
-        <div class="flex items-center gap-2 text-xs text-gray-400">
-          <div class="w-6 h-6 rounded-full bg-green-950 border border-green-800 flex items-center justify-center text-green-400 font-bold text-xs">
-            {{ strtoupper(substr($equipe->capitaine->firstname, 0, 1)) }}{{ strtoupper(substr($equipe->capitaine->lastname, 0, 1)) }}
-          </div>
-          {{ $equipe->capitaine->firstname }} {{ $equipe->capitaine->lastname}}
+        <div class="p-5">
+          <p class="text-xs text-gray-500 mb-2">🏆 {{ $equipe->tournois->first()->name_tournoi }}</p>
+          <h2 class="font-bebas text-2xl tracking-wide leading-tight mb-2">{{ $equipe->name_equipe }}</h2>
+          <p class="text-xs text-gray-400 leading-relaxed line-clamp-2">{{ $equipe->description }}</p>
         </div>
-        <a href="{{ route('equipes.show', $equipe) }}" class="flex items-center gap-1 text-xs font-medium px-3 py-1.5 rounded-lg border border-gray-700 text-gray-300 hover:border-green-600 hover:text-green-400 transition-colors">
-          Voir
-          <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </a>
+
+        <!-- Footer -->
+        <div class="px-5 py-3 flex items-center justify-between border-t border-gray-800">
+          <div class="flex items-center gap-2 text-xs text-gray-400">
+            <div class="w-6 h-6 rounded-full bg-green-950 border border-green-800 flex items-center justify-center text-green-400 font-bold text-xs">
+              {{ substr($equipe->capitaine->firstname, 0, 1) }}{{ substr($equipe->capitaine->lastname, 0, 1) }}
+            </div>
+            {{ $equipe->capitaine->firstname }} {{ $equipe->capitaine->lastname }}
+          </div>
+          <a href="{{ route('equipes.show', $equipe) }}" class="flex items-center gap-1 text-xs font-medium px-3 py-1.5 rounded-lg border border-gray-700 text-gray-300 hover:border-green-600 hover:text-green-400 transition-colors">
+            Voir
+            <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
       </div>
-    </div>
-    @empty
-    <div class="col-span-3 flex flex-col items-center justify-center py-24 text-gray-600">
-      <svg class="w-16 h-16 mb-4 opacity-30" fill="none" stroke="currentColor" stroke-width="1" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0"/>
-      </svg>
-      <p class="font-bebas text-2xl tracking-wide">Aucune équipe pour l'instant</p>
-      <p class="text-sm mt-1">Soyez le premier à créer une équipe !</p>
-    </div>
-    @endforelse
+
+      @empty
+      <div class="col-span-3 flex flex-col items-center justify-center py-24 text-gray-600">
+        <svg class="w-16 h-16 mb-4 opacity-30" fill="none" stroke="currentColor" stroke-width="1" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0"/>
+        </svg>
+        <p class="font-bebas text-2xl tracking-wide">Aucune équipe pour l'instant</p>
+        <p class="text-sm mt-1">Soyez le premier à créer une équipe !</p>
+      </div>
+      @endforelse
   </div>
 
 </body>

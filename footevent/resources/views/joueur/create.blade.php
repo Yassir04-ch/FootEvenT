@@ -29,7 +29,7 @@
             </div>
         @endif
 
-        <form method="POST" action="{{ route('joueurs.store') }}" id="joueurForm" class="space-y-5 bg-gray-900 p-6 rounded-2xl border border-gray-800">
+        <form method="POST" action="{{ route('joueurs.store') }}" class="space-y-5 bg-gray-900 p-6 rounded-2xl border border-gray-800">
             @csrf
 
             <!-- Poste -->
@@ -53,13 +53,11 @@
                     class="w-full bg-gray-950 border border-gray-700 text-gray-100 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500/20 transition-all" />
              </div>
 
-            <button type="submit" id="submitBtn"
-                class="w-full flex items-center justify-center gap-2 px-4 py-3 bg-green-400 hover:bg-green-300 text-gray-950 font-semibold text-sm rounded-xl transition-colors">
+            <button type="submit" class="w-full flex items-center justify-center gap-2 px-4 py-3 bg-green-400 hover:bg-green-300 text-gray-950 font-semibold text-sm rounded-xl transition-colors">
                 Créer mon profil
             </button>
         </form>
     </div>
 
-    <script src="{{ asset('js/joueur.js') }}"></script>
 </body>
 </html>

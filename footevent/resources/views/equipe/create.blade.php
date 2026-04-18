@@ -9,7 +9,7 @@
 </head>
 <body class="bg-gray-950 text-gray-100 font-outfit min-h-screen">
 
-  <!-- Navbar -->
+
   <nav class="sticky top-0 z-50 flex items-center justify-between px-8 h-16 bg-gray-950/80 backdrop-blur border-b border-gray-800">
     <div class="flex items-center gap-3">
       <div class="w-9 h-9 bg-green-400 rounded-lg flex items-center justify-center">
@@ -40,7 +40,7 @@
     @endif
     </div>
 
-    <!-- Title -->
+
     <div class="mb-10">
       <h1 class="font-bebas text-5xl tracking-wide leading-none mb-2">
         Créer une <span class="text-green-400">Équipe</span>
@@ -48,25 +48,27 @@
       <p class="text-sm text-gray-400 font-light">Remplissez les informations de votre nouvelle équipe.</p>
     </div>
 
-    <!-- Form -->
-   <form action="{{ route('equipes.store') }}" method="POST" class="space-y-6">
-  @csrf
 
-  <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 space-y-5">
+    <form action="{{ route('equipes.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
+     @csrf
 
-    <!-- Nom -->
+    <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 space-y-5">
+
+
     <div>
       <label class="block text-xs font-semibold text-gray-400 uppercase tracking-widest mb-2">Nom de l'équipe *</label>
-      <input
-        type="text"
-        name="name_equipe"
-        placeholder="Ex: FC Atlas, AS Rapid..."
-        class="w-full bg-gray-950 border border-gray-700 rounded-xl px-4 py-3 text-sm text-gray-100 placeholder-gray-600 focus:outline-none focus:border-green-600 focus:ring-1 focus:ring-green-600/30 transition-colors"
-        required
-      >
-     </div>  
-    <!-- Tournoi -->
-    <div>
+      <input type="text" name="name_equipe" placeholder="Ex: FC Atlas, AS Rapid..."
+        class="w-full bg-gray-950 border border-gray-700 rounded-xl px-4 py-3 text-sm text-gray-100 placeholder-gray-600 focus:outline-none focus:border-green-600 focus:ring-1 focus:ring-green-600/30 transition-colors"required>
+     </div> 
+     
+     <div>
+        <label class="block text-xs font-semibold text-gray-400 uppercase tracking-widest mb-2">
+          Logo équipe
+        </label>
+        <input type="file" name="image" class="w-full bg-gray-950 border border-gray-700 rounded-xl px-4 py-3 text-sm text-gray-100">
+      </div>
+
+     <div>
       <label class="block text-xs font-semibold text-gray-400 uppercase tracking-widest mb-2">Tournoi *</label>
       <select name="tournoi_id" class="w-full bg-gray-950 border border-gray-700 rounded-xl px-4 py-3 text-sm text-gray-100 focus:outline-none focus:border-green-600 focus:ring-1 focus:ring-green-600/30 transition-colors" >
         <option value="">Sélectionner un tournoi</option>

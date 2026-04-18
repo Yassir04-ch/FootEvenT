@@ -64,12 +64,13 @@ class EquipeService
         if ($chekactif) {
             return ['success' => false, 'message' => 'Vous êtes déja active dans un équipe'];
         }
-         $data = [
-            'name_equipe'  => $validated['name_equipe'],
-            'description'  => $validated['description'],
-            'capitaine_id' => $capitane_id,
-         ];
-         $equipe = $this->repository->create($data);
+
+        if ($validated['image']) {
+             $validated['image'] = $validated['image']->store('equipes', 'public');
+        }  
+
+         $validated['capitaine_id'] = $capitane_id; 
+         $equipe = $this->repository->create($validated);
 
          $equipe->tournois()->attach($validated['tournoi_id'], ['statut' => 'en_attente']);
          $joueur->equipes()->attach($equipe->id, ['statut' => 'actif']);
@@ -88,12 +89,15 @@ class EquipeService
             return ['success' => false, 'message' => 'Action non autorisée.'];
         }
 
-        if ($equipe->statut === 'validee') {
-            return ['success' => false, 'message' => 'impossible de modifier une équipe validée.'];
+        if($validated['image']){
+            if($equipe->image && Storage::disk('public')->exists($equipe->image)){
+                Storage::disk('public')->delete($equipe->image);
+            }
+            $validated['image'] = $validated['image']->store('equipes','public');
         }
 
         $equipe = $this->repository->update($equipe, $validated);
-        return ['success' => true, 'message' => 'Equipe est modifier.', 'equipe' => $equipe];
+        return ['success' => true, 'message' => 'Equipe est modifier', 'equipe' => $equipe];
     }
 
 

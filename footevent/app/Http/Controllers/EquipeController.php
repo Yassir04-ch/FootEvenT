@@ -35,7 +35,12 @@ class EquipeController extends Controller
      public function store(EquipeRequest $request)
     {
         $validated = $request->validated();
-        $user =  Auth::user();
+
+        if ($request->hasFile('image')) {
+            $validated['image'] = $request->file('image');
+        }
+
+        $user = Auth::user();
         $capitan_id = $user->id;
         $result = $this->service->create($validated,$user);
         if (!$result['success']) {
@@ -79,10 +84,8 @@ class EquipeController extends Controller
         $joueur = $user->joueur;
         if ($joueur) {
             $isActif = $joueur->activeJoueur();
-            $isEnAttente = $joueur->equipes()
-                ->where('equipe_id', $equipe->id)
-                ->wherePivot('statut', 'en_attente')
-                ->exists();
+            $isEnAttente = $joueur->equipes()->where('equipe_id', $equipe->id)
+                ->wherePivot('statut', 'en_attente')->exists();
          }
       }
         return view('equipe.show', compact('equipe','tournois','joueurs','isEnAttente'));
@@ -100,6 +103,9 @@ class EquipeController extends Controller
         $userid =  Auth::id();
         $result = $this->service->update($validated,$equipe,$userid);
 
+        if($request->hasFile('image')){
+            $validated['image'] = $request->file('image');
+        }
         if (!$result['success']) {
             return back()->with('error', $result['message']);
         }

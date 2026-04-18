@@ -33,8 +33,8 @@ class AuthController extends Controller
     {
         $this->service->register($request->validated());
         $user = Auth::user();
-         if($user->role->name == "organisateur" ){
-                return redirect()->route('Organisateur.index');
+         if($user->role->name == "Organisateur" ){
+                return redirect()->route('organisateur.index');
             }
             else if($user->role->name  == "Administrateur" ){
                 return redirect()->route('admin.index');
