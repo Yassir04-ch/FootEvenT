@@ -2,7 +2,7 @@
 namespace App\Repositories;
 use App\Models\Resultat;
 
-class ResultatReposiroty {
+class ResultatRepository {
 
    public function getAll(){
        $resultats = Resultat::with('game')->get();
@@ -10,6 +10,7 @@ class ResultatReposiroty {
    }
 
    public function create(array $data){
-     Resultat::create($data);
+      $resultat = Resultat::create($data);
+      return $resultat;
    }
 }

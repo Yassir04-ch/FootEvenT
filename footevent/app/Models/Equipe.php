@@ -35,4 +35,6 @@ class Equipe extends Model
     {
         return $this->hasMany(Game::class, 'equipe2_id');
     }
+
+    
 }

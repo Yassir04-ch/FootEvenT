@@ -67,7 +67,9 @@ class GameController extends Controller
      */
     public function show(Game $game)
     {
-        //
+        $game->load(['equipe1', 'equipe2', 'tournoi', 'resultat']);
+
+        return view('games.show', compact('game'));
     }
 
     /**

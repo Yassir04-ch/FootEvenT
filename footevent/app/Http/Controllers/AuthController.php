@@ -34,12 +34,12 @@ class AuthController extends Controller
         $this->service->register($request->validated());
         $user = Auth::user();
          if($user->role->name == "organisateur" ){
-                return redirect()->route('organisateur.index');
+                return redirect()->route('Organisateur.index');
             }
             else if($user->role->name  == "Administrateur" ){
                 return redirect()->route('admin.index');
             }
-            else if($user->role->name == "joueur"){
+            else if($user->role->name == "Joueur"){
                 return redirect()->route('joueurs.create');
             }else{
                 return redirect('/');
@@ -59,13 +59,13 @@ class AuthController extends Controller
 
         $request->session()->regenerate();
 
-       if($result['role'] == "organisateur" ){
+       if($result['role'] == "Organisateur" ){
          return redirect()->route('organisateur.index');
        }
        else if($result['role'] == "Administrateur" ){
          return redirect()->route('admin.index');
        }
-       else if($result['role'] == "joueur"){
+       else if($result['role'] == "Joueur"){
          return redirect()->route('joueurs.index');
        }else{
           return redirect('/');

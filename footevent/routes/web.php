@@ -8,6 +8,7 @@ use App\Http\Controllers\JoueurController;
 use App\Http\Controllers\OrganisateurController;
 use App\Http\Controllers\GameController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ResultatController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -35,7 +36,9 @@ Route::get('/equipes/{equipe}/joueurs', [EquipeController::class, 'joueurs'])->n
 Route::post('/equipes/{equipe}/joueurs/{joueur}/valider', [EquipeController::class, 'validerJoueur'])->name('equipes.joueurs.valider');
 Route::post('/equipes/{equipe}/joueurs/{joueur}/refuser', [EquipeController::class, 'refuserJoueur'])->name('equipes.joueurs.refuser');
 
+Route::post('/joueurs/store', [JoueurController::class, 'store'])->name('joueurs.store');
 Route::resource("joueurs", JoueurController::class);
+
 Route::post("/equipes/{equipe}/join", [JoueurController::class,'joinEquipe'])->name('equipes.join');
 Route::put("/equipes/{equipe}/quitter", [JoueurController::class,'quitterEquipe'])->name('equipes.quitter');
 Route::resource("equipes", EquipeController::class);
@@ -52,4 +55,7 @@ Route::get('/admin',[AdminController::class,'index'])->name('admin.index');
 Route::get('/games/index',[GameController::class,'index'])->name('games.index');
 Route::get('/games/{tournoi}/create',[GameController::class,'create'])->name('games.create');
 Route::post('/games/{tournoi}/store',[GameController::class,'store'])->name('games.store');
-Route::get('/games/{game}/store',[GameController::class,'show'])->name('games.show');
+Route::get('/games/{game}/show',[GameController::class,'show'])->name('games.show');
+
+Route::get('/resultats/{game}/create',[ResultatController::class,'create'])->name('resultats.create');
+Route::post('/resultats/{game}/create',[ResultatController::class,'store'])->name('resultats.store');

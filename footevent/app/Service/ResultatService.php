@@ -1,12 +1,12 @@
 <?php
 namespace App\Service;
-use App\Repositories\ResultatReposiroty;
+use App\Repositories\ResultatRepository;
 use App\Models\Resultat;
 use App\Models\Game;
 
 class ResultatService{
     private $repository;
-    public function __construct(ResultatReposiroty $repository){
+    public function __construct(ResultatRepository $repository){
         $this->repository = $repository;
     }
 
@@ -17,7 +17,7 @@ class ResultatService{
 
     public function create(array $data,Game $game){
         $result = $this->repository->create($data);
-        $game->update(['status'=>'termine']);
+        $game->update(['statut'=>'termine']);
         return $result;
     }
 }

@@ -26,8 +26,7 @@ class ResultatController extends Controller
      */
     public function create(Game $game)
     {
-        
-        
+      return view('resultat.create',compact('game'));   
     }
 
     /**
@@ -41,9 +40,10 @@ class ResultatController extends Controller
         ]);
 
         $validated['game_id'] = $game->id;
+        $validated['date'] = "2026-07-02";
 
         $this->service->create($validated,$game);
-        return view('organisateur.matchs')->with('success','resultat du match est ajouter');
+        return redirect()->route('organisateur.matchs')->with('success','Résultat ajouter');
     }
 
     /**

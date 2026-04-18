@@ -57,7 +57,7 @@
             </div>
             <div>
                 <div class="text-sm font-semibold">
-                    {{ auth()->user()->firstname ?? 'Organisateur' }}
+                    {{ auth()->user()->firstname  }}
                 </div>
                 <div class="text-xs text-green-400">Organisateur</div>
             </div>
@@ -100,11 +100,11 @@
                     </span>
 
                     @if($game->statut == 'en_cours')
-                        <a href="" class="px-3 py-1.5 bg-yellow-400 rounded-lg text-gray-900 text-xs font-bold hover:bg-yellow-300">
+                        <a href="{{route('resultats.create',$game)}}" class="px-3 py-1.5 bg-yellow-400 rounded-lg text-gray-900 text-xs font-bold hover:bg-yellow-300">
                             + Créer Resultat
                         </a>
                     @elseif($game->statut == 'termine')
-                         <a href=""  class="px-3 py-1.5 bg-yellow-400 rounded-lg text-gray-900 text-xs font-bold hover:bg-yellow-300">
+                         <a href="{{route('games.show',$game)}}"  class="px-3 py-1.5 bg-yellow-400 rounded-lg text-gray-900 text-xs font-bold hover:bg-yellow-300">
                             voir Resultat
                         </a>
                     @endif

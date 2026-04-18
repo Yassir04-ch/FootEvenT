@@ -12,4 +12,9 @@ class Resultat extends Model
     {
         return $this->belongsTo(Game::class);
     }
+
+    public function winner()
+    {
+        return $this->belongsTo(Equipe::class);
+    }
 }
