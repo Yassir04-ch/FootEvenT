@@ -43,9 +43,12 @@ class JoueurController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-     public function store(JoueurRequest $request)
+     public function store(Request $request)
     {
-        $validated = $request->validated();
+        $validated = $request->validate([
+             'poste' => "required|string",
+             'age'  => "required|integer",
+        ]);
         $result = $this->service->createJoueur($validated);
 
         if (!$result['success']) {

@@ -38,4 +38,8 @@ class GameRepository
       $gamecour = Game::Where('statut','en_cours')->get();
       return $gamecour;
     }
+
+    public function UpdateStatut(Game $game,$statut){
+        $game->update(['statut'=>$statut]);
+    }
 }

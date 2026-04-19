@@ -28,6 +28,7 @@ Route::post('/tournois/{tournoi}/equipes/{equipe}/valider', [TournoiController::
 Route::post('/tournois/{tournoi}/equipes/{equipe}/refuser', [TournoiController::class, 'refuserEquipe'])->name('tournois.equipes.refuser');
 Route::put('/tournois/{tournoi}/demarer', [TournoiController::class, 'demarerTournoi'])->name('tournois.demarer');
 Route::put('/tournois/{tournoi}/terminer', [TournoiController::class, 'terminerTournoi'])->name('tournois.terminer');
+Route::get('/tournois/{tournoi}/show', [TournoiController::class, 'show'])->name('tournois.show');
 Route::resource('tournois', TournoiController::class);
 
 Route::post('/equipes/{equipe}/valider', [EquipeController::class, 'valider'])->name('equipes.valider');
@@ -55,6 +56,7 @@ Route::get('/admin',[AdminController::class,'index'])->name('admin.index');
 Route::get('/games/index',[GameController::class,'index'])->name('games.index');
 Route::get('/games/{tournoi}/create',[GameController::class,'create'])->name('games.create');
 Route::post('/games/{tournoi}/store',[GameController::class,'store'])->name('games.store');
+Route::put('/games/{game}/demarer',[GameController::class,'demarerGame'])->name('games.demarer');
 Route::get('/games/{game}/show',[GameController::class,'show'])->name('games.show');
 
 Route::get('/resultats/{game}/create',[ResultatController::class,'create'])->name('resultats.create');

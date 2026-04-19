@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Service\OrganisateurService;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\Equipe;
 
 class OrganisateurController extends Controller
 {
@@ -14,7 +15,19 @@ class OrganisateurController extends Controller
   }
 
     public function index(){
-        return view('organisateur.index');
+      $organisateur = Auth::user();
+      $tournoicount = $organisateur->tournois()->count();
+      $tournoiencourcount = $organisateur->tournois()->where('status','en_cours')->count();
+      $tournoienattentcount = $organisateur->tournois()->where('status','en_attente')->count();
+      $tournoiterminecount = $organisateur->tournois()->where('status','termine')->count();
+      
+      $equipecount = Equipe::whereHas('tournois',function($q) use ($organisateur){
+        $q->where('user_id',$organisateur->id);})->count();
+
+      $equipeenattent = Equipe::whereHas('tournois',function($q) use ($organisateur){
+        $q->where('user_id',$organisateur->id)->where('equipe_tournois.statut','en_attente');})->count();
+
+        return view('organisateur.index',compact('tournoicount','tournoiencourcount','tournoienattentcount','tournoiterminecount','equipecount','equipeenattent'));
     }
 
     public function Tournois()

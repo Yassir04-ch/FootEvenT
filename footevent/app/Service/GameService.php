@@ -46,5 +46,9 @@ class GameService
         return $gamepro;
     }
 
+    public function demarerGame($game){
+        $this->repository->UpdateStatut($game,'en_cours');
+    }
+
    
 }

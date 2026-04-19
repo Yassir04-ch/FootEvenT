@@ -40,8 +40,6 @@ class ResultatController extends Controller
         ]);
 
         $validated['game_id'] = $game->id;
-        $validated['date'] = "2026-07-02";
-
         $this->service->create($validated,$game);
         return redirect()->route('organisateur.matchs')->with('success','Résultat ajouter');
     }

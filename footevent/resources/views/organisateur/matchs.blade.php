@@ -34,10 +34,6 @@
                 <span class="text-base">🏆</span> Mes Tournois
                 <span class="ml-auto bg-gray-700 text-gray-300 text-xs px-2 py-0.5 rounded-full"> 10 </span>
             </a>
-            <a href="{{ route('equipes.index') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-400 text-sm font-medium hover:bg-gray-800 hover:text-white no-underline">
-                <span class="text-base">👥</span> Équipes
-                <span class="ml-auto bg-yellow-400 text-gray-900 text-xs px-2 py-0.5 rounded-full font-bold"> 2</span>
-            </a>
             <a href="" class="flex items-center gap-3 px-3 py-2.5 rounded-xl bg-green-400 bg-opacity-10 border border-green-400 border-opacity-20 text-green-400 text-sm font-medium no-underline">
                 <span class="text-base">⚽</span> Matchs
             </a>
@@ -65,6 +61,7 @@
     </div>
 
 </aside>
+ 
 
 <main class="ml-64 flex-1 flex flex-col">
 
@@ -100,13 +97,20 @@
                     </span>
 
                     @if($game->statut == 'en_cours')
-                        <a href="{{route('resultats.create',$game)}}" class="px-3 py-1.5 bg-yellow-400 rounded-lg text-gray-900 text-xs font-bold hover:bg-yellow-300">
+                        <a href="{{route('resultats.create',$game)}}" class="px-3 py-1.5 bg-green-400 rounded-lg text-gray-900 text-xs font-bold">
                             + Créer Resultat
                         </a>
                     @elseif($game->statut == 'termine')
                          <a href="{{route('games.show',$game)}}"  class="px-3 py-1.5 bg-yellow-400 rounded-lg text-gray-900 text-xs font-bold hover:bg-yellow-300">
                             voir Resultat
                         </a>
+                    @else
+                    <form action="{{route('games.demarer',$game)}}"  method="POST" >
+                        @csrf
+                        @method('put')
+                        <button type="submit" class="px-3 py-1.5 bg-green-400 rounded-lg text-gray-900 text-xs font-bold">
+                            Démarer Match
+                        </button>
                     @endif
                 </div>
                 </div>

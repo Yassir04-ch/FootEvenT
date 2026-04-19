@@ -60,7 +60,7 @@ class TournoiController extends Controller
         $statutInscription = null;
         $user_id = Auth::id();
 
-        if (Auth::check() && Auth::user()->role->name == 'joueur') {
+        if (Auth::check() && Auth::user()->role->name == 'Joueur') {
             $monEquipe = Equipe::where('capitaine_id',$user_id)->first();
             if ($monEquipe) {
                 $inscription = $monEquipe->tournois()->where('tournoi_id', $tournoi->id)->first();

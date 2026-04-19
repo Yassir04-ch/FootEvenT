@@ -24,17 +24,13 @@
         </div>
 
         <nav class="flex-1 px-4 py-6 flex flex-col gap-1">
-
-            <a href="{{route('admin.index')}}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-400 hover:bg-gray-800">👤 Utilisateurs</a>
-
-            <a href="{{route('admin.tournois')}}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-400 hover:bg-gray-800">🏆 Tournois</a>
-
-            <a href="" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-400 hover:bg-gray-800">👥 Équipes</a>
-
-            <a href="" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-400 hover:bg-gray-800">⚽ Matchs</a>
-
-            <a href="" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-400 hover:bg-gray-800">📊 Résultats</a>
-            
+          @if(auth()->user()->role->name == 'Organisateur')
+            <a href="{{route('organisateur.index')}}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-400 hover:bg-gray-800">Dashboard</a>
+          @elseif(auth()->user()->role->name == 'Administrateur')
+            <a href="{{route('admin.index')}}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-400 hover:bg-gray-800">Dashboard</a>
+          @else
+            <a href="{{route('joueurs.index')}}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-400 hover:bg-gray-800">Dashboard</a>
+         @endif
              <form method="POST" action="{{ route('auth.destroy') }}">
                 @csrf
                  <button type="submit" class="px-5 py-2 border border-gray-600 rounded-lg text-gray-400 text-sm font-medium hover:border-red-500 hover:text-red-400">

@@ -206,7 +206,7 @@
           <div class="space-y-3">
             <div class="flex justify-between text-sm">
               <span class="text-gray-500">Format</span>
-              <span class="font-medium">{{ $tournoi->format }}</span>
+              <span class="font-medium">Eliminate</span>
             </div>
             <div class="h-px bg-gray-800"></div>
             <div class="flex justify-between text-sm">
@@ -233,12 +233,11 @@
           </div>
         </div>
 
-        <!-- Organisateur -->
         <div class="bg-gray-900 border border-gray-800 rounded-2xl p-5">
           <h3 class="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-4">Organisateur</h3>
           <div class="flex items-center gap-3">
             <div class="w-10 h-10 rounded-xl bg-green-950 border border-green-800 flex items-center justify-center text-green-400 font-bold">
-              {{ strtoupper(substr($tournoi->organisateur->firstname,0, 1)) }}
+              {{ substr($tournoi->organisateur->firstname,0, 1) }}
             </div>
             <div>
               <p class="font-medium text-sm">{{ $tournoi->organisateur->firstname}} {{ $tournoi->organisateur->lastname}}</p>
@@ -247,7 +246,7 @@
           </div>
         </div>
 
-         @if(auth()->check() && auth()->user()->role->name == 'joueur')
+         @if(auth()->check() && auth()->user()->role->name == 'Joueur')
           @if($monEquipe && !$dejaInscrit && $tournoi->status == 'en_attente')
             <form action="{{ route('tournois.join', $tournoi) }}" method="POST">
               @csrf

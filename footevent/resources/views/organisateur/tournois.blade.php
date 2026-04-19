@@ -30,10 +30,7 @@
             <a href="{{ route('organisateur.tournois') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl bg-green-400 bg-opacity-10 border border-green-400 border-opacity-20 text-green-400 text-sm font-medium no-underline">
                 <span class="text-base">🏆</span> Mes Tournois
             </a>
-            <a href="{{ route('organisateur.index') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-400 text-sm font-medium hover:bg-gray-800 hover:text-white no-underline">
-                <span class="text-base">👥</span> Équipes
-            </a>
-            <a href="{{ route('organisateur.index') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-400 text-sm font-medium hover:bg-gray-800 hover:text-white no-underline">
+            <a href="{{ route('organisateur.matchs') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-400 text-sm font-medium hover:bg-gray-800 hover:text-white no-underline">
                 <span class="text-base">⚽</span> Matchs
             </a>
         </nav>

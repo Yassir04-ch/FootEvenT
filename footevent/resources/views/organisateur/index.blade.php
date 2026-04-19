@@ -12,8 +12,8 @@
 <div class="flex min-h-screen">
 
     <aside class="w-64 border-r border-gray-800 flex flex-col fixed top-0 left-0 h-full z-40" style="background:#070a0f">
-        <!-- Logo -->
-        <div class="px-6 py-6 border-b border-gray-800">
+ 
+     <div class="px-6 py-6 border-b border-gray-800">
             <div class="flex items-center gap-3">
                 <div class="w-8 h-8 bg-green-400 rounded-full flex items-center justify-center text-base">⚽</div>
                 <span class="text-xl text-green-400 tracking-widest" style="font-family:'Bebas Neue',cursive">FootEvenT</span>
@@ -33,10 +33,6 @@
             <a href="{{ route('organisateur.tournois') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-400 text-sm font-medium hover:bg-gray-800 hover:text-white no-underline">
                 <span class="text-base">🏆</span> Mes Tournois
                 <span class="ml-auto bg-gray-700 text-gray-300 text-xs px-2 py-0.5 rounded-full"> 10 </span>
-            </a>
-            <a href="{{ route('equipes.index') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-400 text-sm font-medium hover:bg-gray-800 hover:text-white no-underline">
-                <span class="text-base">👥</span> Équipes
-                <span class="ml-auto bg-yellow-400 text-gray-900 text-xs px-2 py-0.5 rounded-full font-bold"> 2</span>
             </a>
             <a href="{{route('organisateur.matchs')}}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-400 text-sm font-medium hover:bg-gray-800 hover:text-white no-underline">
                 <span class="text-base">⚽</span> Matchs
@@ -65,7 +61,6 @@
         <div class="sticky top-0 z-30 flex items-center justify-between px-8 py-4 bg-gray-900 border-b border-gray-800">
             <div>
                 <h1 class="text-xl font-bold text-white">Bonjour, {{ auth()->user()->firstname}} 👋</h1>
-                <p class="text-xs text-gray-400 mt-0.5">{{ now()->format('l, d M Y') }}</p>
             </div>
             <div class="flex items-center gap-3">
                 <a href="{{ route('tournois.create') }}" class="flex items-center gap-2 px-5 py-2 bg-green-400 rounded-xl text-gray-900 font-bold text-sm hover:bg-green-300 no-underline">
@@ -75,30 +70,50 @@
                     <button class="w-9 h-9 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 hover:text-white border border-gray-700">🔔</button>
                     <span class="absolute -top-1 -right-1 w-4 h-4 bg-green-400 rounded-full text-gray-900 text-xs font-bold flex items-center justify-center">2</span>
                 </div>
-                <div class="w-9 h-9 bg-green-500 rounded-full flex items-center justify-center text-white font-bold text-sm">{{ strtoupper(substr(auth()->user()->firstname,0,1)) }}</div>
+                <div class="w-9 h-9 bg-green-500 rounded-full flex items-center justify-center text-white font-bold text-sm">{{ substr(auth()->user()->firstname,0,1)}}</div>
             </div>
         </div>
 
         <div class="flex-1 px-8 py-8">
 
-            <div class="grid grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
-                <div class="bg-gray-800 rounded-2xl border border-gray-700 p-6">
-                    <div class="flex items-center justify-between mb-4">
-                        <span class="text-gray-400 text-sm">Mes Tournois</span>
-                        <div class="w-9 h-9 bg-green-900 rounded-xl flex items-center justify-center text-lg">🏆</div>
-                    </div>
-                    <div class="text-3xl font-bold text-white" style="font-family:'Bebas Neue',cursive"> 3</div>
-                </div>
-                <div class="bg-gray-800 rounded-2xl border border-gray-700 p-6">
-                    <div class="flex items-center justify-between mb-4">
-                        <span class="text-gray-400 text-sm">Équipes inscrites</span>
-                        <div class="w-9 h-9 bg-blue-900 rounded-xl flex items-center justify-center text-lg">👥</div>
-                    </div>
-                    <div class="text-3xl font-bold text-white" style="font-family:'Bebas Neue',cursive">10</div>
-                </div>
-            </div>
+      <div class="grid grid-cols-2 lg:grid-cols-3 gap-5 mb-8">
 
+
+       <div class="bg-gray-800 rounded-2xl border border-gray-700 p-6">
+            <span class="text-gray-400 text-sm">Mes Tournois</span>
+            <div class="text-3xl font-bold">{{ $tournoicount }}</div>
         </div>
+
+        <div class="bg-gray-800 rounded-2xl border border-gray-700 p-6">
+            <span class="text-gray-400 text-sm">En cours</span>
+            <div class="text-3xl font-bold text-green-400">{{ $tournoiencourcount }}</div>
+        </div>
+
+        <div class="bg-gray-800 rounded-2xl border border-gray-700 p-6">
+            <span class="text-gray-400 text-sm">En attente</span>
+            <div class="text-3xl font-bold text-yellow-400">{{ $tournoienattentcount }}</div>
+        </div>
+
+        <div class="bg-gray-800 rounded-2xl border border-gray-700 p-6">
+            <span class="text-gray-400 text-sm">Terminés</span>
+            <div class="text-3xl font-bold text-red-400">{{ $tournoiterminecount }}</div>
+        </div>
+
+        
+        <div class="bg-gray-800 rounded-2xl border border-gray-700 p-6">
+            <span class="text-gray-400 text-sm">Equipes</span>
+            <div class="text-3xl font-bold text-blue-400">{{$equipecount}}</div>
+        </div>
+
+        <div class="bg-gray-800 rounded-2xl border border-gray-700 p-6">
+            <span class="text-gray-400 text-sm">Equipe En attente</span>
+            <div class="text-3xl font-bold text-yellow-400">{{$equipeenattent}}</div>
+        </div>
+        
+        </div>
+
+
+    </div>
     </main>
 </div>
 

@@ -52,6 +52,7 @@ class GameController extends Controller
             'terrain' => 'required|string|max:255',
             'equipe1_id' => 'required|exists:equipes,id',
             'equipe2_id' => 'required|exists:equipes,id',
+            'heure'=> 'required'
         ]);
         $validated['tournoi_id'] = $tournoi->id;
         $result = $this->service->createGame($validated);
@@ -62,9 +63,11 @@ class GameController extends Controller
         return redirect()->back()->with('success',$result['message']);
     }
 
-    /**
-     * Display the specified resource.
-     */
+    public function demarerGame(Game $game){
+      $this->service->demarerGame($game);
+      return back()->with('success','Match est Démarer');
+    }
+
     public function show(Game $game)
     {
         $game->load(['equipe1', 'equipe2', 'tournoi', 'resultat']);
@@ -72,25 +75,17 @@ class GameController extends Controller
         return view('games.show', compact('game'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Game $game)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+
     public function update(Request $request, Game $game)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Game $game)
     {
         //
