@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->integer('points')->default(0);
             $table->integer('goals_scored')->default(0);
-            $table->integer('goals_conceded')->default(0);
             $table->integer('position')->nullable();
             $table->foreignId('equipe_id')->constrained('equipes')->onDelete('cascade');
             $table->foreignId('tournoi_id')->constrained('tournois')->onDelete('cascade');

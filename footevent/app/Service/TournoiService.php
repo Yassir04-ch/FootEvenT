@@ -100,8 +100,19 @@ class TournoiService
         if ($tournoi->user_id != $user_id) {
             return ['success' => false, 'message' => 'Action non autorisée.'];
         }
+        $niveau = "groupe";
+        if($tournoi->nbEquipes == 16){
+            $niveau = "huitieme";
+        }
+        elseif($tournoi->nbEquipes == 8){
+            $niveau = "quart";
+        }
+         elseif($tournoi->nbEquipes == 4){
+            $niveau = "demi";
+        }
+        
         $tournoi_id = $tournoi->id;
-        $this->repository->validerEquipe($equipe,$tournoi_id);
+        $this->repository->validerEquipe($equipe,$tournoi_id,$niveau);
         return ['success' => true, 'message' => 'Équipe validée avec succès.'];
     }
 

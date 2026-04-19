@@ -81,8 +81,11 @@
             </div>
           </div>
 
-           @if(auth()->check() && auth()->id() == $tournoi->user_id)
           <div class="flex flex-col gap-2 flex-shrink-0">
+            <a href="{{ route('classement.index', $tournoi) }}" class="flex items-center gap-2 px-4 py-2 rounded-xl border border-gray-700 text-sm text-gray-300 hover:border-green-600 hover:text-green-400 transition-colors">
+              classement
+            </a>
+           @if(auth()->check() && auth()->id() == $tournoi->user_id)
             <a href="{{ route('tournois.edit', $tournoi) }}" class="flex items-center gap-2 px-4 py-2 rounded-xl border border-gray-700 text-sm text-gray-300 hover:border-green-600 hover:text-green-400 transition-colors">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
               Modifier

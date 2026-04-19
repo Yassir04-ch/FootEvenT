@@ -9,6 +9,7 @@ use App\Http\Controllers\OrganisateurController;
 use App\Http\Controllers\GameController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ResultatController;
+use App\Http\Controllers\ClassementController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -62,3 +63,5 @@ Route::get('/games/{game}/show',[GameController::class,'show'])->name('games.sho
 
 Route::get('/resultats/{game}/create',[ResultatController::class,'create'])->name('resultats.create');
 Route::post('/resultats/{game}/create',[ResultatController::class,'store'])->name('resultats.store');
+
+Route::get('/classement/{tournoi}/niveau',[ClassementController::class,'Niveau'])->name('classement.index');

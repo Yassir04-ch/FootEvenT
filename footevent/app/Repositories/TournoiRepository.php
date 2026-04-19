@@ -47,13 +47,14 @@ class TournoiRepository
         $equipe->tournois()->attach($tournoi->id, ['statut' => 'en_attente']);
     }
 
-    public function validerEquipe($equipe , $tournoi_id ){
+    public function validerEquipe($equipe , $tournoi_id , $niveau){
         
          $equipe->tournois()->updateExistingPivot($tournoi_id, ['statut' => 'validee']);
+         $equipe->tournois()->updateExistingPivot($tournoi_id, ['niveau' => $niveau]);
     }
 
      public function refuserEquipe($equipe , $tournoi_id){
-         $equipe->tournois()->updateExistingPivot($tournoi_id, ['statut' => 'refusee']);
+         $equipe->tournois()->updateExistingPivot($tournoi_id, ['niveau' => 'refusee']);
     }
     
     public function getEquipesValidees(Tournoi $tournoi)
