@@ -9,7 +9,6 @@
 </head>
 <body class="bg-gray-950 text-gray-100 font-outfit min-h-screen">
 
-  <!-- Navbar -->
   <nav class="sticky top-0 z-50 flex items-center justify-between px-8 h-16 bg-gray-950/80 backdrop-blur border-b border-gray-800">
     <div class="flex items-center gap-3">
       <div class="w-9 h-9 bg-green-400 rounded-lg flex items-center justify-center">
@@ -63,7 +62,6 @@
   </div>
   @endif
 
-  <!-- Hero -->
   <section class="px-8 pt-16 pb-10 flex items-end justify-between gap-8">
     <div>
       <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-green-950 border border-green-800 text-green-400 text-xs font-medium tracking-widest uppercase mb-5">
@@ -118,12 +116,16 @@
         </div>
 
         <div class="p-5">
-          <p class="text-xs text-gray-500 mb-2">🏆 {{ $equipe->tournois->first()->name_tournoi }}</p>
+          @if($equipe->tournois)
+            @foreach($equipe->tournois as $tournoi)
+            <p class="text-xs text-gray-500 mb-2">🏆 {{ $tournoi->name_tournoi }}</p>
+            @endforeach
+           @endif
           <h2 class="font-bebas text-2xl tracking-wide leading-tight mb-2">{{ $equipe->name_equipe }}</h2>
           <p class="text-xs text-gray-400 leading-relaxed line-clamp-2">{{ $equipe->description }}</p>
         </div>
 
-        <!-- Footer -->
+
         <div class="px-5 py-3 flex items-center justify-between border-t border-gray-800">
           <div class="flex items-center gap-2 text-xs text-gray-400">
             <div class="w-6 h-6 rounded-full bg-green-950 border border-green-800 flex items-center justify-center text-green-400 font-bold text-xs">

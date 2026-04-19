@@ -3,6 +3,7 @@
 namespace App\Service;
 use App\Models\Equipe;
 use App\Models\Joueur;
+use Illuminate\Http\Request;
 use App\Repositories\JoueurRepository;
 use Illuminate\Support\Facades\Auth;
 
@@ -13,6 +14,11 @@ class JoueurService
     public function __construct(JoueurRepository $repository)
     {
         $this->repository = $repository;
+    }
+
+    public function joueurs(Request $request){
+        $joueurs = $this->repository->getJoueurs($request);
+        return $joueurs;
     }
 
     public function createJoueur(array $data)

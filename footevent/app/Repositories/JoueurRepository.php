@@ -1,15 +1,18 @@
 <?php
 
 namespace App\Repositories;
-
+use Illuminate\Http\Request;
 use App\Models\Joueur;
 
 class JoueurRepository
 {
-    public function getJoueurs()
+    public function getJoueurs(Request $request)
     {
-        $joueurs = Joueur::all();
-        return $joueurs;
+        $joueurs = Joueur::with('user');
+        if($request->has('poste')){
+            $joueurs->where('poste',$request->poste);
+        }
+        return $joueurs->get();
     }
 
     public function createJoueur(array $data)
@@ -34,7 +37,6 @@ class JoueurRepository
     {
         $jpueur = Joueur::where('age', $age)->get();
         return  $joueurs;
-
     }
     
 }

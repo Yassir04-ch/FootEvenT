@@ -38,26 +38,8 @@ class EquipeService
 
     public function create($validated, $user)
     {
-        $tournoi = Tournoi::find($validated['tournoi_id']);
         $capitane_id = $user->id;
         $joueur = $user->joueur;
-        if (!$tournoi) {
-            return ['success' => false, 'message' => 'Tournoi introuvable.'];
-        }
-
-        if ($tournoi->status !== 'en_attente') {
-            return ['success' => false, 'message' => "Ce tournoi n'accepte pas d'inscriptions."];
-        }
-
-         $nbEquipes = $tournoi->equipes()->wherePivot('statut', 'validee')->count();
-        if ($nbEquipes >= $tournoi->nbEquipes) {
-            return ['success' => false, 'message' => 'Le nombre des equipes du tournoi est complet.'];
-        }
-
-        $capitane = $tournoi->equipes()->where('capitaine_id', $capitane_id)->exists();
-        if ($capitane) {
-            return ['success' => false, 'message' => 'Vous avez déjà une équipe dans ce tournoi.'];
-        }
 
          $chekactif = $joueur->equipes()->wherePivot('statut', 'actif')->exists();
 
@@ -72,7 +54,6 @@ class EquipeService
          $validated['capitaine_id'] = $capitane_id; 
          $equipe = $this->repository->create($validated);
 
-         $equipe->tournois()->attach($validated['tournoi_id'], ['statut' => 'en_attente']);
          $joueur->equipes()->attach($equipe->id, ['statut' => 'actif']);
          
         return ['success' => true, 'message' => 'Equipe créée avec succès.', 'equipe' => $equipe];

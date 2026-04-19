@@ -38,6 +38,7 @@ Route::post('/equipes/{equipe}/joueurs/{joueur}/valider', [EquipeController::cla
 Route::post('/equipes/{equipe}/joueurs/{joueur}/refuser', [EquipeController::class, 'refuserJoueur'])->name('equipes.joueurs.refuser');
 
 Route::post('/joueurs/store', [JoueurController::class, 'store'])->name('joueurs.store');
+Route::get('/joueurs/joueurs', [JoueurController::class, 'joueurs'])->name('joueurs.joueurs');
 Route::resource("joueurs", JoueurController::class);
 
 Route::post("/equipes/{equipe}/join", [JoueurController::class,'joinEquipe'])->name('equipes.join');

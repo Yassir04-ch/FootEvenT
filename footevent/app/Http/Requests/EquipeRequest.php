@@ -23,7 +23,6 @@ class EquipeRequest extends FormRequest
     {
         return [
             'name_equipe' => "required|string|max:100",
-            'tournoi_id'  => "required|exists:tournois,id",
             'image'=> "required|image",
             'description'  => "nullable|string",
         ];

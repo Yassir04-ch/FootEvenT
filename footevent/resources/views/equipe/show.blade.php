@@ -35,7 +35,7 @@
         <h1 class="font-bebas text-4xl text-green-400 mb-2">{{ $equipe->name_equipe }}</h1>
         <p class="text-gray-400 text-sm mb-4">{{ $equipe->description }}</p>
 
-       @if(auth()->check() && auth()->user()->role->name == "joueur")
+       @if(auth()->check() && auth()->user()->role->name == "Joueur")
           @if(!auth()->user()->joueur->activeJoueur() && !$isEnAttente)
             <form action="{{ route('equipes.join', $equipe) }}" method="POST" class="mb-4">
                 @csrf

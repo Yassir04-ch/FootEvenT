@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('equipe_id')->constrained('equipes')->onDelete('cascade');
             $table->foreignId('tournoi_id')->constrained('tournois')->onDelete('cascade');
-            $table->enum('statut', ['en_attente', 'validee', 'refusee','eliminate'])->default('en_attente');
+            $table->enum('statut', ['en_attente', 'validee', 'refusee','eliminate','winner'])->default('en_attente');
             $table->unique(['equipe_id', 'tournoi_id']);
             $table->timestamps();
         });

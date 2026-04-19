@@ -58,34 +58,14 @@ class JoueurController extends Controller
         return redirect()->route('joueurs.index')->with('success', $result['message']);
     }
 
-    /**
-     * Display the specified resource.
-     */
+    
     public function show(Joueur $joueur)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Joueur $joueur)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
+    
     public function update(Request $request, Joueur $joueur)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Joueur $joueur)
     {
         //
     }
@@ -111,6 +91,11 @@ class JoueurController extends Controller
        $joueur = $user->joueur;
        $this->service->quitterEquipe($joueur, $equipe);
        return redirect()->route('equipes.index')->with('success', "Vous avez quitte équipe");
+    }
+
+    public function joueurs(Request $request ){
+       $joueurs = $this->service->joueurs($request);
+       return view('joueur.joueurs',compact('joueurs'));
     }
 
 }

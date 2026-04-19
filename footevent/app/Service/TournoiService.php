@@ -153,7 +153,7 @@ class TournoiService
     }
 
     public function eliminerEquipe(){
-
+       
     }
 
 

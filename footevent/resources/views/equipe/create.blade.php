@@ -69,19 +69,6 @@
       </div>
 
      <div>
-      <label class="block text-xs font-semibold text-gray-400 uppercase tracking-widest mb-2">Tournoi *</label>
-      <select name="tournoi_id" class="w-full bg-gray-950 border border-gray-700 rounded-xl px-4 py-3 text-sm text-gray-100 focus:outline-none focus:border-green-600 focus:ring-1 focus:ring-green-600/30 transition-colors" >
-        <option value="">Sélectionner un tournoi</option>
-        @foreach($tournois as $tournoi)
-          <option value="{{ $tournoi->id }}">
-            {{ $tournoi->name_tournoi}}
-          </option>
-        @endforeach
-      </select>
-     </div>
-
-
-     <div>
       <label class="block text-xs font-semibold text-gray-400 uppercase tracking-widest mb-2">Description <span class="normal-case text-gray-600 font-normal">(optionnel)</span></label>
       <textarea name="description" rows="3"placeholder="Décrivez votre équipe..."
         class="w-full bg-gray-950 border border-gray-700 rounded-xl px-4 py-3 text-sm text-gray-100 placeholder-gray-600 focus:outline-none focus:border-green-600 focus:ring-1 focus:ring-green-600/30 transition-colors resize-none">
