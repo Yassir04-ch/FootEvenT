@@ -6,10 +6,6 @@
     <title>FootEvenT — Dashboard Joueur</title>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        .font-bebas { font-family: 'Bebas Neue', cursive; }
-        .font-outfit { font-family: 'Outfit', sans-serif; }
-    </style>
 </head>
 <body class="bg-gray-900 text-white font-outfit min-h-screen">
 
@@ -115,14 +111,11 @@
         </div>
     </div>
 
-    <!-- CONTENT -->
     <div class="max-w-6xl mx-auto px-10 py-10">
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
 
-            <!-- LEFT COL -->
             <div class="lg:col-span-2 flex flex-col gap-8">
 
-                <!-- MON EQUIPE -->
                 <div class="bg-gray-800 rounded-2xl border border-gray-700 p-8">
                     <div class="flex items-center justify-between mb-6">
                         <h2 class="text-xl font-bold text-white">Mon Équipe</h2>
@@ -188,7 +181,6 @@
                         @endif
                 </div>
 
-                <!-- MATCHS -->
                 <div class="bg-gray-800 rounded-2xl border border-gray-700 p-8">
                     <h2 class="text-xl font-bold text-white mb-6">Mes Prochains Matchs</h2>
                     <div class="flex flex-col items-center justify-center py-10 text-center">
@@ -200,9 +192,7 @@
 
             </div>
 
-            <!-- RIGHT COL -->
             <div class="flex flex-col gap-6">
-                <!-- PROFIL -->
                 <div class="bg-gray-800 rounded-2xl border border-gray-700 p-6">
                     <h3 class="text-base font-bold text-white mb-5">Mon Profil</h3>
                     <div class="flex flex-col items-center text-center mb-5">
@@ -231,7 +221,6 @@
                     </div>
                 </div>
 
-                <!-- TOURNOIS -->
                 <div class="bg-gray-800 rounded-2xl border border-gray-700 p-6">
                     <h3 class="text-base font-bold text-white mb-2">Tournois disponibles</h3>
                     <p class="text-gray-400 text-xs mb-5 leading-relaxed">Découvrez les tournois ouverts.</p>

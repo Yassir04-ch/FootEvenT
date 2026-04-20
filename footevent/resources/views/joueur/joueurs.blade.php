@@ -18,14 +18,14 @@
     <span class="font-bebas text-2xl text-green-400 tracking-widest">FootEvenT</span>
   </div>
 
-  <div class="flex items-center gap-2">
-    <a href="{{route('tournois.index')}}" class="px-4 py-2 text-sm text-gray-400 hover:text-white">Tournois</a>
-    <a href="{{route('equipes.index')}}" class="px-4 py-2 text-sm text-gray-400 hover:text-white">Équipes</a>
-    <a href="{{route('joueurs.index')}}" class="px-4 py-2 text-sm bg-gray-800 rounded-lg text-white">Joueurs</a>
-    <a href="{{route('games.index')}}" class="px-4 py-2 text-sm text-gray-400 hover:text-white">Matchs</a>
-    @if(auth()->user())
-    <a href="{{route('auth.profile')}}" class="px-4 py-2 text-sm text-gray-400 hover:text-white">Profile</a>
-    @endif
+  <div class="flex items-center gap-1">
+      <a href="{{route('tournois.index')}}" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-gray-100 hover:bg-gray-800 transition-colors">Tournois</a>
+      <a href="{{route('equipes.index')}}" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-gray-100 hover:bg-gray-800 transition-colors">Équipes</a>
+      <a href="{{route('games.index')}}" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-gray-100 hover:bg-gray-800 transition-colors">Matchs</a>
+      <a href="{{route('joueurs.joueurs')}}" class="px-4 py-2 rounded-lg text-sm font-medium bg-gray-800 text-gray-100">Joueurs</a>
+      @if(auth()->user())
+      <a href="{{route('auth.profile')}}" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-gray-100 hover:bg-gray-800 transition-colors">Profile</a>
+      @endif
   </div>
 
   <div>
