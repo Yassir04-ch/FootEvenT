@@ -38,9 +38,10 @@ class ResultatController extends Controller
         'scoreEq1' => 'required|integer',
         'scoreEq2' => 'required|integer',
         ]);
-
+        $id_equipe1 = $game->equipe1_id;
+        $id_equipe2 = $game->equipe2_id;
         $validated['game_id'] = $game->id;
-        $this->service->create($validated,$game);
+        $this->service->create($validated,$game,$id_equipe1,$id_equipe2);
         return redirect()->route('organisateur.matchs')->with('success','Résultat ajouter');
     }
 

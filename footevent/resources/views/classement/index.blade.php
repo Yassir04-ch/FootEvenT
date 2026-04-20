@@ -133,7 +133,7 @@
             <div class="flex items-center gap-1.5">
               <span class="w-1.5 h-1.5 rounded-full bg-green-400"></span>
               <span class="text-xs text-green-400">
-                niveauLabel
+                {{$niveau}}
               </span>
             </div>
           </div>

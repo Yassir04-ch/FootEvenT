@@ -15,7 +15,7 @@ class Equipe extends Model
 
      public function tournois()
     {
-        return $this->belongsToMany(Tournoi::class, 'equipe_tournois')->withPivot('statut')->withTimestamps();
+        return $this->belongsToMany(Tournoi::class, 'equipe_tournois')->withPivot('statut','niveau')->withTimestamps();
     }
 
 
