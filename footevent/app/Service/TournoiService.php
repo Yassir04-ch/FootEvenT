@@ -68,15 +68,15 @@ class TournoiService
         $equipe = Equipe::find($equipe_id);
 
         if (!$equipe) {
-            return ['success' => false, 'message' => 'Équipe introuvable.'];
+            return ['success' => false, 'message' => 'équipe introuvable.'];
         }
 
          if ($equipe->capitaine_id !== $user_id) {
-            return ['success' => false, 'message' => 'Seul le capitaine peut inscrire l\'équipe.'];
+            return ['success' => false, 'message' => 'seul le capitaine peut inscrire équipe.'];
         }
 
          if ($tournoi->status !== 'en_attente') {
-            return ['success' => false, 'message' => 'Ce tournoi n\'accepte plus d\'inscriptions.'];
+            return ['success' => false, 'message' => 'ce tournoi ne accepte plus inscriptions.'];
         }
 
          $dejajoin = $equipe->tournois()->where('tournoi_id', $tournoi->id)->exists();

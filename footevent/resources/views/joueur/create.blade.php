@@ -10,7 +10,6 @@
 </head>
 <body class="bg-gray-950 text-gray-100 min-h-screen" style="font-family:'Outfit',sans-serif">
 
-    <!-- Navbar simple -->
     <nav class="sticky top-0 z-50 flex items-center justify-between px-8 h-16 bg-gray-950/80 backdrop-blur border-b border-gray-800">
         <div class="text-2xl text-green-400 font-bold" style="font-family:'Bebas Neue',cursive">FootEvenT</div>
         <div class="flex items-center gap-2 text-sm text-gray-400">
@@ -32,12 +31,11 @@
         <form method="POST" action="{{ route('joueurs.store') }}" class="space-y-5 bg-gray-900 p-6 rounded-2xl border border-gray-800">
             @csrf
 
-            <!-- Poste -->
             <div>
                 <label for="poste" class="block text-xs font-medium text-gray-400 uppercase tracking-widest mb-2">Poste <span class="text-green-400">*</span></label>
                 <select name="poste" id="poste"
                     class="w-full bg-gray-950 border border-gray-700 text-gray-100 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500/20 transition-all">
-                    <option value="" > Choisir un poste </option>
+                    <option value=""> Choisir un poste </option>
                     <option value="attaquant">Attaquant</option>
                     <option value="defenseur">Défenseur</option>
                     <option value="milieu">Milieu</option>
@@ -46,7 +44,6 @@
                 <p id="errorPoste" class="text-red-400 text-xs mt-1 hidden">Le poste est requis.</p>
             </div>
 
-            <!-- Age -->
             <div>
                 <label for="age" class="block text-xs font-medium text-gray-400 uppercase tracking-widest mb-2">Âge <span class="text-green-400">*</span></label>
                 <input type="number" name="age" id="age" placeholder="ex: 20" min="12" max="60"

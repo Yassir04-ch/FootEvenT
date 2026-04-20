@@ -37,12 +37,17 @@ class ResultatController extends Controller
       $validated = $request->validate([
         'scoreEq1' => 'required|integer',
         'scoreEq2' => 'required|integer',
+        'penaltyE1'=> 'nullable|integer',
+        'penaltyE2'=> 'nullable|integer'
         ]);
         $id_equipe1 = $game->equipe1_id;
         $id_equipe2 = $game->equipe2_id;
         $validated['game_id'] = $game->id;
-        $this->service->create($validated,$game,$id_equipe1,$id_equipe2);
-        return redirect()->route('organisateur.matchs')->with('success','Résultat ajouter');
+         $result = $this->service->create($validated,$game,$id_equipe1,$id_equipe2);
+        if(!$result['success']){
+        return back()->with('error',$result['message']);
+        }
+        return redirect()->route('organisateur.matchs')->with('success',$result['message']);
     }
 
     /**

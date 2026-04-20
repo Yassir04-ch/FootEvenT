@@ -98,26 +98,15 @@
         <span class="text-green-400"> {{$tournoi->name_tournoi}} </span>
       </h1>
 
-      <div class="grid grid-cols-3 gap-4 mb-8">
+      <div class="grid grid-cols-1 gap-4 mb-8">
         <div class="bg-gray-900 border border-gray-800 rounded-2xl px-6 py-5">
-          <div class="font-bebas text-4xl text-green-400 leading-none mb-1"></div>
-          <div class="text-xs text-gray-500 uppercase tracking-widest">Au niveau</div>
+          <div class="font-bebas text-4xl text-green-400 leading-none mb-1">{{$niveau}}</div>
         </div>
-        <div class="bg-gray-900 border border-gray-800 rounded-2xl px-6 py-5">
-          <div class="font-bebas text-4xl text-green-400 leading-none mb-1">heyy</div>
-          <div class="text-xs text-gray-500 uppercase tracking-widest">Encore en jeu</div>
-        </div>
-        <div class="bg-gray-900 border border-gray-800 rounded-2xl px-6 py-5">
-          <div class="font-bebas text-4xl text-gray-500 leading-none mb-1">hyyy</div>
-          <div class="text-xs text-gray-500 uppercase tracking-widest">Éliminées</div>
-        </div>
-      </div>
       <div class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
 
     @forelse($equipes as $equipe)
 
-        <div class="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden transition-all duration-200
-                    {{ $equipe->pivot->statut === 'elimine' ? 'opacity-50' : 'hover:border-green-800 hover:-translate-y-1' }}">
+        <div class="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden transition-all duration-200 hover:border-green-800 hover:-translate-y-1">
           <div class="relative h-28 bg-gray-800 overflow-hidden flex items-center justify-center">
               <img src="{{ asset('storage/'.$equipe->image) }}" class="w-full h-full object-cover opacity-60">
               <div class="absolute inset-0 bg-gradient-to-b from-transparent to-gray-900"></div>
@@ -143,7 +132,7 @@
               <div class="w-6 h-6 rounded-full bg-green-950 border border-green-800 flex items-center justify-center text-green-400 font-bold text-xs">
                 {{ substr($equipe->capitaine->firstname,0,1) }}{{ substr($equipe->capitaine->lastname,0,1) }}
               </div>
-              {{ $equipe->capitaine->firstname }}
+              {{ $equipe->capitaine->firstname }}  {{ $equipe->capitaine->lastname }} 
             </div>
             <a href="{{ route('equipes.show', $equipe) }}" class="flex items-center gap-1 text-xs font-medium px-3 py-1.5 rounded-lg border border-gray-700 text-gray-300 hover:border-green-600 hover:text-green-400 transition-colors">
               Voir

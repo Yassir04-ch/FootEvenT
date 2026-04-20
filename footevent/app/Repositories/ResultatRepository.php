@@ -11,6 +11,5 @@ class ResultatRepository {
 
    public function create(array $data){
       $resultat = Resultat::create($data);
-      return $resultat;
    }
 }

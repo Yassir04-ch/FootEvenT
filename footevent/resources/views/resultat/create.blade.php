@@ -20,21 +20,39 @@
 
         <div>
             <label class="text-sm text-gray-400">Score {{$game->equipe1->name_equipe}}</label>
-            <input type="number" name="scoreEq1" class="w-full mt-1 px-3 py-2 bg-gray-950 border border-gray-700 rounded-lg focus:border-green-500 outline-none" min="0" required>
+            <input type="number" id="scoreEq1" name="scoreEq1" class="w-full mt-1 px-3 py-2 bg-gray-950 border border-gray-700 rounded-lg focus:border-green-500 outline-none" min="0" required>
         </div>
 
         <div>
             <label class="text-sm text-gray-400">Score {{$game->equipe2->name_equipe}}</label>
-            <input type="number" name="scoreEq2" class="w-full mt-1 px-3 py-2 bg-gray-950 border border-gray-700 rounded-lg focus:border-green-500 outline-none" min="0" required>
+            <input type="number" id="scoreEq2" name="scoreEq2" class="w-full mt-1 px-3 py-2 bg-gray-950 border border-gray-700 rounded-lg focus:border-green-500 outline-none" min="0" required>
         </div>
+
+         <div id="penalty" class="hidden space-y-4 mt-4 border-t border-gray-700 pt-4">
+
+            <h2 class="text-green-400 font-bold text-lg">
+                Penalty Shootout
+            </h2>
+
+            <div>
+                <label class="text-sm text-gray-400">Penalties {{$game->equipe1->name_equipe}}</label>
+                <input type="number" name="penaltyE1" class="w-full mt-1 px-3 py-2 bg-gray-950 border border-gray-700 rounded-lg focus:border-green-500 outline-none">
+                </div>
+
+                <div>
+                    <label class="text-sm text-gray-400">Penalties {{$game->equipe2->name_equipe}}</label>
+                    <input type="number" name="penaltyE2" class="w-full mt-1 px-3 py-2 bg-gray-950 border border-gray-700 rounded-lg focus:border-green-500 outline-none">
+                </div>
+
+            </div>
+
 
         <button type="submit" class="w-full bg-green-500 hover:bg-green-600 text-gray-950 font-bold py-2 rounded-lg transition">
             Enregistrer Résultat
         </button>
-
     </form>
 
 </div>
-
+<script src="{{asset('js/penalty.js')}}"></script>
 </body>
 </html>
