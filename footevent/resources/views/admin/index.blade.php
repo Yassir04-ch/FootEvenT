@@ -54,7 +54,7 @@
 
             <div class="text-xs text-gray-600 uppercase tracking-widest px-3 mb-2 mt-4">Système</div>
 
-            <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-400 text-sm font-medium hover:bg-gray-800 hover:text-white no-underline">
+            <a href="" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-400 text-sm font-medium hover:bg-gray-800 hover:text-white no-underline">
                 <span class="text-base">🔔</span> Notifications
                 <span class="ml-auto bg-green-400 text-gray-900 text-xs px-2 py-0.5 rounded-full font-bold">3</span>
             </a>
@@ -68,28 +68,57 @@
 
     </aside>
 
-    <!-- MAIN -->
     <main class="ml-64 flex-1 flex flex-col">
 
-        <!-- TOP BAR -->
         <div class="sticky top-0 z-30 flex items-center justify-between px-8 py-4 bg-gray-900 border-b border-gray-800">
             <div>
                 <h1 class="text-xl font-bold text-white">Vue d'ensemble</h1>
-                <p class="text-xs text-gray-400 mt-0.5">Samedi, 07 Mars 2026</p>
             </div>
             <div class="flex items-center gap-3">
                 <div class="relative">
-                    <button class="w-9 h-9 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 hover:text-white border border-gray-700">🔔</button>
+                    <button id="notif-btn" class="w-9 h-9 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 hover:text-white border border-gray-700">🔔</button>
                     <span class="absolute -top-1 -right-1 w-4 h-4 bg-green-400 rounded-full text-gray-900 text-xs font-bold flex items-center justify-center">3</span>
+
+                    <div id="notif-dropdown" class="absolute right-0 mt-2 w-80 bg-gray-900 border border-gray-800 rounded-2xl shadow-xl z-50">
+                        <div class="px-5 py-4 border-b border-gray-800 flex items-center justify-between">
+                            <p class="font-bold text-white">Notifications</p>
+                            <span class="text-xs text-gray-500">3 non lues</span>
+                        </div>
+                        <div class="divide-y divide-gray-800 max-h-80 overflow-y-auto">
+
+                            <div class="px-5 py-4 hover:bg-gray-800 transition-colors flex items-start gap-3">
+                                <div class="flex-1">
+                                    <p class="text-sm text-white font-medium">Match terminé</p>
+                                    <p class="text-xs text-gray-400 mt-1">Raja Casablanca <span class="text-green-400 font-bold">3 - 1</span> Wydad AC</p>
+                                    <p class="text-xs text-gray-600 mt-1">Il y a 2 heures</p>
+                                </div>
+                            </div>
+
+                            <div class="px-5 py-4 hover:bg-gray-800 transition-colors flex items-start gap-3">
+                                <div class="flex-1">
+                                    <p class="text-sm text-white font-medium">Match à venir</p>
+                                    <p class="text-xs text-gray-400 mt-1">Raja Casablanca vs FUS Rabat</p>
+                                    <p class="text-xs text-gray-600 mt-1">Demain à 18h00</p>
+                                </div>
+                            </div>
+
+                            <div class="px-5 py-4 hover:bg-gray-800 transition-colors flex items-start gap-3 opacity-60">
+                                <div class="flex-1">
+                                    <p class="text-sm text-white font-medium">Match terminé</p>
+                                    <p class="text-xs text-gray-400 mt-1">Raja 2 - 2 Hassania <span class="text-gray-500">(Pen: 4-3)</span></p>
+                                    <p class="text-xs text-gray-600 mt-1">Il y a 3 jours</p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
                 </div>
                 <a href="{{route('auth.edit')}}"><div class="w-9 h-9 bg-red-500 rounded-full flex items-center justify-center text-white font-bold text-sm">A</div></a>
             </div>
         </div>
 
-        <!-- CONTENT -->
         <div class="flex-1 px-8 py-8 overflow-y-auto">
 
-            <!-- STATS CARDS -->
             <div class="grid grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
 
                 <div class="bg-gray-800 rounded-2xl border border-gray-700 p-6">

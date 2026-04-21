@@ -4,6 +4,7 @@ namespace App\Service;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Tournoi;
 use App\Models\Equipe;
+use App\Models\Notification;
 use App\Repositories\TournoiRepository;
 use Illuminate\Http\Request;
 
@@ -33,6 +34,9 @@ class TournoiService
     {
         $validated['user_id'] = $userId;
         $tournoi = $this->repository->create($validated);
+        Notification::create([
+          'message'=>'Nouveau tournoi est disponible',
+        ]);
         $message = 'Tournoi crée avec succès.';
 
         return ['message' => $message,'tournoi' => $tournoi];
@@ -113,6 +117,10 @@ class TournoiService
         
         $tournoi_id = $tournoi->id;
         $this->repository->validerEquipe($equipe,$tournoi_id,$niveau);
+        $notification  =  Notification::create([
+          'message'=>"Votre équipe  " .$equipe->name_equipe ."  a été acceptée dans le tournoi  " . $tournoi->name,
+          'user_id'=>$equipe->capitaine_id
+        ]);
         return ['success' => true, 'message' => 'Équipe validée avec succès.'];
     }
 
@@ -123,6 +131,12 @@ class TournoiService
         }
         $tournoi_id = $tournoi->id;
         $this->repository->refuserEquipe($equipe,$tournoi_id);
+
+        Notification::create([
+          'message'=>"Votre équipe  " .$equipe->name_equipe ." a été Refusee dans le tournoi  " . $tournoi->name,
+          'user_id'=>$equipe->capitaine_id
+        ]);
+
         return ['success' => true, 'message' => 'Équipe refusée.'];
     }
 

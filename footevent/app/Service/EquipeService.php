@@ -5,6 +5,7 @@ namespace App\Service;
 use App\Models\Equipe;
 use App\Models\Tournoi;
 use App\Models\Joueur;
+use App\Models\Notification;
 use App\Repositories\EquipeRepository;
 
 class EquipeService
@@ -54,7 +55,11 @@ class EquipeService
          $validated['capitaine_id'] = $capitane_id; 
          $equipe = $this->repository->create($validated);
 
-         $joueur->equipes()->attach($equipe->id, ['statut' => 'actif']);
+        Notification::create([
+          'message'=>'Nouveau Equipe '.$validated['name_equipe'].' est disponible',
+        ]);
+
+        $joueur->equipes()->attach($equipe->id, ['statut' => 'actif']);
          
         return ['success' => true, 'message' => 'Equipe créée avec succès.', 'equipe' => $equipe];
     }
@@ -109,7 +114,6 @@ class EquipeService
         }
 
         $this->repository->ajouterJoueur($joueur, $equipe);
-
         return ['success' => true, 'message' => 'Vous avez rejoint équipe avec succès.'];
     }
 
@@ -128,6 +132,11 @@ class EquipeService
 
         $this->repository->validerJoueur($equipe, $joueur);
 
+        Notification::create([
+          'message'=>"Vous avez été accepté dans équipe " . $equipe->name_equipe ,
+          'user_id'=>$joueur->user->id
+        ]);
+
         return ['success' => true, 'message' => 'Joueur validé avec succès.'];
     }
 
@@ -141,6 +150,11 @@ class EquipeService
 
         $this->repository->refuserJoueur($equipe, $joueur);
 
+        Notification::create([
+          'message'=>"Vous avez été refusee dans équipe " . $equipe->name_equipe ,
+          'user_id'=>$joueur->user->id
+        ]);
+
         return ['success' => true, 'message' => 'Joueur refusé.'];
     }
 
@@ -150,6 +164,11 @@ class EquipeService
             return ['success' => false, 'message' => 'Joueur introuvable.'];
         }
         $this->repository->leftJoueur($equipe, $joueur);
+
+        Notification::create([
+          'message'=>"Vous avez été retiré de équipe " . $equipe->name_equipe ." par organisateur",
+          'user_id'=>$joueur->user->id
+        ]);
         return ['success' => true, 'message' => 'Joueur est left.'];
 
     }

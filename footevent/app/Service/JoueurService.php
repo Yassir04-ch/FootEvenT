@@ -61,6 +61,11 @@ class JoueurService
             $equipe->update(['capitaine_id'=>$capitaine->user->id]);
         }
         $joueur->equipes()->updateExistingPivot($equipe->id, ['statut' => 'left']);
+
+         Notification::create([
+          'message'=>"Joueur ". $joueur->user->firstname ." ".$joueur->user->lastname." est quitee votre Equipe",
+          'user_id'=>$equipe->capitaine_id
+        ]);
     }
 
 }
