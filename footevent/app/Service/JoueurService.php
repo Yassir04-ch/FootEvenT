@@ -37,6 +37,11 @@ class JoueurService
         return ['success' => true, 'message' => 'Profil joueur créé avec succès.', 'joueur' => $joueur];
     }
 
+     public function update(array $data,Joueur $joueur)
+    {
+        $joueur->update($data);
+    }
+
     public function joinEquipe(Joueur $joueur, Equipe $equipe)
     {
 

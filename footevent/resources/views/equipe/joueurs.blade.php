@@ -9,7 +9,6 @@
 </head>
 <body class="bg-gray-950 text-gray-100 font-outfit min-h-screen">
 
-  <!-- Navbar -->
   <nav class="sticky top-0 z-50 flex items-center justify-between px-8 h-16 bg-gray-950/80 backdrop-blur border-b border-gray-800">
     <div class="flex items-center gap-3">
       <div class="w-9 h-9 bg-green-400 rounded-lg flex items-center justify-center">
@@ -50,7 +49,6 @@
 
   <div class="px-8 pt-10 pb-16 max-w-4xl mx-auto">
 
-    <!-- Breadcrumb -->
     <div class="flex items-center gap-2 text-xs text-gray-500 mb-8">
       <a href="{{ route('equipes.index') }}" class="hover:text-green-400 transition-colors">Équipes</a>
       <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
@@ -59,7 +57,6 @@
       <span class="text-gray-300">Joueurs</span>
     </div>
 
-    <!-- Header -->
     <div class="mb-8">
       <h1 class="font-bebas text-5xl tracking-wide leading-none mb-2">
         Joueurs de <span class="text-green-400">{{ $equipe->name_equipe }}</span>
@@ -67,7 +64,6 @@
       <p class="text-sm text-gray-400">{{ $equipe->nbJoueur }} joueurs actifs</p>
     </div>
 
-    <!-- Joueurs actifs -->
     <div class="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden mb-6">
       <div class="px-6 py-4 border-b border-gray-800 flex items-center justify-between">
         <h2 class="font-bebas text-xl tracking-wide">Joueurs actifs <span class="text-green-400">({{ $joueursActifs->count() }})</span></h2>
@@ -76,10 +72,10 @@
       @forelse($joueursActifs as $joueur)
       <div class="px-6 py-4 flex items-center gap-4 border-b border-gray-800 hover:bg-gray-800/50 transition-colors">
         <div class="w-10 h-10 rounded-full bg-green-950 border border-green-800 flex items-center justify-center text-green-400 font-bold">
-          {{ strtoupper(substr($joueur->user->firstname ?? 'J', 0, 1)) }}
+          {{ strtoupper(substr($joueur->user->firstname, 0, 1)) }}
         </div>
         <div class="flex-1">
-          <p class="text-sm font-medium">{{ $joueur->user->firstname ?? '' }} {{ $joueur->user->lastname ?? '' }}</p>
+          <p class="text-sm font-medium">{{ $joueur->user->firstname}} {{ $joueur->user->lastname}}</p>
           <p class="text-xs text-gray-500 capitalize">{{ $joueur->poste }} • {{ $joueur->age }} ans</p>
         </div>
         <span class="text-xs text-green-400 bg-green-950 border border-green-800 px-2.5 py-1 rounded-full font-semibold">Actif</span>
@@ -100,7 +96,6 @@
       @endforelse
     </div>
 
-    <!-- Joueurs en attente -->
     @if(auth()->check() && auth()->id() == $equipe->capitaine_id)
     <div class="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden">
       <div class="px-6 py-4 border-b border-gray-800">
@@ -110,10 +105,10 @@
       @forelse($joueursEnAttente as $joueur)
       <div class="px-6 py-4 flex items-center gap-4 border-b border-gray-800 hover:bg-gray-800/50 transition-colors">
         <div class="w-10 h-10 rounded-full bg-yellow-950 border border-yellow-800 flex items-center justify-center text-yellow-400 font-bold">
-          {{ strtoupper(substr($joueur->user->firstname ?? 'J', 0, 1)) }}
+          {{ strtoupper(substr($joueur->user->firstname, 0, 1)) }}
         </div>
         <div class="flex-1">
-          <p class="text-sm font-medium">{{ $joueur->user->firstname ?? '' }} {{ $joueur->user->lastname ?? '' }}</p>
+          <p class="text-sm font-medium">{{ $joueur->user->firstname}} {{ $joueur->user->lastname}}</p>
           <p class="text-xs text-gray-500 capitalize">{{ $joueur->poste }} • {{ $joueur->age }} ans</p>
         </div>
         <span class="text-xs text-yellow-400 bg-yellow-950 border border-yellow-800 px-2.5 py-1 rounded-full font-semibold">En attente</span>

@@ -25,12 +25,12 @@ class JoueurController extends Controller
     {
         $user = Auth::user();
         $joueur = $user->joueur;
-        $tournois = Tournoi::where('status','en_attente')->get();
+        $tournois = Tournoi::where('status','en_attente')->take(3)->get();
         $chek = Equipe::where('capitaine_id',$user->id)->exists();
         $active = $user->joueur->equipes()->wherePivot('statut','actif')->exists();
-        $equipes = $joueur->equipes()->wherePivot('statut', 'actif')->with('tournois')->get();
-       $notifications = $this->service->getNotifications(Auth::id());
-        return view('joueur.index', compact('joueur', 'user','chek','equipes','active','notifications'));
+        $equipe = $joueur->equipes()->wherePivot('statut', 'actif')->with('tournois')->first();
+        $notifications = $this->service->getNotifications(Auth::id());
+        return view('joueur.index', compact('joueur', 'user','chek','equipe','active','notifications','tournois'));
     }
 
     /**
@@ -62,13 +62,21 @@ class JoueurController extends Controller
     
     public function show(Joueur $joueur)
     {
-        //
+        
     }
 
+    public function edit(Joueur $joueur){
+        return view('joueur.update',compact('joueur'));
+    }
     
     public function update(Request $request, Joueur $joueur)
     {
-        //
+        $validated = $request->validate([
+             'poste' => "required|string",
+             'age'  => "required|integer",
+        ]);
+        $this->service->update($validated,$joueur);
+        return redirect()->route('joueurs.index')->with('success','votre profile joueur a été modifier');
     }
 
 

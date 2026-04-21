@@ -131,12 +131,11 @@
                 <div class="bg-gray-800 rounded-2xl border border-gray-700 p-8">
                     <div class="flex items-center justify-between mb-6">
                         <h2 class="text-xl font-bold text-white">Mon Équipe</h2>
-                            <span class="text-xs text-gray-500 bg-gray-700 px-3 py-1 rounded-full">
-                                {{ $joueur->equipes()->wherePivot('statut', 'actif')->count() }} équipe
+                         <span class="text-xs text-gray-500 bg-gray-700 px-3 py-1 rounded-full">
+                                {{ $equipe->name_equipe }}
                             </span>
                     </div>
                         @if($chek)
-                        @foreach($equipes as $equipe)
                         <div class="bg-gray-700 rounded-xl p-5 mb-3">
                             <div class="flex items-center justify-between mb-3">
                                 <h3 class="font-bold text-white text-lg">{{ $equipe->name_equipe }}</h3>
@@ -161,17 +160,15 @@
                                 </div>
                             </div>
                         </div>
-                        @endforeach
                         @endif
 
                         <div class="mt-4">
-                            <p class="text-xs text-gray-500 uppercase tracking-widest mb-3">Demandes en attente</p>
-                            @foreach($equipes as $equipe)
+                            <p class="text-xs text-gray-500 uppercase tracking-widest mb-3">les tournois</p>
+                         @foreach($equipe->tournois as $tournoi)
                             <div class="flex items-center justify-between bg-gray-700/50 rounded-xl px-4 py-3 mb-2">
-                                <span class="text-sm text-gray-300">{{ $equipe->name_equipe }}</span>
-                                <span class="text-xs text-yellow-400 bg-yellow-950 border border-yellow-800 px-2 py-0.5 rounded-full">En attente</span>
+                                <span class="text-sm text-gray-300">{{ $tournoi->name_tournoi }}</span>
                             </div>
-                            @endforeach
+                        @endforeach
                         </div>
 
                         @if(!$active)
@@ -227,7 +224,7 @@
                             <span class="text-gray-400">Email</span>
                             <span class="text-white font-medium text-xs truncate max-w-32">{{ $user->email }}</span>
                         </div>
-                         <a href="{{ route('joueurs.create') }}" class="w-full text-center px-4 py-2 bg-green-400 rounded-xl text-gray-900 text-sm font-semibold hover:bg-green-300 transition-colors">
+                         <a href="{{ route('joueurs.edit',$joueur) }}" class="w-full text-center px-4 py-2 bg-green-400 rounded-xl text-gray-900 text-sm font-semibold hover:bg-green-300 transition-colors">
                             Modifier
                         </a>
                     </div>
@@ -237,7 +234,7 @@
                     <h3 class="text-base font-bold text-white mb-2">Tournois disponibles</h3>
                     <p class="text-gray-400 text-xs mb-5 leading-relaxed">Découvrez les tournois ouverts.</p>
                     <div class="flex flex-col gap-3 mb-5">
-                        @forelse(\App\Models\Tournoi::where('status','en_attente')->take(3)->get() as $tournoi)
+                        @forelse($tournois as $tournoi)
                         <div class="flex items-center gap-3 bg-gray-700 rounded-xl p-3">
                             <div class="w-9 h-9 bg-green-900 rounded-lg flex items-center justify-center text-base flex-shrink-0">⚽</div>
                             <div class="flex-1 min-w-0">
