@@ -4,6 +4,7 @@ namespace App\Service;
 use App\Repositories\OrganisateurRepository;
 use App\Models\Tournoi;
 use App\Models\User;
+use App\Models\Notification;
  
 class OrganisateurService
 {
@@ -22,6 +23,11 @@ class OrganisateurService
   public function organisateurMatchs($organisateur){
     $games = $this->repository->organisateurMatchs($organisateur);
     return $games;
+  }
+
+  public function getNotifications($user_id){
+     $notifications = Notification::where('user_id',$user_id)->orWhere('user_id',null)->get();
+     return $notifications;
   }
 
 }

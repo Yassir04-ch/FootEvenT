@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Role;
 use App\Models\Equipe;
+use App\Models\Game;
 use App\Models\Tournoi;
 use App\Service\AdminService;
 class AdminController extends Controller
@@ -19,8 +20,10 @@ class AdminController extends Controller
     {
        $nbequipes = Equipe::count();
        $nbtournois = Tournoi::count();
+       $notifications = $this->service->getNotifications(Auth::id());
        $users = User::where('id','!=',Auth::id())->with('role')->get();
-       return view('admin.index',compact('users','nbequipes','nbtournois'));
+       $gemecount = Game::where('statut','termine')->count();
+       return view('admin.index',compact('users','nbequipes','nbtournois','notifications','gemecount'));
     }
 
     public function tournois(){

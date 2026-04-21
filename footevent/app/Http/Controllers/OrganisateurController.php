@@ -27,7 +27,8 @@ class OrganisateurController extends Controller
       $equipeenattent = Equipe::whereHas('tournois',function($q) use ($organisateur){
         $q->where('user_id',$organisateur->id)->where('equipe_tournois.statut','en_attente');})->count();
 
-        return view('organisateur.index',compact('tournoicount','tournoiencourcount','tournoienattentcount','tournoiterminecount','equipecount','equipeenattent'));
+        $notifications = $this->service->getNotifications(Auth::id());
+        return view('organisateur.index',compact('tournoicount','tournoiencourcount','tournoienattentcount','tournoiterminecount','equipecount','equipeenattent','notifications'));
     }
 
     public function Tournois()

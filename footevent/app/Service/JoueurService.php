@@ -3,6 +3,7 @@
 namespace App\Service;
 use App\Models\Equipe;
 use App\Models\Joueur;
+use App\Models\Notification;
 use Illuminate\Http\Request;
 use App\Repositories\JoueurRepository;
 use Illuminate\Support\Facades\Auth;
@@ -67,5 +68,10 @@ class JoueurService
           'user_id'=>$equipe->capitaine_id
         ]);
     }
+
+    public function getNotifications($user_id){
+     $notifications = Notification::where('user_id',$user_id)->orwhere('user_id',null)->get();
+     return $notifications;
+  }
 
 }

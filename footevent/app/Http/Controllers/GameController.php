@@ -54,8 +54,7 @@ class GameController extends Controller
             'equipe2_id' => 'required|exists:equipes,id',
             'heure'=> 'required'
         ]);
-        $validated['tournoi_id'] = $tournoi->id;
-        $result = $this->service->createGame($validated);
+        $result = $this->service->createGame($validated,$tournoi);
         if(!$result['success']){
         return redirect()->back()->with('error', $result['message']);
         }

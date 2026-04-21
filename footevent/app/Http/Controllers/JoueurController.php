@@ -29,7 +29,8 @@ class JoueurController extends Controller
         $chek = Equipe::where('capitaine_id',$user->id)->exists();
         $active = $user->joueur->equipes()->wherePivot('statut','actif')->exists();
         $equipes = $joueur->equipes()->wherePivot('statut', 'actif')->with('tournois')->get();
-        return view('joueur.index', compact('joueur', 'user','chek','equipes','active'));
+       $notifications = $this->service->getNotifications(Auth::id());
+        return view('joueur.index', compact('joueur', 'user','chek','equipes','active','notifications'));
     }
 
     /**

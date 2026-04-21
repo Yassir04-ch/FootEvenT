@@ -54,10 +54,6 @@
 
             <div class="text-xs text-gray-600 uppercase tracking-widest px-3 mb-2 mt-4">Système</div>
 
-            <a href="" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-400 text-sm font-medium hover:bg-gray-800 hover:text-white no-underline">
-                <span class="text-base">🔔</span> Notifications
-                <span class="ml-auto bg-green-400 text-gray-900 text-xs px-2 py-0.5 rounded-full font-bold">3</span>
-            </a>
              <form method="POST" action="{{ route('auth.destroy') }}">
                 @csrf
                  <button type="submit" class="px-5 py-2 border border-gray-600 rounded-lg text-gray-400 text-sm font-medium hover:border-red-500 hover:text-red-400">
@@ -76,39 +72,26 @@
             </div>
             <div class="flex items-center gap-3">
                 <div class="relative">
-                    <button id="notif-btn" class="w-9 h-9 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 hover:text-white border border-gray-700">🔔</button>
+                    <button id="notif_btn" class="w-9 h-9 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 hover:text-white border border-gray-700">🔔</button>
                     <span class="absolute -top-1 -right-1 w-4 h-4 bg-green-400 rounded-full text-gray-900 text-xs font-bold flex items-center justify-center">3</span>
 
-                    <div id="notif-dropdown" class="absolute right-0 mt-2 w-80 bg-gray-900 border border-gray-800 rounded-2xl shadow-xl z-50">
+                    <div id="notif_model" class="absolute hidden right-0 mt-2 w-80 bg-gray-900 border border-gray-800 rounded-2xl shadow-xl z-50">
                         <div class="px-5 py-4 border-b border-gray-800 flex items-center justify-between">
                             <p class="font-bold text-white">Notifications</p>
-                            <span class="text-xs text-gray-500">3 non lues</span>
+                            <button id="close_btn" class="text-gray-500 hover:text-white">✕</button>
                         </div>
                         <div class="divide-y divide-gray-800 max-h-80 overflow-y-auto">
 
+                             <div class="divide-y divide-gray-800 max-h-80 overflow-y-auto">
+                          @foreach($notifications as $notification)
                             <div class="px-5 py-4 hover:bg-gray-800 transition-colors flex items-start gap-3">
                                 <div class="flex-1">
-                                    <p class="text-sm text-white font-medium">Match terminé</p>
-                                    <p class="text-xs text-gray-400 mt-1">Raja Casablanca <span class="text-green-400 font-bold">3 - 1</span> Wydad AC</p>
-                                    <p class="text-xs text-gray-600 mt-1">Il y a 2 heures</p>
+                                    <p class="text-sm text-white font-medium">{{$notification->message}}</p>
+                                    <p class="text-xs text-gray-600 mt-1">{{$notification->created_at}}</p>
                                 </div>
                             </div>
-
-                            <div class="px-5 py-4 hover:bg-gray-800 transition-colors flex items-start gap-3">
-                                <div class="flex-1">
-                                    <p class="text-sm text-white font-medium">Match à venir</p>
-                                    <p class="text-xs text-gray-400 mt-1">Raja Casablanca vs FUS Rabat</p>
-                                    <p class="text-xs text-gray-600 mt-1">Demain à 18h00</p>
-                                </div>
-                            </div>
-
-                            <div class="px-5 py-4 hover:bg-gray-800 transition-colors flex items-start gap-3 opacity-60">
-                                <div class="flex-1">
-                                    <p class="text-sm text-white font-medium">Match terminé</p>
-                                    <p class="text-xs text-gray-400 mt-1">Raja 2 - 2 Hassania <span class="text-gray-500">(Pen: 4-3)</span></p>
-                                    <p class="text-xs text-gray-600 mt-1">Il y a 3 jours</p>
-                                </div>
-                            </div>
+                         @endforeach
+                        </div>
 
                         </div>
                     </div>
@@ -150,16 +133,13 @@
                         <span class="text-gray-400 text-sm">Matchs joués</span>
                         <div class="w-9 h-9 bg-orange-900 rounded-xl flex items-center justify-center text-lg">⚽</div>
                     </div>
-                    <div class="text-3xl font-bold text-white" style="font-family:'Bebas Neue',cursive">124</div>
-                    <div class="text-xs text-green-400 mt-1">+12 cette semaine</div>
+                    <div class="text-3xl font-bold text-white" style="font-family:'Bebas Neue',cursive">{{$gemecount}}</div>
                 </div>
 
             </div>
 
-            <!-- MIDDLE ROW -->
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
 
-                <!-- USERS TABLE -->
                 <div class="lg:col-span-2 bg-gray-800 rounded-2xl border border-gray-700 p-6">
                     <div class="flex items-center justify-between mb-6">
                         <h2 class="text-base font-bold text-white">Utilisateurs</h2>
@@ -216,9 +196,7 @@
                     </div>
                 </div>
 
-                <!-- RIGHT PANEL -->
                 <div class="flex flex-col gap-5">            
-                    <!-- Équipes en attente -->
                     <div class="bg-gray-800 rounded-2xl border border-yellow-700 border-opacity-40 p-6">
                         <div class="flex items-center justify-between mb-4">
                             <h3 class="text-base font-bold text-white">Équipes en attente</h3>
@@ -267,5 +245,6 @@
     </main>
 </div>
 
+<script src="{{asset('js/notification.js')}}"></script>
 </body>
 </html>

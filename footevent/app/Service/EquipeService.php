@@ -51,7 +51,7 @@ class EquipeService
         if ($validated['image']) {
              $validated['image'] = $validated['image']->store('equipes', 'public');
         }  
-
+         $validated['nbJoueur'] = 1;
          $validated['capitaine_id'] = $capitane_id; 
          $equipe = $this->repository->create($validated);
 
@@ -131,7 +131,8 @@ class EquipeService
         }
 
         $this->repository->validerJoueur($equipe, $joueur);
-
+         $nbJoueur = $equipe->nbJoueur + 1;
+         $equipe->update(['nbJoueur'=>$nbJoueur]);
         Notification::create([
           'message'=>"Vous avez été accepté dans équipe " . $equipe->name_equipe ,
           'user_id'=>$joueur->user->id

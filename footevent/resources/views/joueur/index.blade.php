@@ -27,17 +27,32 @@
     </div>
 
     <div class="flex items-center gap-3">
-        <!-- Notifications -->
-        <div class="relative">
-            <button class="w-9 h-9 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 hover:text-white border border-gray-700">🔔</button>
-            @if($user->notifications && $user->notifications->count() > 0)
-                <span class="absolute -top-1 -right-1 w-4 h-4 bg-green-400 rounded-full text-gray-900 text-xs font-bold flex items-center justify-center">
-                    {{ $user->notifications->count() }}
-                </span>
-            @endif
-        </div>
+          <div class="flex items-center gap-3">
+                <div class="relative">
+                    <button id="notif_btn" class="w-9 h-9 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 hover:text-white border border-gray-700">🔔</button>
+                    <span class="absolute -top-1 -right-1 w-4 h-4 bg-green-400 rounded-full text-gray-900 text-xs font-bold flex items-center justify-center">3</span>
 
-        <!-- User -->
+                    <div id="notif_model" class="absolute hidden right-0 mt-2 w-80 bg-gray-900 border border-gray-800 rounded-2xl shadow-xl z-50">
+                        
+                        <div class="px-5 py-4 border-b border-gray-800 flex items-center justify-between">
+                            <p class="font-bold text-white">Notifications</p>
+                            <button id="close_btn" class="text-gray-500 hover:text-white">✕</button>
+                        </div>
+                        <div class="divide-y divide-gray-800 max-h-80 overflow-y-auto">
+                          @foreach($notifications as $notification)
+                            <div class="px-5 py-4 hover:bg-gray-800 transition-colors flex items-start gap-3">
+                                <div class="flex-1">
+                                    <p class="text-sm text-white font-medium">{{$notification->message}}</p>
+                                    <p class="text-xs text-gray-600 mt-1">{{$notification->created_at}}</p>
+                                </div>
+                            </div>
+                         @endforeach
+                        </div>
+                    </div>
+                </div>
+                <a href="{{route('auth.edit')}}"><div class="w-9 h-9 bg-red-500 rounded-full flex items-center justify-center text-white font-bold text-sm">A</div></a>
+            </div>
+
         <div class="flex items-center gap-3 bg-gray-800 border border-gray-700 rounded-xl px-4 py-2">
             <div class="w-7 h-7 bg-green-400 rounded-full flex items-center justify-center text-gray-900 font-bold text-sm">
                 {{ strtoupper(substr($user->firstname, 0, 1)) }}
@@ -48,7 +63,6 @@
             </div>
         </div>
 
-        <!-- Logout -->
         <form action="{{ route('auth.destroy') }}" method="POST">
             @csrf
             <button type="submit" class="px-4 py-2 border border-gray-700 rounded-lg text-gray-400 text-sm hover:border-red-500 hover:text-red-400 transition-colors">
@@ -58,7 +72,6 @@
     </div>
 </nav>
 
-<!-- MAIN -->
 <div class="pt-20 min-h-screen">
 
     @if(session('success'))
@@ -83,7 +96,6 @@
     </div>
     @endif
 
-    <!-- HEADER -->
     <div class="bg-gray-800 border-b border-gray-700 px-10 py-8">
         <div class="max-w-6xl mx-auto flex items-center justify-between">
             <div>
@@ -248,5 +260,6 @@
     </div>
 </div>
 
+<script src="{{asset('js/notification.js')}}"></script>
 </body>
 </html>

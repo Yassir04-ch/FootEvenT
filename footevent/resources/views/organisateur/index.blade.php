@@ -66,10 +66,36 @@
                 <a href="{{ route('tournois.create') }}" class="flex items-center gap-2 px-5 py-2 bg-green-400 rounded-xl text-gray-900 font-bold text-sm hover:bg-green-300 no-underline">
                     + Créer un tournoi
                 </a>
+
+            <div class="flex items-center gap-3">
                 <div class="relative">
-                    <button class="w-9 h-9 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 hover:text-white border border-gray-700">🔔</button>
-                    <span class="absolute -top-1 -right-1 w-4 h-4 bg-green-400 rounded-full text-gray-900 text-xs font-bold flex items-center justify-center">2</span>
+                    <button id="notif_btn" class="w-9 h-9 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 hover:text-white border border-gray-700">🔔</button>
+                    <span class="absolute -top-1 -right-1 w-4 h-4 bg-green-400 rounded-full text-gray-900 text-xs font-bold flex items-center justify-center">3</span>
+
+                    <div id="notif_model" class="absolute hidden right-0 mt-2 w-80 bg-gray-900 border border-gray-800 rounded-2xl shadow-xl z-50">
+                        
+                        <div class="px-5 py-4 border-b border-gray-800 flex items-center justify-between">
+                            <p class="font-bold text-white">Notifications</p>
+                            <button id="close_btn" class="text-gray-500 hover:text-white">✕</button>
+                        </div>
+                        <div class="divide-y divide-gray-800 max-h-80 overflow-y-auto">
+
+                        <div class="divide-y divide-gray-800 max-h-80 overflow-y-auto">
+                          @foreach($notifications as $notification)
+                            <div class="px-5 py-4 hover:bg-gray-800 transition-colors flex items-start gap-3">
+                                <div class="flex-1">
+                                    <p class="text-sm text-white font-medium">{{$notification->message}}</p>
+                                    <p class="text-xs text-gray-600 mt-1">{{$notification->created_at}}</p>
+                                </div>
+                            </div>
+                         @endforeach
+                        </div>
+
+                        </div>
+                    </div>
                 </div>
+                <a href="{{route('auth.edit')}}"><div class="w-9 h-9 bg-red-500 rounded-full flex items-center justify-center text-white font-bold text-sm">A</div></a>
+            </div>
                 <div class="w-9 h-9 bg-green-500 rounded-full flex items-center justify-center text-white font-bold text-sm">{{ substr(auth()->user()->firstname,0,1)}}</div>
             </div>
         </div>
@@ -112,10 +138,10 @@
         
         </div>
 
-
     </div>
     </main>
 </div>
 
+<script src="{{asset('js/notification.js')}}"></script>
 </body>
 </html>
