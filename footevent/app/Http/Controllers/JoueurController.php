@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Joueur;
 use App\Models\Equipe;
 use App\Models\Tournoi;
+use App\Models\Game;
 use Illuminate\Http\Request;
 use App\Service\JoueurService;
 use App\Http\Requests\JoueurRequest;
@@ -29,8 +30,14 @@ class JoueurController extends Controller
         $chek = Equipe::where('capitaine_id',$user->id)->exists();
         $active = $user->joueur->equipes()->wherePivot('statut','actif')->exists();
         $equipe = $joueur->equipes()->wherePivot('statut', 'actif')->with('tournois')->first();
+        if($equipe){
+          $games = Game::where('equipe1_id',$equipe->id)->orWhere('equipe2_id',$equipe->id)->get();
+        }
+        else{
+            $games = null;  
+        }
         $notifications = $this->service->getNotifications(Auth::id());
-        return view('joueur.index', compact('joueur', 'user','chek','equipe','active','notifications','tournois'));
+        return view('joueur.index', compact('joueur', 'user','chek','equipe','active','notifications','tournois','games'));
     }
 
     /**
@@ -44,12 +51,9 @@ class JoueurController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-     public function store(Request $request)
+     public function store(JoueurRequest $request)
     {
-        $validated = $request->validate([
-             'poste' => "required|string",
-             'age'  => "required|integer",
-        ]);
+        $validated = $request->validated();
         $result = $this->service->createJoueur($validated);
 
         if (!$result['success']) {

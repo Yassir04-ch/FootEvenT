@@ -94,9 +94,8 @@
                         </div>
                     </div>
                 </div>
-                <a href="{{route('auth.edit')}}"><div class="w-9 h-9 bg-red-500 rounded-full flex items-center justify-center text-white font-bold text-sm">A</div></a>
+                <a href="{{route('auth.edit')}}"><div class="w-9 h-9 bg-green-500 rounded-full flex items-center justify-center text-white font-bold text-sm">{{ substr(auth()->user()->firstname,0,1)}}</div></a>
             </div>
-                <div class="w-9 h-9 bg-green-500 rounded-full flex items-center justify-center text-white font-bold text-sm">{{ substr(auth()->user()->firstname,0,1)}}</div>
             </div>
         </div>
 

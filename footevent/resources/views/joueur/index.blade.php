@@ -50,12 +50,11 @@
                         </div>
                     </div>
                 </div>
-                <a href="{{route('auth.edit')}}"><div class="w-9 h-9 bg-red-500 rounded-full flex items-center justify-center text-white font-bold text-sm">A</div></a>
             </div>
 
         <div class="flex items-center gap-3 bg-gray-800 border border-gray-700 rounded-xl px-4 py-2">
             <div class="w-7 h-7 bg-green-400 rounded-full flex items-center justify-center text-gray-900 font-bold text-sm">
-                {{ strtoupper(substr($user->firstname, 0, 1)) }}
+                <a href="{{route('auth.edit')}}"><div class="w-9 h-9 bg-green-500 rounded-full flex items-center justify-center text-white font-bold text-sm">{{substr(auth()->user()->firstname,0,1)}}</div></a>
             </div>
             <div>
                 <div class="text-sm font-semibold leading-none">{{ $user->firstname }}</div>
@@ -102,16 +101,17 @@
                 <p class="text-gray-400 text-sm mb-1">Bon retour 👋</p>
                 <h1 class="text-3xl font-bold text-white">{{ $user->firstname }} {{ $user->lastname }}</h1>
             </div>
+          @if($equipe)
             <div class="hidden md:flex gap-6">
-                <div class="text-center">
-                    <div class="font-bebas text-2xl text-green-400 leading-none">
-                        {{ $joueur ? $joueur->equipes()->wherePivot('statut', 'actif')->count() : 0 }}
-                    </div>
-                    <div class="text-xs text-gray-400 uppercase tracking-wide mt-1">Équipe</div>
-                </div>
+                <dv class="text-center">
+                    <dv class="font-bebas text-2xl text-green-400 leading-none">
+                        {{$equipe->joueurs()->count()}}
+                    </dv>
+                    <div class="text-xs text-gray-400 uppercase tracking-wide mt-1">Joueurs équipe</div>
+                </dv>
                 <div class="w-px bg-gray-700"></div>
                 <div class="text-center">
-                    <div class="font-bebas text-2xl text-green-400 leading-none">0</div>
+                    <div class="font-bebas text-2xl text-green-400 leading-none">{{$games->count()}}</div>
                     <div class="text-xs text-gray-400 uppercase tracking-wide mt-1">Matchs</div>
                 </div>
                 <div class="w-px bg-gray-700"></div>
@@ -120,6 +120,7 @@
                     <div class="text-xs text-gray-400 uppercase tracking-wide mt-1">Buts</div>
                 </div>
             </div>
+            @endif
         </div>
     </div>
 
@@ -129,21 +130,20 @@
             <div class="lg:col-span-2 flex flex-col gap-8">
 
                 <div class="bg-gray-800 rounded-2xl border border-gray-700 p-8">
+                    @if($equipe)
                     <div class="flex items-center justify-between mb-6">
                         <h2 class="text-xl font-bold text-white">Mon Équipe</h2>
                          <span class="text-xs text-gray-500 bg-gray-700 px-3 py-1 rounded-full">
                                 {{ $equipe->name_equipe }}
                             </span>
                     </div>
-                        @if($chek)
+                    @endif
+                    @if($chek)
                         <div class="bg-gray-700 rounded-xl p-5 mb-3">
                             <div class="flex items-center justify-between mb-3">
                                 <h3 class="font-bold text-white text-lg">{{ $equipe->name_equipe }}</h3>
                                 <span class="text-xs text-green-400 bg-green-950 border border-green-800 px-2.5 py-1 rounded-full font-semibold">Actif</span>
                             </div>
-                          @foreach($equipe->tournois as $tournoi)  
-                            <p class="text-xs text-gray-400 mb-3">🏆 {{ $tournoi->name_tournoi }} statut : {{$tournoi->status}}</p>
-                          @endforeach
                               <div class="flex items-center justify-between text-xs text-gray-400">
                                 <span>👥 {{ $equipe->nbJoueur }} joueurs</span>
                                 <div class="flex gap-2">
@@ -162,14 +162,6 @@
                         </div>
                         @endif
 
-                        <div class="mt-4">
-                            <p class="text-xs text-gray-500 uppercase tracking-widest mb-3">les tournois</p>
-                         @foreach($equipe->tournois as $tournoi)
-                            <div class="flex items-center justify-between bg-gray-700/50 rounded-xl px-4 py-3 mb-2">
-                                <span class="text-sm text-gray-300">{{ $tournoi->name_tournoi }}</span>
-                            </div>
-                        @endforeach
-                        </div>
 
                         @if(!$active)
                         <div class="flex flex-col items-center justify-center py-12 text-center">
@@ -206,7 +198,7 @@
                     <h3 class="text-base font-bold text-white mb-5">Mon Profil</h3>
                     <div class="flex flex-col items-center text-center mb-5">
                         <div class="w-16 h-16 bg-green-400 rounded-full flex items-center justify-center text-gray-900 font-bold text-2xl mb-3">
-                            {{ strtoupper(substr($user->firstname, 0, 1)) }}
+                            {{ substr($user->firstname, 0, 1) }}
                         </div>
                         <div class="font-semibold text-white">{{ $user->firstname }} {{ $user->lastname }}</div>
                         <div class="text-xs text-green-400 mt-1">Joueur</div>

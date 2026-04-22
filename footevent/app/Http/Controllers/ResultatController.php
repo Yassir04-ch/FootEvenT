@@ -5,6 +5,8 @@ use App\Service\ResultatService;
 use App\Models\Resultat;
 use App\Models\Game;
 use Illuminate\Http\Request;
+use App\Http\Requests\ResultatRequest;
+
 
 class ResultatController extends Controller
 {
@@ -34,12 +36,7 @@ class ResultatController extends Controller
      */
     public function store(Request $request,Game $game)
     {
-      $validated = $request->validate([
-        'scoreEq1' => 'required|integer',
-        'scoreEq2' => 'required|integer',
-        'penaltyE1'=> 'nullable|integer',
-        'penaltyE2'=> 'nullable|integer'
-        ]);
+      $validated = $request->validated();
         $id_equipe1 = $game->equipe1_id;
         $id_equipe2 = $game->equipe2_id;
         $validated['game_id'] = $game->id;

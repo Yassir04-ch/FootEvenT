@@ -90,6 +90,7 @@ class EquipeController extends Controller
       }
         return view('equipe.show', compact('equipe','tournois','joueurs','isEnAttente'));
     }
+    
 
      public function edit(Equipe $equipe)
     {
@@ -113,6 +114,7 @@ class EquipeController extends Controller
         return redirect()->route('equipes.show', $equipe)->with('success', $result['message']);
     }
 
+
      public function destroy(Equipe $equipe)
     {
         $userid =  Auth::id();
@@ -132,11 +134,13 @@ class EquipeController extends Controller
         return back()->with('success',"Equipe validée");
     }
 
+
      public function refuser(Equipe $equipe)
     {
         $this->service->refuserEquipe($equipe);
         return back()->with('success',"Equipe refusée");
     }
+
 
     public function validerJoueur(Equipe $equipe, Joueur $joueur)
     {
@@ -148,6 +152,7 @@ class EquipeController extends Controller
         return back()->with('success', $result['message']);
     }
 
+
     public function refuserJoueur(Equipe $equipe, Joueur $joueur)
     {
         $result = $this->service->refuserJoueur($equipe, $joueur);
@@ -156,6 +161,7 @@ class EquipeController extends Controller
         }
         return back()->with('success', $result['message']);
     }
+
 
     public function leftJoueur(){
         

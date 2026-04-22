@@ -13,7 +13,6 @@
 
 <div class="flex min-h-screen">
 
-    <!-- SIDEBAR -->
     <aside class="w-64 bg-gray-950 border-r border-gray-800 flex flex-col fixed top-0 left-0 h-full z-40" style="background:#070a0f">
 
         <div class="px-6 py-6 border-b border-gray-800">
@@ -44,10 +43,8 @@
 
     </aside>
 
-    <!-- MAIN -->
     <main class="ml-64 flex-1 flex flex-col">
 
-        <!-- TOPBAR -->
         <div class="sticky top-0 z-30 flex items-center justify-between px-8 py-4 bg-gray-900 border-b border-gray-800">
 
             <div>
@@ -57,22 +54,30 @@
 
             <div class="flex items-center gap-3">
                 <div class="w-9 h-9 bg-green-500 rounded-full flex items-center justify-center font-bold">
-                    {{ strtoupper(substr($user->firstname,0,1)) }}
+                    {{ substr($user->firstname,0,1) }}
                 </div>
             </div>
 
         </div>
 
-        <!-- CONTENT -->
         <div class="flex-1 px-8 py-8">
+            @if(session('error'))
+                <div class="mb-4 p-4 bg-red-950 border border-red-900 rounded-xl text-red-400 text-sm">
+                    {{ session('error') }}
+                </div>
+            @endif
 
+             @if(session('success'))
+                <div class="mb-4 p-4 bg-red-950 border border-green-900 rounded-xl text-green-400 text-sm">
+                    {{ session('success') }}
+                </div>
+              @endif
             <div class="max-w-5xl mx-auto bg-gray-800 border border-gray-700 rounded-2xl p-8">
 
-                <!-- HEADER PROFILE -->
                 <div class="flex items-center gap-6 mb-10">
 
                     <div class="w-20 h-20 bg-green-500 rounded-full flex items-center justify-center text-2xl font-bold">
-                        {{ strtoupper(substr($user->firstname,0,1)) }}
+                        {{ substr($user->firstname,0,1) }}
                     </div>
 
                     <div>
@@ -100,7 +105,6 @@
 
                 </div>
 
-                <!-- STATS -->
                 <div class="grid grid-cols-3 gap-6 mb-10">
 
                     <div class="bg-gray-900 p-5 rounded-xl border border-gray-700">
@@ -121,7 +125,7 @@
                 </div>
 
                 
-                <form method="POST" action="{{route('auth.update')}}">
+                <form method="POST" action="{{route('profile.update')}}">
                     @csrf
                     @method('put')
 
@@ -136,40 +140,15 @@
                         <input type="email" name="email" value="{{ $user->email }}"
                             class="col-span-2 bg-gray-900 border border-gray-700 rounded-xl px-4 py-2">
 
+                        <input type="password" name="old_password" placeholder="Votre mot de passe"
+                             class="col-span-2 bg-gray-900 border border-gray-700 rounded-xl px-4 py-2">    
+
                         <input type="password" name="password" placeholder="Nouveau mot de passe"
                             class="bg-gray-900 border border-gray-700 rounded-xl px-4 py-2">
 
-                        <input type="password" name="password_confirmation" placeholder="Confirmer"
+                        <input type="password" name="cnf_password" placeholder="Confirmer"
                             class="bg-gray-900 border border-gray-700 rounded-xl px-4 py-2">
-
                     </div>
-                    @if($user->role->name == 'joueur')
-                  <div>
-                        <label for="poste" class="block text-xs font-medium text-gray-400 uppercase tracking-widest mb-2">
-                            Poste
-                        </label>
-
-                        <select name="poste" id="poste"
-                            class="w-full bg-gray-900 border border-gray-700 text-white rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500/20 transition-all">
-                            <option value="">Choisir un poste</option>
-                            <option value="attaquant">Attaquant</option>
-                            <option value="defenseur">Défenseur</option>
-                            <option value="milieu">Milieu</option>
-                            <option value="gardien">Gardien</option>
-                        </select>
-
-                        <p id="errorPoste" class="text-red-400 text-xs mt-1 hidden">Le poste est requis.</p>
-                    </div>
-
-                    <div>
-                        <label for="age" class="block text-xs font-medium text-gray-400 uppercase tracking-widest mb-2">
-                            Âge 
-                        </label>
-
-                        <input type="number" name="age" id="age" placeholder="ex: 20" min="12" max="60"
-                            class="w-full bg-gray-900 border border-gray-700 text-white rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500/20 transition-all" />
-                    </div>
-                    @endif
 
                     <div class="mt-8 text-right">
                         <button class="bg-green-400 text-gray-900 px-6 py-2 rounded-xl font-semibold">

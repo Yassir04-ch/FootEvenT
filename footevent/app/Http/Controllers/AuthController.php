@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
+use App\Http\Requests\ProfileUpdateRequest;
 use App\Service\AuthService;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -84,5 +85,7 @@ class AuthController extends Controller
         $user = User::with('role','joueur')->where('id',Auth::id())->first();
         return view('auth.profile',compact('user'));
     }
+
+
 
 }

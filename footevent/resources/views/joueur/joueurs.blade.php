@@ -43,7 +43,7 @@
   <div>
     <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-green-950 border border-green-800 text-green-400 text-xs uppercase tracking-widest mb-5">
       <span class="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse"></span>
-      Base de données joueurs
+      joueurs
     </div>
 
     <h1 class="font-bebas text-7xl leading-none mb-4">
@@ -123,21 +123,20 @@
       
 
       <h2 class="font-bebas text-3xl mb-2 tracking-wide">
-        {{ $joueur->firstname }} {{ $joueur->lastname }}
+        {{ $joueur->user->firstname }} {{ $joueur->user->lastname }}
       </h2>
 
       <div class="text-xs text-gray-400 space-y-1">
-        <p>Poste: {{ $joueur->poste}}</p>
+        <p>Age: {{ $joueur->age}}</p>
       </div>
 
     </div>
 
-    <!-- footer -->
     <div class="px-5 py-3 border-t border-gray-800 flex items-center justify-between">
 
       <div class="flex items-center gap-2 text-xs text-gray-400">
         <div class="w-7 h-7 bg-green-950 border border-green-800 rounded-full flex items-center justify-center text-green-400 font-bold">
-          {{ substr($joueur->firstname,0,1) }}
+          {{ substr($joueur->user->firstname,0,1) }}
         </div>
         <span>{{ $joueur->firstname }}</span>
       </div>

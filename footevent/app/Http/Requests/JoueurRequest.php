@@ -11,7 +11,7 @@ class JoueurRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,8 @@ class JoueurRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'poste' => "required|string",
+            'age'  => "required|integer",
         ];
     }
 }

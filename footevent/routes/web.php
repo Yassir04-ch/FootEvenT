@@ -20,7 +20,7 @@ Route::post("/auth/login",[AuthController::class,'login'])->name("login");
 Route::post('/auth/logout', [AuthController::class, 'destroy'])->name('auth.destroy');
 Route::get('/auth/profile', [AuthController::class, 'profile'])->name('auth.profile');
 Route::get('/auth/edit', [AuthController::class, 'profile'])->name('auth.edit');
-Route::put('/auth/update', [ProfileController::class, 'update'])->name('auth.update');
+Route::put('/auth/update', [ProfileController::class, 'update'])->name('profile.update');
 Route::resource("auth",AuthController::class);
 
 Route::get('/tournoi/{tournoi}/equipes', [TournoiController::class, 'equipes'])->name('tournoi.equipe');

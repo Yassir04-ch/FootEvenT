@@ -45,15 +45,9 @@ class GameController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-     public function store(Request $request,Tournoi $tournoi)
+     public function store(GameRequest $request,Tournoi $tournoi)
     {
-        $validated = $request->validate([
-            'dateMatch' => 'required',
-            'terrain' => 'required|string|max:255',
-            'equipe1_id' => 'required|exists:equipes,id',
-            'equipe2_id' => 'required|exists:equipes,id',
-            'heure'=> 'required'
-        ]);
+        $validated = $request->validated();
         $result = $this->service->createGame($validated,$tournoi);
         if(!$result['success']){
         return redirect()->back()->with('error', $result['message']);

@@ -61,7 +61,7 @@
       <h1 class="font-bebas text-5xl tracking-wide leading-none mb-2">
         Joueurs de <span class="text-green-400">{{ $equipe->name_equipe }}</span>
       </h1>
-      <p class="text-sm text-gray-400">{{ $equipe->nbJoueur }} joueurs actifs</p>
+      <p class="text-sm text-gray-400">{{ $equipe->nbJoueur }} joueurs</p>
     </div>
 
     <div class="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden mb-6">
