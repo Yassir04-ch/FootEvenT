@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('games', function (Blueprint $table) {
-            //
+             $table->time('heure')->after('dateMatch');
         });
     }
 
@@ -22,7 +22,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('games', function (Blueprint $table) {
-            //
+             $table->dropColumn('heure');
         });
     }
 };

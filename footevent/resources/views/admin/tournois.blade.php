@@ -11,9 +11,7 @@
 
 <div class="flex min-h-screen">
 
-    <!-- SIDEBAR -->
     <aside class="w-64 bg-gray-950 border-r border-gray-800 flex flex-col fixed top-0 left-0 h-full z-40" style="background:#070a0f">
-        <!-- Logo -->
         <div class="px-6 py-6 border-b border-gray-800">
             <div class="flex items-center gap-3">
                 <div class="w-8 h-8 bg-green-400 rounded-full flex items-center justify-center text-base">⚽</div>
@@ -25,7 +23,6 @@
             </div>
         </div>
 
-        <!-- Nav -->
         <nav class="flex-1 px-4 py-6 flex flex-col gap-1">
 
             <div class="text-xs text-gray-600 uppercase tracking-widest px-3 mb-2">Principal</div>
@@ -53,11 +50,6 @@
             </a>
 
             <div class="text-xs text-gray-600 uppercase tracking-widest px-3 mb-2 mt-4">Système</div>
-
-            <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-400 text-sm font-medium hover:bg-gray-800 hover:text-white no-underline">
-                <span class="text-base">🔔</span> Notifications
-                <span class="ml-auto bg-green-400 text-gray-900 text-xs px-2 py-0.5 rounded-full font-bold">3</span>
-            </a>
              <form method="POST" action="{{ route('auth.destroy') }}">
                 @csrf
                  <button type="submit" class="px-5 py-2 border border-gray-600 rounded-lg text-gray-400 text-sm font-medium hover:border-red-500 hover:text-red-400">
@@ -68,21 +60,40 @@
 
     </aside>
 
-    <!-- MAIN -->
     <main class="ml-64 flex-1 flex flex-col">
 
-        <!-- TOP BAR -->
         <div class="sticky top-0 z-30 flex items-center justify-between px-8 py-4 bg-gray-900 border-b border-gray-800">
             <div>
                 <h1 class="text-xl font-bold text-white">Vue d'ensemble</h1>
                 <p class="text-xs text-gray-400 mt-0.5">Samedi, 07 Mars 2026</p>
             </div>
-            <div class="flex items-center gap-3">
+             <div class="flex items-center gap-3">
                 <div class="relative">
-                    <button class="w-9 h-9 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 hover:text-white border border-gray-700">🔔</button>
+                    <button id="notif_btn" class="w-9 h-9 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 hover:text-white border border-gray-700">🔔</button>
                     <span class="absolute -top-1 -right-1 w-4 h-4 bg-green-400 rounded-full text-gray-900 text-xs font-bold flex items-center justify-center">3</span>
+
+                    <div id="notif_model" class="absolute hidden right-0 mt-2 w-80 bg-gray-900 border border-gray-800 rounded-2xl shadow-xl z-50">
+                        <div class="px-5 py-4 border-b border-gray-800 flex items-center justify-between">
+                            <p class="font-bold text-white">Notifications</p>
+                            <button id="close_btn" class="text-gray-500 hover:text-white">✕</button>
+                        </div>
+                        <div class="divide-y divide-gray-800 max-h-80 overflow-y-auto">
+
+                             <div class="divide-y divide-gray-800 max-h-80 overflow-y-auto">
+                          @foreach($notifications as $notification)
+                            <div class="px-5 py-4 hover:bg-gray-800 transition-colors flex items-start gap-3">
+                                <div class="flex-1">
+                                    <p class="text-sm text-white font-medium">{{$notification->message}}</p>
+                                    <p class="text-xs text-gray-600 mt-1">{{$notification->created_at}}</p>
+                                </div>
+                            </div>
+                         @endforeach
+                        </div>
+
+                        </div>
+                    </div>
                 </div>
-               <a href="{{route('auth.profile')}}"><div class="w-9 h-9 bg-red-500 rounded-full flex items-center justify-center text-white font-bold text-sm">{{strtoupper(substr(auth()->user()->lastname,0,1))}}</div></a>
+                <a href="{{route('auth.edit')}}"><div class="w-9 h-9 bg-red-500 rounded-full flex items-center justify-center text-white font-bold text-sm">A</div></a>
             </div>
         </div>
 
@@ -217,5 +228,6 @@
     </main>
 </div>
 
+<script src="{{asset('js/notification.js')}}"></script>
 </body>
 </html>

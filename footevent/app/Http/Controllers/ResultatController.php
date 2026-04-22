@@ -34,11 +34,11 @@ class ResultatController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request,Game $game)
+    public function store(ResultatRequest $request,Game $game)
     {
       $validated = $request->validated();
-        $id_equipe1 = $game->equipe1_id;
-        $id_equipe2 = $game->equipe2_id;
+        $id_equipe1 = $game->equipe1->id;
+        $id_equipe2 = $game->equipe2->id;
         $validated['game_id'] = $game->id;
          $result = $this->service->create($validated,$game,$id_equipe1,$id_equipe2);
         if(!$result['success']){

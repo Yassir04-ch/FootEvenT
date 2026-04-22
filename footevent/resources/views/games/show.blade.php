@@ -43,7 +43,6 @@
                 {{$game->dateMatch}} - {{$game->heure}}
             </p>
 
-
             <div class="flex items-center justify-between text-center mb-8">
 
                 <div class="flex-1">
@@ -51,7 +50,6 @@
                         {{$game->equipe1->name_equipe}}
                     </h3>
                 </div>
-
 
                 <div class="px-6 text-3xl font-bold text-green-400">
 
@@ -91,11 +89,9 @@
                     </p>
 
                 @else
-
                     <p class="text-gray-500 text-sm">
                          Ce match pas encore été joué
                     </p>
-
                 @endif
 
             </div>

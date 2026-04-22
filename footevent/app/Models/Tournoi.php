@@ -22,4 +22,5 @@ class Tournoi extends Model
     {
         return $this->hasMany(Game::class);
     }
+    
 }

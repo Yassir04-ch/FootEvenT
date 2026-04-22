@@ -18,20 +18,36 @@ class GameService
 
     public function createGame(array $data,Tournoi $tournoi)
     {
-
-        $equipe1 = Equipe::find($data['equipe1_id']);
-        $equipe2 = Equipe::find($data['equipe2_id']);
-        $joueursE1 = $equipe1->joueurs()->get();
-        $joueursE2 = $equipe2->joueurs()->get();
         $data['tournoi_id'] = $tournoi->id;
+        $equipes = $data['equipes'];
         
-        if ($data['equipe1_id'] === $data['equipe2_id']) {
+        if(count($equipes)!= 2){
+            return ['success' => false,'message' => 'Vous devez choisir  2 équipes.'];
+        }
+            
+       
+        if ($equipes[0] == $equipes[1]) {
             return ['success' => false,'message' => 'une équipe ne peut pas jouer contre elle même.'];
         }
-        $data['statut'] = 'programme';
-        $this->repository->create($data);
+
+        $equipe1 = Equipe::with('joueurs')->find($equipes[0]);
+        $equipe2 = Equipe::with('joueurs')->find($equipes[1]);
+
+        if(!$equipe1 || !$equipe2){
+            return ['success'=>false,'message'=>'équipe non trouvée'];
+        }
+
+        $game = $this->repository->create([
+            'dateMatch' => $data['dateMatch'],
+            'heure' => $data['heure'],
+            'terrain' => $data['terrain'],
+            'tournoi_id' => $tournoi->id,
+            'statut' => 'programme'
+        ]);
+
+        $game->equipes()->attach($equipes);
         
-        foreach($joueursE1 as $joueur){
+        foreach($equipe1->joueurs as $joueur){
 
             Notification::create([
                 'message'=>"Un match a été programmé Votre equipe vs  " . $equipe2->name_equipe ." dans Tournoi : ".$tournoi->name_tournoi,
@@ -39,7 +55,7 @@ class GameService
             ]);
         }
 
-         foreach($joueursE2 as $joueur){
+         foreach($equipe2->joueurs as $joueur){
 
             Notification::create([
                 'message'=>"Un match a été programmé Votre equipe vs  " . $equipe1->name_equipe ." dans Tournoi : ".$tournoi->name_tournoi,
@@ -59,20 +75,11 @@ class GameService
         return $games;
     }
 
-    public function gamesProgramme(){
-        $gamepro = $this->repository->gamesProgramme();
+    public function gamesbystatut($statut){
+        $gamepro = $this->repository->gamesbystatut($statut);
         return $gamepro;
     }
 
-    public function gamestermine(){
-        $gamepro = $this->repository->gamestermine();
-        return $gamepro;
-    } 
-    
-    public function gamesencour(){
-        $gamepro = $this->repository->gamesencour();
-        return $gamepro;
-    }
 
     public function demarerGame($game){
         $this->repository->UpdateStatut($game,'en_cours');

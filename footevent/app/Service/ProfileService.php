@@ -17,7 +17,7 @@ class ProfileService {
       }
       if( empty($validated['password'])){
           $user->update([
-            "firstname"=> $validated['firstname'],
+              "firstname"=> $validated['firstname'],
               "lastname"=>$validated['lastname'],
               "email"=>$validated['email'],
           ]);
@@ -25,7 +25,7 @@ class ProfileService {
         }
         
         $user->update([
-            "firstname"=> $validated['firstname'],
+              "firstname"=> $validated['firstname'],
               "lastname"=>$validated['lastname'],
               "email"=>$validated['email'],
               "password"=>$validated['password'],

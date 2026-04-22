@@ -38,8 +38,8 @@ class ResultatService{
 
         $equipe1 = Equipe::find($id_equipe1);
         $equipe2 = Equipe::find($id_equipe2);
-        $equipe1pivot = $equipe1->tournois()->where('tournoi_id', $game->tournoi->id)->first();
-        $equipe2pivot = $equipe2->tournois()->where('tournoi_id', $game->tournoi->id)->first();
+        $equipe1pivot = $equipe1->tournois()->where('tournoi_id', $game->tournoi_id)->first();
+        $equipe2pivot = $equipe2->tournois()->where('tournoi_id', $game->tournoi_id)->first();
         if($data['scoreEq1'] > $data['scoreEq2']){
          $niveau = $equipe1pivot->pivot->niveau;
          $newNiveau = $this->updateNiveau($niveau);

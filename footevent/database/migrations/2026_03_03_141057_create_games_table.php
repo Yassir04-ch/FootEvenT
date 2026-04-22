@@ -17,8 +17,6 @@ return new class extends Migration
         $table->string('terrain');
         $table->enum('statut', ['programme', 'en_cours', 'termine'])->default('programme');
         $table->foreignId('tournoi_id')->constrained('tournois')->onDelete('cascade');
-        $table->foreignId('equipe1_id')->constrained('equipes')->onDelete('cascade');
-        $table->foreignId('equipe2_id')->constrained('equipes')->onDelete('cascade');
         $table->timestamps(); 
         });
     }

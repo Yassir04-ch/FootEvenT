@@ -58,18 +58,19 @@
 
       <div>
         <label class="text-xs text-gray-400 uppercase mb-2 block">Équipe 1</label>
-        <select name="equipe1_id" class="w-full bg-gray-950 border border-gray-700 rounded-xl px-4 py-3 text-sm">
-          @foreach($equipes as $equipe)
-          <option value="{{$equipe->id}}">{{$equipe->name_equipe}}</option>
-          @endforeach        </select>
+        <select name="equipes[]" class="w-full bg-gray-950 border border-gray-700 rounded-xl px-4 py-3 text-sm">
+            @foreach($equipes as $equipe)
+              <option value="{{$equipe->id}}">{{$equipe->name_equipe}}</option>
+            @endforeach
+        </select>
       </div>
 
       <div>
         <label class="text-xs text-gray-400 uppercase mb-2 block">Équipe 2</label>
-        <select name="equipe2_id" class="w-full bg-gray-950 border border-gray-700 rounded-xl px-4 py-3 text-sm">
-          @foreach($equipes as $equipe)
-          <option value="{{$equipe->id}}">{{$equipe->name_equipe}}</option>
-          @endforeach
+         <select name="equipes[]" class="w-full bg-gray-950 border border-gray-700 rounded-xl px-4 py-3 text-sm">
+            @foreach($equipes as $equipe)
+              <option value="{{$equipe->id }}">{{ $equipe->name_equipe }}</option>
+            @endforeach
         </select>
       </div>
 

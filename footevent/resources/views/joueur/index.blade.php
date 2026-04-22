@@ -26,7 +26,6 @@
         <a href="#" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-gray-100 hover:bg-gray-800 transition-colors">Matchs</a>
     </div>
 
-    <div class="flex items-center gap-3">
           <div class="flex items-center gap-3">
                 <div class="relative">
                     <button id="notif_btn" class="w-9 h-9 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 hover:text-white border border-gray-700">🔔</button>

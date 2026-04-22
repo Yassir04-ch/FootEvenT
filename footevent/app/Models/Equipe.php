@@ -25,15 +25,9 @@ class Equipe extends Model
     }
 
 
-    public function gamesAsEquipe1()
+    public function games()
     {
-        return $this->hasMany(Game::class, 'equipe1_id');
-    }
-
- 
-    public function gamesAsEquipe2()
-    {
-        return $this->hasMany(Game::class, 'equipe2_id');
+        return $this->belongsToMany(Game::class, 'equipe_game')->withPivot('winner')->withTimestamps();
     }
 
     

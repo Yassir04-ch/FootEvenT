@@ -31,7 +31,8 @@ class AdminController extends Controller
         $nbtournoisEncours = Tournoi::where('status','en_cours')->count();
         $nbtournoisTermine = Tournoi::where('status','termine')->count();
         $tournois = Tournoi::with('organisateur')->get();
-        return view('admin.tournois',compact('nbtournoisEnatente','nbtournoisEncours','nbtournoisTermine','tournois'));
+        $notifications = $this->service->getNotifications(Auth::id());
+        return view('admin.tournois',compact('nbtournoisEnatente','nbtournoisEncours','nbtournoisTermine','tournois','notifications'));
 
     }
     public function banniUser(User $user){

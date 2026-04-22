@@ -9,12 +9,11 @@ class GameRepository
         
     public function all(Request $request)
     {
-        $games = Game::with(['tournoi', 'equipe1', 'equipe2','resultat']);
+        $games = Game::with(['tournoi', 'equipes','resultat']);
 
         if ($request->has('statut')) {
             $games->where('statut', $request->statut);
         }
-
         return $games->get();
     }
 
@@ -24,20 +23,11 @@ class GameRepository
         return $game;
     }
 
-    public function gamesProgramme(){
-      $gameprog = Game::Where('statut','programme')->get();
+    public function gamesbystatut($statut){
+      $gameprog = Game::Where('statut',$statut)->get();
       return $gameprog;
     }
 
-     public function gamestermine(){
-      $gameter = Game::Where('statut','termine')->get();
-      return $gameter;
-    }
-
-     public function gamesencour(){
-      $gamecour = Game::Where('statut','en_cours')->get();
-      return $gamecour;
-    }
 
     public function UpdateStatut(Game $game,$statut){
         $game->update(['statut'=>$statut]);

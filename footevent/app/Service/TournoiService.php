@@ -92,7 +92,7 @@ class TournoiService
         if ($nbEquipes >= $tournoi->nbEquipes) {
             return ['success' => false, 'message' => 'Le tournoi est complet.'];
         }
-
+ 
         $this->repository->joinTournoi($tournoi, $equipe);
 
         return ['success' => true, 'message' => "Demande dinscription envoyée avec succès"];
@@ -114,7 +114,7 @@ class TournoiService
          elseif($tournoi->nbEquipes == 4){
             $niveau = "demi";
         }
-        
+
         $tournoi_id = $tournoi->id;
         $this->repository->validerEquipe($equipe,$tournoi_id,$niveau);
         $notification  =  Notification::create([

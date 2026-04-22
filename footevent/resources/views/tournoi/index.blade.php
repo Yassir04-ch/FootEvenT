@@ -113,7 +113,7 @@
       <div class="p-5">
         <div class="flex items-center justify-between mb-4">
           <span class="text-xs font-semibold px-2.5 py-1 rounded-full uppercase tracking-wider bg-blue-950 text-blue-400 border border-blue-800">
-            Élimination
+            Elimination
           </span>
           <span class="flex items-center gap-1.5 text-xs font-medium text-green-400">
             <span class="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse"></span>

@@ -70,7 +70,7 @@
             <div>
                 <h1 class="text-xl font-bold text-white">Vue d'ensemble</h1>
             </div>
-            <div class="flex items-center gap-3">
+            <dv class="flex items-center gap-3">
                 <div class="relative">
                     <button id="notif_btn" class="w-9 h-9 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 hover:text-white border border-gray-700">🔔</button>
                     <span class="absolute -top-1 -right-1 w-4 h-4 bg-green-400 rounded-full text-gray-900 text-xs font-bold flex items-center justify-center">3</span>
@@ -97,7 +97,7 @@
                     </div>
                 </div>
                 <a href="{{route('auth.edit')}}"><div class="w-9 h-9 bg-red-500 rounded-full flex items-center justify-center text-white font-bold text-sm">A</div></a>
-            </div>
+            </dv>
         </div>
 
         <div class="flex-1 px-8 py-8 overflow-y-auto">

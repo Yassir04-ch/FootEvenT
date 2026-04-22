@@ -12,18 +12,26 @@ class Game extends Model
         return $this->belongsTo(Tournoi::class);
     }
 
-    public function equipe1()
+    public function equipes()
     {
-        return $this->belongsTo(Equipe::class, 'equipe1_id');
-    }
-
-    public function equipe2()
-    {
-        return $this->belongsTo(Equipe::class, 'equipe2_id');
+        return $this->belongsToMany(Equipe::class, 'equipe_game')->withPivot('winner')->withTimestamps();
     }
 
     public function resultat()
     {
         return $this->hasOne(Resultat::class);
     }
+
+    public function getEquipe1Attribute()
+    {
+        return $this->equipes->first();
+    }
+
+    public function getEquipe2Attribute()
+    {
+        return $this->equipes->last();
+    }
+
+
+
 }

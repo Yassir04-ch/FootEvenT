@@ -12,7 +12,7 @@ use App\Models\Equipe;
 class GameController extends Controller
 {
 
-    private $service;
+    private GameService $service;
 
 
     public function __construct(GameService $service)
@@ -26,9 +26,9 @@ class GameController extends Controller
     public function index(Request $request)
     {
         $games = $this->service->getAllGames($request);
-        $gamepro = $this->service->gamesProgramme()->count();
-        $gameter = $this->service->gamestermine()->count();
-        $gamecour = $this->service->gamesencour()->count();
+        $gamepro = $this->service->gamesbystatut('programme')->count();
+        $gameter = $this->service->gamesbystatut('termine')->count();
+        $gamecour = $this->service->gamesbystatut('en_cours')->count();
         $countMatch = Game::count();
         return view('games.index', compact('games','gamepro','gameter','gamecour','countMatch'));
     }
@@ -38,7 +38,7 @@ class GameController extends Controller
      */
     public function create(Tournoi $tournoi)
     {
-        $equipes =$tournoi->equipes()->wherePivot('statut','validee')->get();
+        $equipes = $tournoi->equipes()->wherePivot('statut','validee')->get();
         return view('games.create',compact('tournoi','equipes'));
     }
 
@@ -56,14 +56,15 @@ class GameController extends Controller
         return redirect()->back()->with('success',$result['message']);
     }
 
-    public function demarerGame(Game $game){
+    public function demarerGame(Game $game)
+    {
       $this->service->demarerGame($game);
       return back()->with('success','Match est Démarer');
     }
 
     public function show(Game $game)
     {
-        $game->load(['equipe1', 'equipe2', 'tournoi', 'resultat']);
+        $game->load(['equipes', 'tournoi', 'resultat']);
 
         return view('games.show', compact('game'));
     }

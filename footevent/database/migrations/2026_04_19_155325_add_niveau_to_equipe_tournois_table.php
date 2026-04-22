@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('equipe_tournois', function (Blueprint $table) {
-            //
+            $table->string('niveau')->after('tournoi_id');
         });
     }
 
@@ -22,7 +22,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('equipe_tournois', function (Blueprint $table) {
-            //
+            $table->dropColumn('niveau');
         });
     }
 };

@@ -67,7 +67,7 @@
                     + Créer un tournoi
                 </a>
 
-            <div class="flex items-center gap-3">
+            <d class="flex items-center gap-3">
                 <div class="relative">
                     <button id="notif_btn" class="w-9 h-9 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 hover:text-white border border-gray-700">🔔</button>
                     <span class="absolute -top-1 -right-1 w-4 h-4 bg-green-400 rounded-full text-gray-900 text-xs font-bold flex items-center justify-center">3</span>
@@ -95,7 +95,7 @@
                     </div>
                 </div>
                 <a href="{{route('auth.edit')}}"><div class="w-9 h-9 bg-green-500 rounded-full flex items-center justify-center text-white font-bold text-sm">{{ substr(auth()->user()->firstname,0,1)}}</div></a>
-            </div>
+            </d>
             </div>
         </div>
 

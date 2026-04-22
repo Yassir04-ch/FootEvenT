@@ -24,8 +24,8 @@ class GameRequest extends FormRequest
         return [
             'dateMatch' => 'required',
             'terrain' => 'required|string|max:255',
-            'equipe1_id' => 'required|exists:equipes,id',
-            'equipe2_id' => 'required|exists:equipes,id',
+            'equipes' => 'required|array|min:2',
+            'heure' => 'required',
         ];
     }
 }

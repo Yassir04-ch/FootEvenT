@@ -1,7 +1,6 @@
 <?php
 namespace App\Repositories;
 use App\Models\Tournoi;
-use App\Models\Match;
 use App\Models\Game;
 
 
@@ -13,7 +12,7 @@ class OrganisateurRepository{
   }
 
   public function organisateurMatchs($organisateur){
-     $games = Game::with(['tournoi', 'equipe1', 'equipe2'])->whereHas('tournoi', function ($query) use ($organisateur){
+     $games = Game::with(['tournoi', 'equipes'])->whereHas('tournoi', function ($query) use ($organisateur){
             $query->where('user_id', $organisateur->id);})->get();
       return $games ;       
   }

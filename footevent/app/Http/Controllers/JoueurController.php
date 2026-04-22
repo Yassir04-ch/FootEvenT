@@ -31,7 +31,8 @@ class JoueurController extends Controller
         $active = $user->joueur->equipes()->wherePivot('statut','actif')->exists();
         $equipe = $joueur->equipes()->wherePivot('statut', 'actif')->with('tournois')->first();
         if($equipe){
-          $games = Game::where('equipe1_id',$equipe->id)->orWhere('equipe2_id',$equipe->id)->get();
+          $games = Game::with('equipes')->whereHas('equipes',function($q) use ($equipe) {
+            $q->where('equipe_id',$equipe->id);})->get();
         }
         else{
             $games = null;  

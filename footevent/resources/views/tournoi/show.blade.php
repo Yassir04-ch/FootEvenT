@@ -56,7 +56,7 @@
           <div class="flex-1">
             <div class="flex items-center gap-3 mb-4">
               <span class="text-xs font-semibold px-2.5 py-1 rounded-full uppercase tracking-wider border bg-blue-950 text-blue-400 border-blue-800">
-                {{ $tournoi->format}}
+                Elimination
               </span>
               <span class="flex items-center gap-1.5 text-xs font-medium text-green-400">
                  {{ $tournoi->status }}
@@ -76,7 +76,7 @@
               </span>
               <span class="flex items-center gap-2">
                 <svg class="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
-                Organisé par {{ $tournoi->organisateur->firstname ?? 'N/A' }} {{ $tournoi->organisateur->lastname ?? '' }}
+                Organisé par {{ $tournoi->organisateur->firstname }} {{ $tournoi->organisateur->lastname }}
               </span>
             </div>
           </div>

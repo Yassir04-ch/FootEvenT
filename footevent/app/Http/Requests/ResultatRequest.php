@@ -11,7 +11,7 @@ class ResultatRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,10 @@ class ResultatRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+        'scoreEq1' => 'required|integer',
+        'scoreEq2' => 'required|integer',
+        'penaltyE1'=> 'nullable|integer',
+        'penaltyE2'=> 'nullable|integer'
         ];
     }
 }
