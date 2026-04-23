@@ -5,6 +5,7 @@ namespace App\Service;
 use App\Models\Equipe;
 use App\Models\Tournoi;
 use App\Models\Joueur;
+use App\Models\Game;
 use App\Models\Notification;
 use App\Repositories\EquipeRepository;
 
@@ -184,6 +185,14 @@ class EquipeService
         return $this->repository->getJoueursEnAttente($equipe);
     }
 
+    public function games(Equipe $equipe)
+    {
+        $games = Game::with(['resultat','equipes','tournoi'])->whereHas('equipes',function($q) use ($equipe){
+            $q->where('equipe_id',$equipe->id);
+        })->get();
+
+        return $games;
+    }
 
 
 }

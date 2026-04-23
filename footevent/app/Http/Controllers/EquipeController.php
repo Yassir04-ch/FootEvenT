@@ -6,6 +6,7 @@ use App\Http\Requests\EquipeRequest;
 use App\Http\Requests\UpdateEquipeRequest;
 use App\Models\Equipe;
 use App\Models\Joueur;
+use App\Models\Notification;
 use App\Service\EquipeService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -171,6 +172,14 @@ class EquipeController extends Controller
     public function leftJoueur()
     {
         
+    }
+
+    public function games(Equipe $equipe)
+    {
+        $user_id = Auth::id();
+        $games = $this->service->games($equipe);
+        $notifications = Notification::where('user_id',$user_id)->orwhere('user_id',null)->get();
+        return view('equipe.games',compact('games','equipe','notifications'));
     }
 
 }
