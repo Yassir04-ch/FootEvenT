@@ -9,6 +9,7 @@ use App\Models\Game;
 use Illuminate\Http\Request;
 use App\Service\JoueurService;
 use App\Http\Requests\JoueurRequest;
+use App\Http\Requests\UpdateJoueurRequest;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -56,8 +57,12 @@ class JoueurController extends Controller
      public function store(JoueurRequest $request)
     {
         $validated = $request->validated();
-        $result = $this->service->createJoueur($validated);
+        
+        if($request->hasFile('image')){
+            $validated['image'] = $request->file('image');
+        }
 
+        $result = $this->service->createJoueur($validated);
         if (!$result['success']) {
             return back()->with('error', $result['message']);
         }
@@ -75,12 +80,12 @@ class JoueurController extends Controller
         return view('joueur.update',compact('joueur'));
     }
     
-    public function update(Request $request, Joueur $joueur)
+    public function update(UpdateJoueurRequest $request, Joueur $joueur)
     {
-        $validated = $request->validate([
-             'poste' => "required|string",
-             'age'  => "required|integer",
-        ]);
+        $validated = $request->validated();
+        if($request->hasFile('image')){
+            $validated['image'] = $request->file('image');
+        }
         $this->service->update($validated,$joueur);
         return redirect()->route('joueurs.index')->with('success','votre profile joueur a été modifier');
     }

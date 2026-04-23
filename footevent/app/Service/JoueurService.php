@@ -6,6 +6,7 @@ use App\Models\Joueur;
 use App\Models\Notification;
 use Illuminate\Http\Request;
 use App\Repositories\JoueurRepository;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 
 class JoueurService
@@ -29,6 +30,9 @@ class JoueurService
         if ($this->repository->findById($user->id)) {
             return ['success' => false, 'message' => 'Vous avez déja un profil joueur.'];
         }
+        if($data['image']){
+            $data['image'] = $data['image']->store('joueurs','public');
+        }
 
         $data['user_id'] = $user->id;
 
@@ -39,6 +43,11 @@ class JoueurService
 
      public function update(array $data,Joueur $joueur)
     {
+
+        if($joueur->image && Storage::disk('public')->exists($joueur->image)){
+            Storage::disk('public')->delete($joueur->image);
+        }
+        $data['image'] = $data['image']->store('joueurs','public');
         $joueur->update($data);
     }
 

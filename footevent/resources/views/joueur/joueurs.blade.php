@@ -94,70 +94,52 @@
   </div>
 </div>
 
-<div class="px-8 pb-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+<div class="px-8 pb-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
 
 @forelse($joueurs as $joueur)
 
-  <div class="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden hover:border-green-700 hover:-translate-y-1 transition">
+<div class="w-64 mx-auto">
 
-    <div class="h-1.5 bg-gradient-to-r from-green-700 to-green-400"></div>
+    <div class="bg-gradient-to-b from-gray-900 to-black border border-green-700 rounded-2xl p-4 shadow-lg hover:scale-105 transition duration-300">
 
-    <div class="p-5">
-
-      <div class="flex items-center justify-between mb-4">
-
-        <span class="text-xs px-2 py-1 rounded-full border border-gray-700 text-gray-400">
-          {{ $joueur->poste}}
-        </span>
-
-        <span class="text-xs text-green-400 flex items-center gap-1">
-         @if($joueur->activeJoueur())
-          <span class="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse"></span>
-          Dans équipe
-         @else
-         <span class="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse"></span>
-          Sans équipe
-          @endif
-        </span>
-      </div>
-      
-
-      <h2 class="font-bebas text-3xl mb-2 tracking-wide">
-        {{ $joueur->user->firstname }} {{ $joueur->user->lastname }}
-      </h2>
-
-      <div class="text-xs text-gray-400 space-y-1">
-        <p>Age: {{ $joueur->age}}</p>
-      </div>
-
-    </div>
-
-    <div class="px-5 py-3 border-t border-gray-800 flex items-center justify-between">
-
-      <div class="flex items-center gap-2 text-xs text-gray-400">
-        <div class="w-7 h-7 bg-green-950 border border-green-800 rounded-full flex items-center justify-center text-green-400 font-bold">
-          {{ substr($joueur->user->firstname,0,1) }}
+        <!-- TOP -->
+        <div class="flex justify-between items-center text-green-400 text-xs font-bold mb-3">
+            <span class="uppercase">{{ $joueur->poste }}</span>
         </div>
-        <span>{{ $joueur->firstname }}</span>
-      </div>
 
-      <a href="#" class="text-xs px-3 py-1.5 rounded-lg border border-gray-700 text-gray-300 hover:border-green-600 hover:text-green-400">
-        Voir
-      </a>
+        <div class="w-full h-40 mb-3 overflow-hidden rounded-lg border border-green-700">
+            @if($joueur->image)
+                <img src="{{ asset('storage/'.$joueur->image) }}" class="w-full h-44 object-cover rounded-lg">
+            @else
+                <div class="w-full h-full flex items-center justify-center bg-gray-800 text-green-400 text-3xl font-bold">
+                    {{ substr($joueur->user->firstname,0,1) }}
+                </div>
+            @endif
+        </div>
+        <h2 class="text-center text-white font-bold text-lg tracking-wide uppercase">
+            {{ $joueur->user->firstname }} {{ $joueur->user->lastname }}
+        </h2>
+        <p class="text-center text-xs mt-2">
+            @if($joueur->activeJoueur())
+                <span class="text-green-400">● Dans équipe</span>
+            @else
+                <span class="text-gray-400">● Sans équipe</span>
+            @endif
+        </p>
 
+        <div class="mt-4">
+            <a href="#" class="block text-center bg-green-500 hover:bg-green-400 text-black text-sm font-semibold py-2 rounded-lg transition">
+                Voir profil
+            </a>
+        </div>
     </div>
-
-  </div>
-
+</div>
 @empty
-
-  <div class="col-span-3 text-center text-gray-500 py-20">
+<div class="col-span-3 text-center text-gray-500 py-20">
     Aucun joueur trouvé 
-  </div>
-
+</div>
 @endforelse
 
 </div>
-
 </body>
 </html>

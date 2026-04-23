@@ -28,7 +28,7 @@
             </div>
         @endif
 
-        <form method="POST" action="{{ route('joueurs.store') }}" class="space-y-5 bg-gray-900 p-6 rounded-2xl border border-gray-800">
+        <form method="POST" action="{{ route('joueurs.store') }}" class="space-y-5 bg-gray-900 p-6 rounded-2xl border  border-gray-800" enctype="multipart/form-data">
             @csrf
 
             <div>
@@ -42,6 +42,13 @@
                     <option value="gardien">Gardien</option>
                 </select>
                 <p id="errorPoste" class="text-red-400 text-xs mt-1 hidden">Le poste est requis.</p>
+            </div>
+
+            <div>
+                <label class="block text-xs font-semibold text-gray-400 uppercase tracking-widest mb-2">
+                  Votre Image
+                </label>
+                <input type="file" name="image" class="w-full bg-gray-950 border border-gray-700 rounded-xl px-4 py-3 text-sm text-gray-100">
             </div>
 
             <div>

@@ -9,7 +9,6 @@
 </head>
 <body class="bg-gray-900 text-white font-outfit min-h-screen">
 
-<!-- NAV -->
 <nav class="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-10 py-4 bg-gray-900 border-b border-gray-800">
     <a href="{{ route('tournois.index') }}" class="flex items-center gap-3">
         <div class="w-8 h-8 bg-green-400 rounded-lg flex items-center justify-center">
@@ -24,13 +23,15 @@
         <a href="{{ route('tournois.index') }}" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-gray-100 hover:bg-gray-800 transition-colors">Tournois</a>
         <a href="{{ route('equipes.index') }}" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-gray-100 hover:bg-gray-800 transition-colors">Équipes</a>
         <a href="#" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-gray-100 hover:bg-gray-800 transition-colors">Matchs</a>
+        @if($equipe)
         <a href="{{ route('equipes.classement',$equipe) }}" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-gray-100 hover:bg-gray-800 transition-colors">Equipe Classement</a>
+        @endif
     </div>
 
           <div class="flex items-center gap-3">
                 <div class="relative">
                     <button id="notif_btn" class="w-9 h-9 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 hover:text-white border border-gray-700">🔔</button>
-                    <span class="absolute -top-1 -right-1 w-4 h-4 bg-green-400 rounded-full text-gray-900 text-xs font-bold flex items-center justify-center">3</span>
+                    <span class="absolute -top-1 -right-1 w-4 h-4 bg-green-400 rounded-full text-gray-900 text-xs font-bold flex items-center justify-center">{{$notifications->count()}}</span>
 
                     <div id="notif_model" class="absolute hidden right-0 mt-2 w-80 bg-gray-900 border border-gray-800 rounded-2xl shadow-xl z-50">
                         
@@ -189,6 +190,7 @@
                     </h2>
 
                     <div class="space-y-3">
+                        @if($games)
                         @forelse($games as $game)                       
                          <div class="flex items-center justify-between bg-gray-900/50 hover:bg-gray-900 transition rounded-xl p-4 border border-gray-700">                       
                             <div class="flex flex-col gap-1">
@@ -227,63 +229,57 @@
                         </div>
 
                         @endforelse
+                        @endif
                     </div>
                 </div>
 
             </div>
 
             <div class="flex flex-col gap-6">
-                <div class="bg-gray-800 rounded-2xl border border-gray-700 p-6">
-                    <h3 class="text-base font-bold text-white mb-5">Mon Profil</h3>
-                    <div class="flex flex-col items-center text-center mb-5">
+
+            <div class="bg-gray-800 rounded-2xl border border-gray-700 p-6">
+                <h3 class="text-base font-bold text-white mb-5">Mon Profil</h3>
+
+                <div class="flex flex-col items-center text-center mb-5">
+                    @if($joueur->image)
+                        <img src="{{ asset('storage/'.$joueur->image) }}" class="w-20 h-20 rounded-full object-cover border-2  mb-3">
+                    @else
                         <div class="w-16 h-16 bg-green-400 rounded-full flex items-center justify-center text-gray-900 font-bold text-2xl mb-3">
                             {{ substr($user->firstname, 0, 1) }}
                         </div>
-                        <div class="font-semibold text-white">{{ $user->firstname }} {{ $user->lastname }}</div>
-                        <div class="text-xs text-green-400 mt-1">Joueur</div>
+                    @endif
+
+                    <div class="font-semibold text-white">
+                        {{ $user->firstname }} {{ $user->lastname }}
                     </div>
-                    <div class="flex flex-col gap-1 text-sm">
-                        <div class="flex justify-between py-2 border-b border-gray-700">
-                            <span class="text-gray-400">Poste</span>
-                            <span class="text-white font-medium capitalize">{{ $joueur->poste }}</span>
-                        </div>
-                        <div class="flex justify-between py-2 border-b border-gray-700">
-                            <span class="text-gray-400">Âge</span>
-                            <span class="text-white font-medium">{{ $joueur->age }} ans</span>
-                        </div>
-                        <div class="flex justify-between py-2">
-                            <span class="text-gray-400">Email</span>
-                            <span class="text-white font-medium text-xs truncate max-w-32">{{ $user->email }}</span>
-                        </div>
-                         <a href="{{ route('joueurs.edit',$joueur) }}" class="w-full text-center px-4 py-2 bg-green-400 rounded-xl text-gray-900 text-sm font-semibold hover:bg-green-300 transition-colors">
-                            Modifier
-                        </a>
-                    </div>
+
+                    <div class="text-xs text-green-400 mt-1">Joueur</div>
                 </div>
 
-                <div class="bg-gray-800 rounded-2xl border border-gray-700 p-6">
-                    <h3 class="text-base font-bold text-white mb-2">Tournois disponibles</h3>
-                    <p class="text-gray-400 text-xs mb-5 leading-relaxed">Découvrez les tournois ouverts.</p>
-                    <div class="flex flex-col gap-3 mb-5">
-                        @forelse($tournois as $tournoi)
-                        <div class="flex items-center gap-3 bg-gray-700 rounded-xl p-3">
-                            <div class="w-9 h-9 bg-green-900 rounded-lg flex items-center justify-center text-base flex-shrink-0">⚽</div>
-                            <div class="flex-1 min-w-0">
-                                <div class="text-sm font-semibold text-white truncate">{{ $tournoi->name_tournoi }}</div>
-                                <div class="text-xs text-gray-400">{{ $tournoi->lieu }} • {{ $tournoi->nbEquipes }} équipes</div>
-                            </div>
-                            <span class="text-xs text-green-400 font-bold bg-green-900 px-2 py-0.5 rounded-full flex-shrink-0">Ouvert</span>
-                        </div>
-                        @empty
-                        <p class="text-xs text-gray-500 text-center py-4">Aucun tournoi disponible</p>
-                        @endforelse
+                <div class="flex flex-col gap-1 text-sm">
+                    <div class="flex justify-between py-2 border-b border-gray-700">
+                        <span class="text-gray-400">Poste</span>
+                        <span class="text-white font-medium capitalize">{{ $joueur->poste }}</span>
                     </div>
-                    <a href="{{ route('tournois.index') }}" class="block text-center px-4 py-3 bg-green-400 rounded-xl text-gray-900 font-bold text-sm hover:bg-green-300 transition-colors">
-                        Voir tous les tournois →
+
+                    <div class="flex justify-between py-2 border-b border-gray-700">
+                        <span class="text-gray-400">Âge</span>
+                        <span class="text-white font-medium">{{ $joueur->age }} ans</span>
+                    </div>
+
+                    <div class="flex justify-between py-2">
+                        <span class="text-gray-400">Email</span>
+                        <span class="text-white font-medium text-xs truncate max-w-32">
+                            {{ $user->email }}
+                        </span>
+                    </div>
+
+                    <a href="{{ route('joueurs.edit',$joueur) }}" class="w-full text-center px-4 py-2 bg-green-400 rounded-xl text-gray-900 text-sm font-semibold hover:bg-green-300 transition-colors">
+                        Modifier
                     </a>
                 </div>
-
             </div>
+        </div>
         </div>
     </div>
 </div>

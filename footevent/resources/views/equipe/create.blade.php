@@ -66,7 +66,7 @@
           Logo équipe
         </label>
         <input type="file" name="image" class="w-full bg-gray-950 border border-gray-700 rounded-xl px-4 py-3 text-sm text-gray-100">
-      </div>
+     </div>
 
      <div>
       <label class="block text-xs font-semibold text-gray-400 uppercase tracking-widest mb-2">Description <span class="normal-case text-gray-600 font-normal">(optionnel)</span></label>

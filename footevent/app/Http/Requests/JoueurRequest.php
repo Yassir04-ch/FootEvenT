@@ -24,6 +24,7 @@ class JoueurRequest extends FormRequest
         return [
             'poste' => "required|string",
             'age'  => "required|integer",
+            'image'  => "required",
         ];
     }
 }

@@ -27,7 +27,7 @@
             </div>
         @endif
 
-        <form method="POST" action="{{ route('joueurs.update',$joueur) }}" class="space-y-5 bg-gray-900 p-6 rounded-2xl border border-gray-800">
+        <form method="POST" action="{{ route('joueurs.update',$joueur) }}" class="space-y-5 bg-gray-900 p-6 rounded-2xl border border-gray-800" enctype="multipart/form-data">
             @csrf
             @method('put')
             <div>
@@ -35,12 +35,18 @@
                 <select name="poste" id="poste"
                     class="w-full bg-gray-950 border border-gray-700 text-gray-100 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500/20 transition-all">
                     <option value=""> Choisir un poste </option>
-                    <option value="attaquant">Attaquant</option>
-                    <option value="defenseur">Défenseur</option>
-                    <option value="milieu">Milieu</option>
-                    <option value="gardien">Gardien</option>
+                    <option value="attaquant"  {{$joueur->poste == 'attaquant' ? 'selected' : '' }}>Attaquant</option>
+                    <option value="defenseur"  {{$joueur->poste == 'defenseur' ? 'selected' : '' }}>Défenseur</option>
+                    <option value="milieu"  {{ $joueur->poste == 'milieu' ? 'selected' : '' }}>Milieu</option>
+                    <option value="gardien"  {{$joueur->poste == 'gardien' ? 'selected' : '' }}>Gardien</option>
                 </select>
-                <p id="errorPoste" class="text-red-400 text-xs mt-1 hidden">Le poste est requis.</p>
+            </div>
+
+             <div>
+                <label class="block text-xs font-semibold text-gray-400 uppercase tracking-widest mb-2">
+                  Votre Image
+                </label>
+                <input type="file" name="image" class="w-full bg-gray-950 border border-gray-700 rounded-xl px-4 py-3 text-sm text-gray-100">
             </div>
 
             <div>

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Joueur extends Model
 {
-    protected $fillable = ['poste', 'age', 'user_id'];
+    protected $fillable = ['poste','image', 'age', 'user_id'];
 
     public function user()
     {
