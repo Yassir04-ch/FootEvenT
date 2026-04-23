@@ -129,7 +129,7 @@
       <div class="px-5 py-3 bg-gray-950/50 border-t border-gray-800">
         <div class="flex justify-between text-xs mb-2">
           <span class="text-gray-500">Équipes inscrites</span>
-          <span class="font-medium"> 2/{{ $tournoi->nbEquipes}}</span>
+          <span class="font-medium"> {{$tournoi->equipeValider()->count()}}/{{ $tournoi->nbEquipes}}</span>
         </div>
         <div class="h-1 bg-gray-800 rounded-full overflow-hidden mb-3">
         </div>

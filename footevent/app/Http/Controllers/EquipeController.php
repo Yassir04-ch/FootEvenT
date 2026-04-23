@@ -162,8 +162,14 @@ class EquipeController extends Controller
         return back()->with('success', $result['message']);
     }
 
+    public function classement(Equipe $equipe)
+    {
+       echo 'here we go';
+    }
 
-    public function leftJoueur(){
+
+    public function leftJoueur()
+    {
         
     }
 

@@ -22,5 +22,10 @@ class Tournoi extends Model
     {
         return $this->hasMany(Game::class);
     }
-    
+
+    public function equipeValider()
+    {
+        return $this->equipes()->wherePivot('statut','validee')->get();
+    }
+
 }

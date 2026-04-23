@@ -24,6 +24,7 @@
         <a href="{{ route('tournois.index') }}" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-gray-100 hover:bg-gray-800 transition-colors">Tournois</a>
         <a href="{{ route('equipes.index') }}" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-gray-100 hover:bg-gray-800 transition-colors">Équipes</a>
         <a href="#" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-gray-100 hover:bg-gray-800 transition-colors">Matchs</a>
+        <a href="{{ route('equipes.classement',$equipe) }}" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-gray-100 hover:bg-gray-800 transition-colors">Equipe Classement</a>
     </div>
 
           <div class="flex items-center gap-3">
@@ -181,12 +182,51 @@
                         @endif
                 </div>
 
-                <div class="bg-gray-800 rounded-2xl border border-gray-700 p-8">
-                    <h2 class="text-xl font-bold text-white mb-6">Mes Prochains Matchs</h2>
-                    <div class="flex flex-col items-center justify-center py-10 text-center">
-                        <div class="w-16 h-16 bg-gray-700 rounded-full flex items-center justify-center text-3xl mb-4">📅</div>
-                        <p class="text-gray-400 text-sm">Aucun match prévu pour le moment.</p>
-                        <p class="text-gray-500 text-xs mt-1">Rejoignez une équipe pour voir vos matchs ici.</p>
+               <div class="bg-gray-800 rounded-2xl border border-gray-700 p-6 shadow-lg">
+    
+                    <h2 class="text-xl font-bold text-white mb-6 flex items-center gap-2">
+                         Mes Prochain Matchs
+                    </h2>
+
+                    <div class="space-y-3">
+                        @forelse($games as $game)                       
+                         <div class="flex items-center justify-between bg-gray-900/50 hover:bg-gray-900 transition rounded-xl p-4 border border-gray-700">                       
+                            <div class="flex flex-col gap-1">
+                                <p class="text-sm text-white font-semibold">
+                                    📅 {{ $game->dateMatch }}
+                                </p>
+                                <div class="flex gap-4 text-xs text-gray-400">
+                                    <span>🕒 {{ $game->heure }}</span>
+                                    <span>📍 {{ $game->terrain }}</span>
+                                </div>
+                            </div>
+                            <span class="text-xs px-3 py-1 rounded-full font-semibold">
+                                {{ $game->statut }}
+                            </span>
+
+                            <div>
+                                <span class="text-xs px-3 py-1 rounded-full font-semibold">
+                                    {{ $game->equipe1->name_equipe }}
+                                </span>
+                                  VS
+                                <span class="text-xs px-3 py-1 rounded-full font-semibold">
+                                    {{ $game->equipe2->name_equipe }}
+                                </span>
+                            </div>
+                        </div>
+
+                        @empty
+                        
+                        <div class="flex flex-col items-center justify-center py-10 text-center">
+                            <div class="w-16 h-16 bg-gray-700 rounded-full flex items-center justify-center text-3xl mb-4">
+                                📅
+                            </div>
+                            <p class="text-gray-400 text-sm">
+                                Aucun match prévu pour le moment.
+                            </p>
+                        </div>
+
+                        @endforelse
                     </div>
                 </div>
 

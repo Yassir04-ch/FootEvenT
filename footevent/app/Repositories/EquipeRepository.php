@@ -16,7 +16,7 @@ class EquipeRepository
 
     public function findById(Equipe $equipe)
     {
-        $equipe = $equipe->load(['tournois', 'capitaine', 'joueurs', 'gamesAsEquipe1', 'gamesAsEquipe2']);
+        $equipe = $equipe->load(['tournois', 'capitaine', 'joueurs', 'games']);
         return $equipe;
     }
 

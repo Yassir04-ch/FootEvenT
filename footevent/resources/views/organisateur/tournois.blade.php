@@ -100,7 +100,6 @@
             </div>
             <p class="text-gray-400 text-sm mb-2">{{ $tournoi->description ?? 'Pas de description' }}</p>
 
-            <!-- Total équipes -->
             <h4 class="text-gray-300 font-semibold mb-1">
                 Total équipes: {{ $tournoi->equipes->count() }}
             </h4>
@@ -110,14 +109,14 @@
             </h4>
 
            <div class="flex gap-2 flex-wrap mb-2">
-      @if($tournoi->status == 'en_attente')
+       @if($tournoi->status == 'en_attente')
         <a href="{{ route('tournois.edit', $tournoi) }}" class="px-3 py-1.5 bg-gray-700 border border-gray-600 rounded-lg text-white text-xs hover:bg-gray-600 no-underline">Modifier</a>
         <form action="{{route('tournois.demarer',$tournoi)}}" method="POST">
             @csrf
             @method('put')
             <button type="submit" class="px-3 py-1.5 bg-green-400 rounded-lg text-gray-900 text-xs font-bold hover:bg-green-300">Démarrer</button>
         </form>
-      @elseif($tournoi->status == 'en_cours')
+       @elseif($tournoi->status == 'en_cours')
         <form action="{{route('tournois.terminer',$tournoi)}}" method="POST">
             @csrf
             @method('put')
@@ -127,7 +126,14 @@
          <a href="{{ route('games.create', $tournoi) }}" class="px-3 py-1.5 bg-yellow-400 rounded-lg text-gray-900 text-xs font-bold hover:bg-yellow-300">
             + Créer Match
         </a>
-      @endif
+       @endif
+
+       @if($tournoi->status == 'en_attente')
+         <a href="{{ route('tournois.edit', $tournoi->id) }}"
+            class="px-3 py-1.5 bg-blue-600 rounded-lg text-white text-xs font-bold hover:bg-blue-500 inline-block ml-auto">
+            Modifier
+         </a>
+        @endif
 
          <a href="{{ route('tournoi.equipe', $tournoi->id) }}"
             class="px-3 py-1.5 bg-blue-600 rounded-lg text-white text-xs font-bold hover:bg-blue-500 inline-block ml-auto">

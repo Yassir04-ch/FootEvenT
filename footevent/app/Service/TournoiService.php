@@ -48,6 +48,10 @@ class TournoiService
             return ['success' => false, 'message' => 'Action non autorisée.'];
         }
 
+        if ($tournoi->status != 'en_attent') {
+            return ['success' => false, 'message' => 'Impossible midifier une tournoi en cours ou terminer.'];
+        }
+
         $tournoi = $this->repository->update($tournoi, $validated);
         return ['success' => true, 'message' => 'Tournoi mis à jour avec succès.', 'tournoi' => $tournoi];
     }
@@ -58,7 +62,13 @@ class TournoiService
         if ($user->role->name == 'Administrateur') {
             $this->repository->delete($tournoi);
             return ['success' => true,'message' => 'Tournoi supprimé avec succès'];
+
+            Notification::create([
+                'message'=>"Administrateur est supprimer votre tournoi  ".$tournoi->name_tournoi,
+                'user_id'=>$equipe->capitaine_id
+            ]);
         }
+
         if ($tournoi->user_id == $user->id) {
             $this->repository->delete($tournoi);
             return ['success' => true,'message' => 'Tournoi supprimé avec succès'];
@@ -118,7 +128,7 @@ class TournoiService
         $tournoi_id = $tournoi->id;
         $this->repository->validerEquipe($equipe,$tournoi_id,$niveau);
         $notification  =  Notification::create([
-          'message'=>"Votre équipe  " .$equipe->name_equipe ."  a été acceptée dans le tournoi  " . $tournoi->name,
+          'message'=>"Votre équipe  " .$equipe->name_equipe ."  a été acceptée dans le tournoi  " . $tournoi->name_tournoi,
           'user_id'=>$equipe->capitaine_id
         ]);
         return ['success' => true, 'message' => 'Équipe validée avec succès.'];
@@ -133,7 +143,7 @@ class TournoiService
         $this->repository->refuserEquipe($equipe,$tournoi_id);
 
         Notification::create([
-          'message'=>"Votre équipe  " .$equipe->name_equipe ." a été Refusee dans le tournoi  " . $tournoi->name,
+          'message'=>"Votre équipe  " .$equipe->name_equipe ." a été Refusee dans le tournoi  " . $tournoi->name_tournoi,
           'user_id'=>$equipe->capitaine_id
         ]);
 
