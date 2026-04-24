@@ -9,7 +9,6 @@
 </head>
 <body class="bg-gray-950 text-gray-100 font-outfit min-h-screen">
 
-  <!-- Navbar -->
   <nav class="sticky top-0 z-50 flex items-center justify-between px-8 h-16 bg-gray-950/80 backdrop-blur border-b border-gray-800">
     <div class="flex items-center gap-3">
       <div class="w-9 h-9 bg-green-400 rounded-lg flex items-center justify-center">
@@ -60,7 +59,6 @@
       <span class="text-gray-300">Équipes</span>
     </div>
 
-    <!-- Header -->
     <div class="mb-8 flex items-end justify-between gap-6">
       <div>
         <h1 class="font-bebas text-5xl tracking-wide leading-none mb-2">
@@ -86,7 +84,6 @@
       </div>
     </div>
 
-    <!-- Équipes validées -->
     <div class="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden mb-6">
       <div class="px-6 py-4 border-b border-gray-800">
         <h2 class="font-bebas text-xl tracking-wide">Équipes validées <span class="text-green-400">({{ $equipes->where('pivot.statut', 'validee')->count() }})</span></h2>
@@ -111,7 +108,6 @@
       @endforelse
     </div>
 
-    <!-- Équipes en attente — organisateur seulement -->
     @if(auth()->check() && auth()->id() == $tournoi->user_id)
     <div class="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden mb-6">
       <div class="px-6 py-4 border-b border-gray-800">

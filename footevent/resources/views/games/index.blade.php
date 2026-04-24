@@ -1,129 +1,162 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FootEvenT — games</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
-<script src="https://cdn.tailwindcss.com"></script>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FootEvenT — Matchs</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-950 text-gray-100 font-outfit min-h-screen">
+<body class="bg-[#0a0c10] text-gray-100 font-outfit min-h-screen bg-grid">
 
-  
-  <nav class="sticky top-0 z-50 flex items-center justify-between px-8 h-16 bg-gray-950/80 backdrop-blur border-b border-gray-800">
-
-    <div class="flex items-center gap-3">
-      <div class="w-9 h-9 bg-green-400 rounded-lg flex items-center justify-center">
-        <svg class="w-5 h-5 fill-gray-950" viewBox="0 0 24 24">
-          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 2c1.85 0 3.56.56 4.97 1.52L5.52 16.97A7.963 7.963 0 0 1 4 12c0-4.42 3.58-8 8-8zm0 16c-1.85 0-3.56-.56-4.97-1.52L18.48 7.03A7.963 7.963 0 0 1 20 12c0 4.42-3.58 8-8 8z"/>
-        </svg>
-      </div>
-      <span class="font-bebas text-2xl text-green-400 tracking-widest">FootEvenT</span>
-    </div>
-
-    <div class="flex items-center gap-1">
-      <a href="{{route('tournois.index')}}" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-gray-100 hover:bg-gray-800 transition-colors">Tournois</a>
-      <a href="{{route('equipes.index')}}" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-gray-100 hover:bg-gray-800 transition-colors">Équipes</a>
-      <a href="" class="px-4 py-2 rounded-lg text-sm font-medium bg-gray-800 text-gray-100">Matchs</a>
-      <a href="{{route('joueurs.joueurs')}}" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-gray-100 hover:bg-gray-800 transition-colors">Joueurs</a>
-      @if(auth()->user())
-      <a href="{{route('auth.profile')}}" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-gray-100 hover:bg-gray-800 transition-colors">Profile</a>
-      @endif
-    </div>
-
-    <div class="flex items-center gap-3">
-    @if(!auth()->user())
-      <a href="{{route('auth.create')}}" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-400 border border-gray-700 hover:border-gray-500 hover:text-gray-100 transition-colors">Connexion</a>
-    @endif
-    </div>
-  </nav>
-
-  <section class="px-8 pt-5 pb-10 flex items-end justify-between gap-8">
-    <div>
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-green-950 border border-green-800 text-green-400 text-xs font-medium tracking-widest uppercase mb-5">
-        <span class="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse"></span>
-        Saison 2026 en cours
-      </div>
-      <h1 class="font-bebas text-7xl leading-none tracking-wide mb-4">
-        Tous les<br>
-        <span class="text-green-400">Matchs</span>
-      </h1>
-      <p class="text-sm text-gray-400 font-light max-w-sm leading-relaxed">
-        Découvrez et rejoignez les compétitions de football amateur près de chez vous.
-      </p>
-    </div>
-
-    <div class="flex-shrink-0 grid grid-cols-4 divide-x divide-gray-800 border border-gray-800 rounded-2xl overflow-hidden">
-      <div class="px-8 py-5 bg-gray-900 text-center">
-        <div class="font-bebas text-4xl text-green-400 leading-none mb-1">{{$gamepro}}</div>
-        <div class="text-xs text-gray-500 uppercase tracking-widest">Games Programmer</div>
-      </div>
-      <div class="px-8 py-5 bg-gray-900 text-center">
-        <div class="font-bebas text-4xl text-green-400 leading-none mb-1">{{$gamecour}}</div>
-        <div class="text-xs text-gray-500 uppercase tracking-widest">Games En cours</div>
-      </div>
-      <div class="px-8 py-5 bg-gray-900 text-center">
-        <div class="font-bebas text-4xl text-green-400 leading-none mb-1">{{$gameter}}</div>
-        <div class="text-xs text-gray-500 uppercase tracking-widest">Games Terminer</div>
-      </div>
-      <div class="px-8 py-5 bg-gray-900 text-center">
-        <div class="font-bebas text-4xl text-green-400 leading-none mb-1">{{$countMatch}}</div>
-        <div class="text-xs text-gray-500 uppercase tracking-widest">Matchs</div>
-      </div>
-    </div>
-  </section>
-
-
-  <div class="px-8 pb-8 flex items-center gap-2 flex-wrap">
-    <a href="?">
-      <span class="px-4 py-1.5 rounded-full text-xs font-medium border bg-green-950 border-green-700 text-green-400 cursor-pointer">Tous</span>
-    </a>
-    <a href="?statut=programme">
-      <span class="px-4 py-1.5 rounded-full text-xs font-medium border border-gray-700 text-gray-400 hover:border-green-700 hover:text-green-400 transition-colors cursor-pointer">programme</span>
-    </a>
-    <a href="?statut=en_cours">
-      <span class="px-4 py-1.5 rounded-full text-xs font-medium border border-gray-700 text-gray-400 hover:border-green-700 hover:text-green-400 transition-colors cursor-pointer">En cours</span>
-    </a>
-    <a href="?statut=termine">
-      <span class="px-4 py-1.5 rounded-full text-xs font-medium border border-gray-700 text-gray-400 hover:border-green-700 hover:text-green-400 transition-colors cursor-pointer">Terminés</span>
-    </a>
-  </div>
-
-  
-  <div class="px-8 pb-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-  @foreach($games as $game)
-     <div class="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden hover:border-green-800 hover:-translate-y-1 transition-all duration-200">
-      <div class="h-1.5 bg-gradient-to-r from-blue-900 to-blue-600"></div>
-      <div class="p-5">
-        <div class="flex items-center justify-between mb-4">
-          <span class="flex items-center gap-1.5 text-xs font-medium text-green-400">
-             {{$game->statut}}
-          </span>
+    <nav class="sticky top-0 z-50 flex items-center justify-between px-8 h-20 bg-black/60 backdrop-blur-xl border-b border-white/5">
+        <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-green-500 skew-element flex items-center justify-center shadow-[0_0_15px_rgba(34,197,94,0.3)]">
+                <span class="skew-inner text-black font-black text-xl italic uppercase">F</span>
+            </div>
+            <span class="font-bebas text-3xl text-white tracking-widest italic">Foot<span class="text-green-500">EvenT</span></span>
         </div>
-        <h3 class="font-bebas text-2xl tracking-wide leading-tight mb-2">Tournoi : {{$game->tournoi->name_tournoi}}</h3>
-        <div class="flex flex-wrap gap-x-4 gap-y-1 text-xs text-400">
-          <span><b>Terrain</b> : 📍{{$game->terrain}} </span>
+
+        <div class="hidden md:flex items-center gap-2">
+            <a href="{{route('tournois.index')}}" class="px-5 py-2 rounded-full text-xs font-bold uppercase tracking-widest text-gray-400 hover:text-white transition-all">Tournois</a>
+            <a href="{{route('equipes.index')}}" class="px-5 py-2 rounded-full text-xs font-bold uppercase tracking-widest text-gray-400 hover:text-white transition-all">Équipes</a>
+            <a href="#" class="px-5 py-2 rounded-full text-xs font-bold uppercase tracking-widest bg-green-500/10 text-green-500 border border-green-500/20">Matchs</a>
+            <a href="{{route('joueurs.joueurs')}}" class="px-5 py-2 rounded-full text-xs font-bold uppercase tracking-widest text-gray-400 hover:text-white transition-all">Joueurs</a>
+            @if(auth()->user())
+            <a href="{{route('auth.profile')}}" class="px-5 py-2 rounded-full text-xs font-bold uppercase tracking-widest text-gray-400 hover:text-white transition-all">Profile</a>
+            @endif
         </div>
-        <div class="flex flex-wrap gap-x-4 gap-y-1 text-xs text-400">
-          <span><b>Date</b> : {{$game->dateMatch}}   -  <b>Heure</b> {{$game->heure}} </span> 
+
+        <div class="flex items-center gap-3">
+            @if(!auth()->user())
+                <a href="{{route('auth.create')}}" class="text-xs font-black uppercase tracking-[0.2em] hover:text-green-500 transition-colors italic">Connexion</a>
+            @endif
         </div>
-      </div>   
-        <div class="h-1 bg-gray-800 rounded-full overflow-hidden mb-3">
-       </div>
-      <div class="px-5 py-3 flex items-center justify-between border-t border-gray-800">
-        <h4>
-           {{$game->equipe1->name_equipe}}  VS  {{$game->equipe2->name_equipe}}
-        </h4>
-        <a href="{{route('games.show',$game)}}" class="flex items-center gap-1 text-xs font-medium px-3 py-1.5 rounded-lg border border-gray-700 text-gray-300 hover:border-green-600 hover:text-green-400 transition-colors">
-          Voir
-          <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </nav>
+
+    <section class="px-8 pt-16 pb-12 flex flex-col lg:flex-row lg:items-end justify-between gap-10">
+        <div class="max-w-2xl">
+          <h1 class="font-bebas text-5xl md:text-6xl leading-none tracking-tight italic uppercase">
+              Calendrier des<br>
+              <span class="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-600">Matchs</span>
+          </h1>
+      </div>
+
+        <div class="flex-shrink-0 grid grid-cols-2 md:grid-cols-4 gap-1 bg-white/5 p-1 rounded-2xl border border-white/10 backdrop-blur-sm">
+            <div class="px-6 py-4 text-center bg-white/5 rounded-xl">
+                <div class="font-bebas text-4xl text-white leading-none mb-1">{{$gamepro}}</div>
+                <div class="text-[8px] text-green-500 font-black uppercase tracking-widest">Programmés</div>
+            </div>
+            <div class="px-6 py-4 text-center">
+                <div class="font-bebas text-4xl text-white leading-none mb-1">{{$gamecour}}</div>
+                <div class="text-[8px] text-green-500 font-black uppercase tracking-widest">En cours</div>
+            </div>
+            <div class="px-6 py-4 text-center bg-white/5 rounded-xl">
+                <div class="font-bebas text-4xl text-white leading-none mb-1">{{$gameter}}</div>
+                <div class="text-[8px] text-green-500 font-black uppercase tracking-widest">Terminés</div>
+            </div>
+            <div class="px-6 py-4 text-center">
+                <div class="font-bebas text-4xl text-white leading-none mb-1">{{$countMatch}}</div>
+                <div class="text-[8px] text-green-500 font-black uppercase tracking-widest">Total</div>
+            </div>
+        </div>
+    </section>
+
+    <div class="px-8 pb-10 flex items-center gap-3 flex-wrap font-black">
+        <a href="?" class="skew-element group">
+            <span class="skew-inner px-6 py-2 text-[10px] uppercase tracking-widest border border-green-500 bg-green-500 text-black">Tous</span>
         </a>
-      </div>
+        <a href="?statut=programme" class="skew-element group">
+            <span class="skew-inner px-6 py-2 text-[10px] uppercase tracking-widest border border-white/10 bg-white/5 text-gray-400 group-hover:border-green-500 group-hover:text-white transition-all">Programmés</span>
+        </a>
+        <a href="?statut=en_cours" class="skew-element group">
+            <span class="skew-inner px-6 py-2 text-[10px] uppercase tracking-widest border border-white/10 bg-white/5 text-gray-400 group-hover:border-green-500 group-hover:text-white transition-all">En cours</span>
+        </a>
+        <a href="?statut=termine" class="skew-element group">
+            <span class="skew-inner px-6 py-2 text-[10px] uppercase tracking-widest border border-white/10 bg-white/5 text-gray-400 group-hover:border-green-500 group-hover:text-white transition-all">Terminés</span>
+        </a>
     </div>
-    @endforeach
 
-  </div>
+    <div class="px-8 pb-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        @foreach($games as $game)
+        <div class="group relative bg-[#11141b] border border-white/5 rounded-3xl overflow-hidden hover:border-green-500/40 transition-all duration-300">
+            <div class="px-6 py-4 bg-white/5 flex items-center justify-between border-b border-white/5">
+                <span class="text-[10px] font-black uppercase tracking-widest text-gray-500 italic">
+                    🏆 {{$game->tournoi->name_tournoi}}
+                </span>
+                <span class="flex items-center gap-2 text-[10px] font-black uppercase tracking-tighter {{ $game->statut == 'en_cours' ? 'text-green-400 italic' : 'text-gray-400' }}">
+                    @if($game->statut == 'en_cours')
+                        <span class="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse shadow-[0_0_8px_#4ade80]"></span>
+                    @endif
+                    {{$game->statut}}
+                </span>
+            </div>
+
+            <div class="p-8 text-center relative">
+                <div class="flex items-center justify-center gap-6">
+                    <div class="flex-1 flex flex-col items-center">
+                        <div class="w-16 h-16 bg-white/5 rounded-full flex items-center justify-center mb-3 border border-white/10 group-hover:scale-110 transition-transform">
+                          @if($game->equipe1->image)
+                              <img src="{{ asset('storage/' . $game->equipe1->image) }}" alt="{{ $game->equipe1->name_equipe }}" class="w-full h-full object-cover opacity-70">
+                              <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-gray-900"></div>
+                          @else
+                             <span class="font-bebas text-2xl text-white">{{ substr($game->equipe1->name_equipe, 0, 2) }}</span>
+                          @endif
+                        </div>
+                        <h4 class="font-bebas text-xl uppercase tracking-wide truncate w-full">{{$game->equipe1->name_equipe}}</h4>
+                    </div>
+                   
+                    <div class="flex flex-col items-center">
+                        @if($game->resultat)
+                        <div class="bg-black/50 border border-white/10 px-3 py-1 rounded-md">
+                            <span class="text-white tracking-widest">{{$game->resultat->scoreEq1}} - {{$game->resultat->scoreEq2}}</span>
+                        @if($game->resultat->penaltyE1)
+                            <p>penalty</p>
+                            <span class="text-white tracking-widest">{{$game->resultat->penaltyE1}} - {{$game->resultat->penaltyE2}}</span>
+                        @endif
+                        </div>
+                        @else
+                        <div class="text-xs font-black text-green-500 italic mb-1 uppercase tracking-tighter">VS</div>
+                        @endif
+                    </div>
+
+                    <div class="flex-1 flex flex-col items-center">
+                         <div class="w-16 h-16 bg-white/5 rounded-full flex items-center justify-center mb-3 border border-white/10 group-hover:scale-110 transition-transform">
+                          @if($game->equipe1->image)
+                              <img src="{{ asset('storage/' . $game->equipe2->image) }}" alt="{{ $game->equipe2->name_equipe }}" class="w-full h-full object-cover opacity-70">
+                              <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-gray-900"></div>
+                          @else
+                             <span class="font-bebas text-2xl text-white">{{ substr($game->equipe2->name_equipe, 0, 2) }}</span>
+                          @endif
+                        </div>
+                        <h4 class="font-bebas text-xl uppercase tracking-wide truncate w-full">{{$game->equipe2->name_equipe}}</h4>
+                    </div>
+                </div>
+            </div>
+
+            <div class="px-8 pb-6 space-y-3">
+                <div class="flex items-center justify-center gap-4 py-3 bg-black/30 rounded-2xl border border-white/5">
+                    <div class="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-gray-500">
+                        <span class="text-green-500">📍</span> {{$game->terrain}}
+                    </div>
+                    <div class="w-[1px] h-3 bg-white/10"></div>
+                    <div class="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-gray-500">
+                        <span class="text-green-500">⏰</span> {{$game->heure}}
+                    </div>
+                </div>
+                <div class="text-center text-[10px] font-medium text-gray-400 tracking-[0.2em] uppercase">
+                    {{$game->dateMatch}}
+                </div>
+            </div>
+            <div class="p-4 bg-white/5 border-t border-white/5">
+                <a href="{{route('games.show',$game)}}" class="flex items-center justify-center gap-2 w-full py-3 bg-white/5 hover:bg-green-500 hover:text-black transition-all rounded-xl text-[10px] font-black uppercase tracking-widest group/btn">
+                    Voir les stats du match
+                    <svg class="w-3 h-3 transform group-hover/btn:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+            </div>
+        </div>
+        @endforeach
+    </div>
 
 </body>
 </html>

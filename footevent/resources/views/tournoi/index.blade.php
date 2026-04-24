@@ -51,11 +51,7 @@
 
     <section class="px-8 pt-16 pb-12 flex flex-col md:flex-row md:items-end justify-between gap-10">
         <div class="max-w-2xl">
-            <div class="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-green-400 text-[10px] font-black tracking-[0.3em] uppercase mb-6 shadow-xl">
-                <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-                Saison 2025 en cours
-            </div>
-            <h1 class="font-bebas text-8xl md:text-9xl leading-[0.8] tracking-tighter italic uppercase">
+            <h1 class="font-bebas text-5xl md:text-6xl leading-none tracking-tight italic uppercase">
                 Tous les<br>
                 <span class="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-600">Tournois</span>
             </h1>
@@ -125,7 +121,7 @@
                         <span class="text-white">{{$tournoi->equipeValider()->count()}} / {{ $tournoi->nbEquipes}}</span>
                     </div>
                     <div class="h-1.5 bg-white/5 rounded-full overflow-hidden">
-                        <div class="h-full bg-green-500 shadow-[0_0_10px_#22c55e]" style="width: {{ ($tournoi->equipeValider()->count() / $tournoi->nbEquipes) * 100 }}%"></div>
+                        <div class="h-full bg-green-500 shadow-[0_0_10px_#22c55e]"></div>
                     </div>
                 </div>
             </div>

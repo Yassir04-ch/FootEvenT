@@ -14,26 +14,26 @@
 <nav class="sticky top-0 z-50 flex items-center justify-between px-8 h-16 bg-gray-950/80 backdrop-blur border-b border-gray-800">
 
   <div class="flex items-center gap-3">
-    <div class="w-9 h-9 bg-green-400 rounded-lg flex items-center justify-center">⚽</div>
-    <span class="font-bebas text-2xl text-green-400 tracking-widest">FootEvenT</span>
-  </div>
+      <div class="w-10 h-10 bg-green-500 skew-element flex items-center justify-center shadow-[0_0_15px_rgba(34,197,94,0.3)]">
+          <span class="skew-inner text-black font-black text-xl italic uppercase">F</span>
+      </div>
+      <span class="font-bebas text-3xl text-white tracking-widest italic">Foot<span class="text-green-500">EvenT</span></span>
+    </div>
 
-  <div class="flex items-center gap-1">
-      <a href="{{route('tournois.index')}}" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-gray-100 hover:bg-gray-800 transition-colors">Tournois</a>
-      <a href="{{route('equipes.index')}}" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-gray-100 hover:bg-gray-800 transition-colors">Équipes</a>
-      <a href="{{route('games.index')}}" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-gray-100 hover:bg-gray-800 transition-colors">Matchs</a>
-      <a href="{{route('joueurs.joueurs')}}" class="px-4 py-2 rounded-lg text-sm font-medium bg-gray-800 text-gray-100">Joueurs</a>
+  <div class="hidden md:flex items-center gap-2">
+      <a href="{{route('tournois.index')}}" class="px-5 py-2 rounded-full text-xs font-bold uppercase tracking-widest text-gray-400 hover:text-white transition-all">Tournois</a>
+      <a href="{{route('equipes.index')}}" class="px-5 py-2 rounded-full text-xs font-bold uppercase tracking-widest text-gray-400 hover:text-white transition-all">Équipes</a>
+      <a href="{{route('games.index')}}" class="px-5 py-2 rounded-full text-xs font-bold uppercase tracking-widest text-gray-400 hover:text-white transition-all">Matchs</a>
+      <a href="" class="px-5 py-2 rounded-full text-xs font-bold uppercase tracking-widest bg-green-500/10 text-green-500 border border-green-500/20">Joueurs</a>
       @if(auth()->user())
-      <a href="{{route('auth.profile')}}" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-gray-100 hover:bg-gray-800 transition-colors">Profile</a>
+      <a href="{{route('auth.profile')}}" class="px-5 py-2 rounded-full text-xs font-bold uppercase tracking-widest text-gray-400 hover:text-white transition-all">Profile</a>
       @endif
   </div>
 
-  <div>
-    @if(!auth()->user())
-      <a href="{{route('auth.create')}}" class="px-4 py-2 text-sm border border-gray-700 rounded-lg text-gray-400 hover:text-white">
-        Connexion
-      </a>
-    @endif
+  <div class="flex items-center gap-3">
+      @if(!auth()->user())
+        <a href="{{route('auth.create')}}" class="text-xs font-black uppercase tracking-[0.2em] hover:text-green-500 transition-colors italic">Connexion</a>
+      @endif
   </div>
 
 </nav>
@@ -46,8 +46,9 @@
       joueurs
     </div>
 
-    <h1 class="font-bebas text-7xl leading-none mb-4">
-      Tous les <span class="text-green-400">Joueurs</span>
+    <h1 class="font-bebas text-5xl md:text-6xl leading-none tracking-tight italic uppercase">
+              Tous les<br>
+      <span class="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-600">Joueurs</span>
     </h1>
 
     <p class="text-sm text-gray-400 max-w-md">
@@ -59,39 +60,26 @@
 
 <div class="px-8 pb-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
 
-  <div class="flex items-center gap-2 flex-wrap">
-
-    <a href="?">
-      <span class="px-4 py-1.5 rounded-full text-xs border bg-green-950 border-green-700 text-green-400">
-        Tous
-      </span>
-    </a>
-
-    <a href="?poste=attaquant">
-      <span class="px-4 py-1.5 rounded-full text-xs border border-gray-700 text-gray-400 hover:text-green-400 hover:border-green-700">
-        Attaquant
-      </span>
-    </a>
-
-    <a href="?poste=milieu">
-      <span class="px-4 py-1.5 rounded-full text-xs border border-gray-700 text-gray-400 hover:text-green-400 hover:border-green-700">
-        Milieu
-      </span>
-    </a>
-
-    <a href="?poste=defenseur">
-      <span class="px-4 py-1.5 rounded-full text-xs border border-gray-700 text-gray-400 hover:text-green-400 hover:border-green-700">
-        Défenseur
-      </span>
-    </a>
-
-    <a href="?poste=gardien">
-      <span class="px-4 py-1.5 rounded-full text-xs border border-gray-700 text-gray-400 hover:text-green-400 hover:border-green-700">
-        Gardien
-      </span>
-    </a>
-
-  </div>
+    <div class="px-8 pb-10 flex items-center gap-3 flex-wrap font-black">
+        <a href="?" class="skew-element group">
+            <span class="skew-inner px-6 py-2 text-[10px] uppercase tracking-widest border border-green-500 bg-green-500 text-black">Tous</span>
+        </a>
+        <a href="?poste=attaquant" class="skew-element group">
+            <span class="skew-inner px-6 py-2 text-[10px] uppercase tracking-widest border border-white/10 bg-white/5 text-gray-400 group-hover:border-green-500 group-hover:text-white transition-all">Attaquant</span>
+        </a>
+        <a href="?poste=defenseur" class="skew-element group">
+            <span class="skew-inner px-6 py-2 text-[10px] uppercase tracking-widest border border-white/10 bg-white/5 text-gray-400 group-hover:border-green-500 group-hover:text-white transition-all">Défenseur</span>
+        </a>
+        <a href="?statut=milieu" class="skew-element group">
+            <span class="skew-inner px-6 py-2 text-[10px] uppercase tracking-widest border border-white/10 bg-white/5 text-gray-400 group-hover:border-green-500 group-hover:text-white transition-all">Milieu</span>
+        </a>
+        <a href="?poste=defenseur" class="skew-element group">
+            <span class="skew-inner px-6 py-2 text-[10px] uppercase tracking-widest border border-white/10 bg-white/5 text-gray-400 group-hover:border-green-500 group-hover:text-white transition-all">Défenseur</span>
+        </a>
+        <a href="?poste=gardien" class="skew-element group">
+            <span class="skew-inner px-6 py-2 text-[10px] uppercase tracking-widest border border-white/10 bg-white/5 text-gray-400 group-hover:border-green-500 group-hover:text-white transition-all">Gardien</span>
+        </a>
+    </div>
 </div>
 
 <div class="px-8 pb-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
