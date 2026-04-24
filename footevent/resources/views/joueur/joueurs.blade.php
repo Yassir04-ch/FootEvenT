@@ -128,7 +128,7 @@
         </p>
 
         <div class="mt-4">
-            <a href="#" class="block text-center bg-green-500 hover:bg-green-400 text-black text-sm font-semibold py-2 rounded-lg transition">
+            <a href="{{route('joueurs.show',$joueur)}}" class="block text-center bg-green-500 hover:bg-green-400 text-black text-sm font-semibold py-2 rounded-lg transition">
                 Voir profil
             </a>
         </div>

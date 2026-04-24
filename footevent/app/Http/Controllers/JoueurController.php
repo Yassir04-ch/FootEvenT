@@ -72,7 +72,8 @@ class JoueurController extends Controller
     
     public function show(Joueur $joueur)
     {
-        
+      $joueur->load(['user','equipes']);
+      return view('joueur.show',compact('joueur'));        
     }
 
     public function edit(Joueur $joueur){
