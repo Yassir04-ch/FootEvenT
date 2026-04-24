@@ -47,7 +47,9 @@ class JoueurService
         if($joueur->image && Storage::disk('public')->exists($joueur->image)){
             Storage::disk('public')->delete($joueur->image);
         }
-        $data['image'] = $data['image']->store('joueurs','public');
+        if(isset($data['image'])){
+            $data['image'] = $data['image']->store('joueurs','public');
+        }
         $joueur->update($data);
     }
 
