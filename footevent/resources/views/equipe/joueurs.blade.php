@@ -70,25 +70,44 @@
       </div>
 
       @forelse($joueursActifs as $joueur)
-      <div class="px-6 py-4 flex items-center gap-4 border-b border-gray-800 hover:bg-gray-800/50 transition-colors">
-        <div class="w-10 h-10 rounded-full bg-green-950 border border-green-800 flex items-center justify-center text-green-400 font-bold">
-          {{ strtoupper(substr($joueur->user->firstname, 0, 1)) }}
-        </div>
-        <div class="flex-1">
-          <p class="text-sm font-medium">{{ $joueur->user->firstname}} {{ $joueur->user->lastname}}</p>
-          <p class="text-xs text-gray-500 capitalize">{{ $joueur->poste }} • {{ $joueur->age }} ans</p>
-        </div>
-        <span class="text-xs text-green-400 bg-green-950 border border-green-800 px-2.5 py-1 rounded-full font-semibold">Actif</span>
+       <div class="card-player bg-gray-800 border border-gray-700 rounded-2xl p-5 flex items-center gap-4">
 
-        @if(auth()->check() && auth()->id() == $equipe->capitaine_id)
-        <form action="{{ route('equipes.joueurs.refuser', [$equipe, $joueur]) }}" method="POST">
-          @csrf
-          <button type="submit" class="text-xs px-3 py-1.5 rounded-lg border border-gray-700 text-gray-400 hover:border-red-700 hover:text-red-400 transition-colors">
-            Retirer
-          </button>
-        </form>
-        @endif
-      </div>
+           <div class="w-20 h-20 rounded-2xl bg-gray-700 border border-gray-600 flex items-center justify-center font-bebas text-4xl text-green-400 flex-shrink-0 overflow-hidden">
+            @if($joueur->image)
+              <img src="{{ asset('storage/'.$joueur->image) }}" class="w-full h-full object-cover">
+            @else
+              {{ substr($joueur->name_equipe, 0, 1) }}
+            @endif
+           </div>
+
+            <div class="flex-1 min-w-0">
+              <p class="text-sm font-semibold text-white truncate">
+                {{ $joueur->user->firstname }} {{ $joueur->user->lastname }}
+              </p>
+              <p class="text-xs text-gray-500 truncate">{{ $joueur->user->email }}</p>
+              @if($joueur->poste)
+                <span class="inline-block text-xs text-green-400 bg-green-950 border border-green-900 px-2 py-0.5 rounded-full mt-1 capitalize">
+                  {{ $joueur->poste }}
+                </span>
+              @endif
+            </div>
+
+            @if($joueur->user_id == $equipe->capitaine_id)
+              <span class="text-xs text-yellow-400 bg-yellow-950 border border-yellow-800 px-2 py-1 rounded-full flex-shrink-0">
+                Cap.
+              </span>
+            @endif
+
+             @if(auth()->check() && auth()->id() == $equipe->capitaine_id && $joueur->user_id != $equipe->capitaine_id )
+            <form action="{{ route('equipes.joueurs.retirer', [$equipe, $joueur]) }}" method="POST">
+              @csrf
+              @method('put')
+              <button type="submit" class="text-xs px-3 py-1.5 rounded-lg border border-gray-700 text-gray-400 hover:border-red-700 hover:text-red-400 transition-colors">
+                Retirer
+              </button>
+            </form>
+            @endif
+          </div>
       @empty
       <div class="flex flex-col items-center justify-center py-12 text-gray-600">
         <p class="text-sm">Aucun joueur actif</p>

@@ -71,16 +71,22 @@ class JoueurService
 
     public function quitterEquipe(Joueur $joueur, Equipe $equipe)
     {
+         $nbJoueurActif = $equipe->joueurs()->wherePivot('statut','actif')->count();
+        if($nbJoueurActif <=1){
+          return ['success'=>false,'message'=>"Il est impossible de quitter équipe s'il ne reste qu'un seul joueur."];
+         }
         if($equipe->capitaine_id == $joueur->user->id){
             $capitaine = $equipe->joueurs()->wherePivot('statut','actif')->wherePivot('joueur_id','!=',$joueur->id)->first();
-            $equipe->update(['capitaine_id'=>$capitaine->user->id]);
+            $newnbjoueur = $equipe->nbJoueur - 1;
+            $equipe->update(['capitaine_id'=>$capitaine->user->id,'nbJoueur'=>$newnbjoueur]);
         }
         $joueur->equipes()->updateExistingPivot($equipe->id, ['statut' => 'left']);
-
          Notification::create([
           'message'=>"Joueur ". $joueur->user->firstname ." ".$joueur->user->lastname." est quitee votre Equipe",
           'user_id'=>$equipe->capitaine_id
         ]);
+
+        return['success'=>false,'message'=>'Vous avez quitte équipe'];
     }
 
     public function getNotifications($user_id){

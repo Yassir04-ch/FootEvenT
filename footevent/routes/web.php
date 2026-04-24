@@ -36,18 +36,19 @@ Route::post('/equipes/{equipe}/valider', [EquipeController::class, 'valider'])->
 Route::post('/equipes/{equipe}/refuser', [EquipeController::class, 'refuser'])->name('equipes.refuser');
 Route::get('/equipes/{equipe}/joueurs', [EquipeController::class, 'joueurs'])->name('equipes.joueurs');
 Route::post('/equipes/{equipe}/joueurs/{joueur}/valider', [EquipeController::class, 'validerJoueur'])->name('equipes.joueurs.valider');
-Route::post('/equipes/{equipe}/joueurs/{joueur}/refuser', [EquipeController::class, 'refuserJoueur'])->name('equipes.joueurs.refuser');
+Route::put('/equipes/{equipe}/joueurs/{joueur}/refuser', [EquipeController::class, 'refuserJoueur'])->name('equipes.joueurs.refuser');
+Route::put('/equipes/{equipe}/joueurs/{joueur}/retirer', [EquipeController::class, 'retireJoueur'])->name('equipes.joueurs.retirer');
 Route::get('/equipes/{equipe}/classement', [EquipeController::class, 'classement'])->name('equipes.classement');
 Route::get('/equipes/{equipe}/games', [EquipeController::class, 'games'])->name('equipes.games');
+Route::post("/equipes/{equipe}/join", [JoueurController::class,'joinEquipe'])->name('equipes.join');
+Route::put("/equipes/{equipe}/quitter", [JoueurController::class,'quitterEquipe'])->name('equipes.quitter');
+Route::resource("equipes", EquipeController::class);
 
 
 Route::post('/joueurs/store', [JoueurController::class, 'store'])->name('joueurs.store');
 Route::get('/joueurs/joueurs', [JoueurController::class, 'joueurs'])->name('joueurs.joueurs');
 Route::resource("joueurs", JoueurController::class);
 
-Route::post("/equipes/{equipe}/join", [JoueurController::class,'joinEquipe'])->name('equipes.join');
-Route::put("/equipes/{equipe}/quitter", [JoueurController::class,'quitterEquipe'])->name('equipes.quitter');
-Route::resource("equipes", EquipeController::class);
 
 Route::get("/organisateur/tournois", [OrganisateurController::class,'Tournois'])->name('organisateur.tournois');
 Route::get("/organisateur/matches", [OrganisateurController::class,'organisateurMatchs'])->name('organisateur.matchs');

@@ -106,7 +106,7 @@
             <div class="hidden md:flex gap-6">
                 <dv class="text-center">
                     <dv class="font-bebas text-2xl text-green-400 leading-none">
-                        {{$equipe->joueurs()->count()}}
+                        {{$equipe->nbJoueur}}
                     </dv>
                     <div class="text-xs text-gray-400 uppercase tracking-wide mt-1">Joueurs équipe</div>
                 </dv>
@@ -138,8 +138,6 @@
                                 {{ $equipe->name_equipe }}
                             </span>
                     </div>
-                    @endif
-                    @if($chek)
                         <div class="bg-gray-700 rounded-xl p-5 mb-3">
                             <div class="flex items-center justify-between mb-3">
                                 <h3 class="font-bold text-white text-lg">{{ $equipe->name_equipe }}</h3>
@@ -148,6 +146,9 @@
                               <div class="flex items-center justify-between text-xs text-gray-400">
                                 <span>👥 {{ $equipe->nbJoueur }} joueurs</span>
                                 <div class="flex gap-2">
+                                     <a href="{{ route('equipes.show', $equipe) }}" class="px-3 py-1.5 rounded-lg border border-gray-600 text-gray-300 hover:border-green-600 hover:text-green-400 transition-colors">
+                                         details
+                                    </a>
                                     <a href="{{ route('equipes.joueurs', $equipe) }}" class="px-3 py-1.5 rounded-lg border border-gray-600 text-gray-300 hover:border-green-600 hover:text-green-400 transition-colors">
                                         Voir joueurs
                                     </a>
@@ -161,7 +162,7 @@
                                 </div>
                             </div>
                         </div>
-                        @endif
+                    @endif
 
 
                         @if(!$active)

@@ -23,8 +23,8 @@ class UpdateEquipeRequest extends FormRequest
     {
         return [
              'name_equipe' => "required|string|max:100",
-             'nbJoueur'    => "required|integer|min:5|max:25",
-             'tournoi_id'  => "required|exists:tournois,id",
+             'image'=>"nullable",
+             'description'=>'nullable|string'
         ];
     }
 }

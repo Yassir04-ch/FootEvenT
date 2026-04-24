@@ -52,8 +52,9 @@
           </div>
 
           <div>
+            
             <div class="flex flex-wrap gap-2 mb-2">
-              @foreach($tournois as $tournoi)
+              @foreach($equipe->tournois as $tournoi)
                 <span class="text-xs bg-gray-700 text-gray-300 border border-gray-600 px-2.5 py-1 rounded-full">
                   {{ $tournoi->name_tournoi }}
                 </span>
@@ -76,11 +77,18 @@
             </div>
           </div>
         </div>
-
+        @if(auth()->check() && auth()->user()->id == $equipe->capitaine_id)
+        <div class="items-end gap-4">
+         <a href="{{route('equipes.edit',$equipe)}}"> <button type="submit" class="flex items-center px-3 py-3 bg-gray-400 rounded-xl text-gray-900 font-bold text-sm hover:bg-gray-300 transition-colors">
+                  Modifier l'équipe
+          </button>
+         </a>
+        </div>
+        @endif
         <div class="flex flex-col items-end gap-4">
           <div class="flex gap-5">
             <div class="text-center">
-              <div class="font-bebas text-3xl text-green-400 leading-none">{{ $equipe->joueurs->count() }}</div>
+              <div class="font-bebas text-3xl text-green-400 leading-none">{{ $joueurs->count() }}</div>
               <div class="text-xs text-gray-400 uppercase tracking-wide mt-1">Joueurs</div>
             </div>
             <div class="w-px bg-gray-700"></div>
@@ -113,7 +121,7 @@
             @endif
           @endif
         </div>
-
+         
       </div>
     </div>
 
@@ -130,9 +138,13 @@
         @forelse($joueurs as $joueur)
           <div class="card-player bg-gray-800 border border-gray-700 rounded-2xl p-5 flex items-center gap-4">
 
-            <div class="w-12 h-12 rounded-full bg-green-950 border border-green-800 flex items-center justify-center text-green-400 font-bold text-base flex-shrink-0">
-              {{ strtoupper(substr($joueur->user->firstname, 0, 1)) }}{{ strtoupper(substr($joueur->user->lastname ?? '', 0, 1)) }}
-            </div>
+           <div class="w-20 h-20 rounded-2xl bg-gray-700 border border-gray-600 flex items-center justify-center font-bebas text-4xl text-green-400 flex-shrink-0 overflow-hidden">
+            @if($joueur->image)
+              <img src="{{ asset('storage/'.$joueur->image) }}" class="w-full h-full object-cover">
+            @else
+              {{ substr($joueur->name_equipe, 0, 1) }}
+            @endif
+           </div>
 
             <div class="flex-1 min-w-0">
               <p class="text-sm font-semibold text-white truncate">

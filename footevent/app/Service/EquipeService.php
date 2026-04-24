@@ -7,6 +7,7 @@ use App\Models\Tournoi;
 use App\Models\Joueur;
 use App\Models\Game;
 use App\Models\Notification;
+use Illuminate\Support\Facades\Storage;
 use App\Repositories\EquipeRepository;
 
 class EquipeService
@@ -160,18 +161,20 @@ class EquipeService
         return ['success' => true, 'message' => 'Joueur refusé.'];
     }
 
-    public function leftJoueur(Equipe $equipe, Joueur $joueur){
-        $membre = $equipe->joueurs()->wher('joueur_id',$joueur->id)->exists();
+    public function retireJoueur(Equipe $equipe, Joueur $joueur){
+        $membre = $equipe->joueurs()->where('joueur_id',$joueur->id)->exists();
           if (!$membre) {
             return ['success' => false, 'message' => 'Joueur introuvable.'];
         }
-        $this->repository->leftJoueur($equipe, $joueur);
-
-        Notification::create([
+        $this->repository->retireJoueur($equipe, $joueur);
+         $nbJoueur = $equipe->nbJoueur - 1;
+         $equipe->update(['nbJoueur'=>$nbJoueur]);
+        $notifi = Notification::create([
           'message'=>"Vous avez été retiré de équipe " . $equipe->name_equipe ." par organisateur",
           'user_id'=>$joueur->user->id
         ]);
-        return ['success' => true, 'message' => 'Joueur est left.'];
+        dd($notifi);
+        return ['success' => true, 'message' => 'Joueur est Retirer.'];
 
     }
 

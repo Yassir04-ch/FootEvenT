@@ -51,7 +51,6 @@
 
     <form action="{{ route('equipes.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
      @csrf
-
     <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 space-y-5">
 
 

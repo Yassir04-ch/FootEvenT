@@ -43,34 +43,40 @@
 
     <div class="mb-10">
       <h1 class="font-bebas text-5xl tracking-wide leading-none mb-2">
-        Créer une <span class="text-green-400">Équipe</span>
+        Modifier équipe <span class="text-green-400"> {{ $equipe->name_equipe }} </span>
       </h1>
-      <p class="text-sm text-gray-400 font-light">Remplissez les informations de votre nouvelle équipe.</p>
     </div>
 
 
-    <form action="{{ route('equipes.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
+    <form action="{{ route('equipes.update',$equipe) }}" method="POST" enctype="multipart/form-data" class="space-y-6">
      @csrf
-
+     @method('put')
     <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 space-y-5">
-
-
     <div>
       <label class="block text-xs font-semibold text-gray-400 uppercase tracking-widest mb-2">Nom de l'équipe *</label>
-      <input type="text" name="name_equipe" placeholder="Ex: FC Atlas, AS Rapid..."
+      <input type="text" name="name_equipe" value="{{$equipe->name_equipe}}"
         class="w-full bg-gray-950 border border-gray-700 rounded-xl px-4 py-3 text-sm text-gray-100 placeholder-gray-600 focus:outline-none focus:border-green-600 focus:ring-1 focus:ring-green-600/30 transition-colors"required>
      </div> 
-     
+      <label class="block text-xs font-semibold text-gray-400 uppercase tracking-widest mb-2">
+          Logo équipe
+      </label>
+      <div class="w-20 h-20 rounded-2xl bg-gray-700 border border-gray-600 flex items-center justify-center font-bebas text-4xl text-green-400 flex-shrink-0 overflow-hidden">
+            @if($equipe->image)
+              <img src="{{ asset('storage/'.$equipe->image) }}" class="w-full h-full object-cover">
+            @else
+              {{ substr($equipe->name_equipe, 0, 1) }}
+            @endif
+      </div>
      <div>
         <label class="block text-xs font-semibold text-gray-400 uppercase tracking-widest mb-2">
           new Logo équipe
         </label>
-        <input type="file" name="image" class="w-full bg-gray-950 border border-gray-700 rounded-xl px-4 py-3 text-sm text-gray-100">
+        <input type="file" name="image" class="w-full bg-gray-950 border border-gray-700 rounded-xl px-4 py-3 text-sm text-gray-100"  value="{{$equipe->image}}">
       </div>
 
      <div>
       <label class="block text-xs font-semibold text-gray-400 uppercase tracking-widest mb-2">Description <span class="normal-case text-gray-600 font-normal">(optionnel)</span></label>
-      <textarea name="description" rows="3"placeholder="Décrivez votre équipe..."
+      <textarea name="description" rows="3"placeholder="{{$equipe->description}}"
         class="w-full bg-gray-950 border border-gray-700 rounded-xl px-4 py-3 text-sm text-gray-100 placeholder-gray-600 focus:outline-none focus:border-green-600 focus:ring-1 focus:ring-green-600/30 transition-colors resize-none">
       </textarea>
      </div>
@@ -78,11 +84,11 @@
 
 
   <div class="flex gap-3">
-    <a href="{{ route('equipes.index') }}" class="flex-1 text-center px-6 py-3 rounded-xl border border-gray-700 text-sm font-medium text-gray-400 hover:border-gray-500 hover:text-gray-100 transition-colors">
+    <a href="{{ route('equipes.show',$equipe) }}" class="flex-1 text-center px-6 py-3 rounded-xl border border-gray-700 text-sm font-medium text-gray-400 hover:border-gray-500 hover:text-gray-100 transition-colors">
       Annuler
     </a>
     <button type="submit" class="flex-1 px-6 py-3 rounded-xl bg-green-400 text-gray-950 text-sm font-semibold hover:bg-green-300 transition-colors">
-      Créer l'équipe →
+      Modifier l'équipe →
     </button>
   </div>
 </form>

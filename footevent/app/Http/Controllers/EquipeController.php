@@ -103,11 +103,12 @@ class EquipeController extends Controller
     {
         $validated = $request->validated();
         $userid =  Auth::id();
-        $result = $this->service->update($validated,$equipe,$userid);
-
         if($request->hasFile('image')){
             $validated['image'] = $request->file('image');
         }
+
+        $result = $this->service->update($validated,$equipe,$userid);
+
         if (!$result['success']) {
             return back()->with('error', $result['message']);
         }
@@ -149,7 +150,6 @@ class EquipeController extends Controller
         if (!$result['success']) {
             return back()->with('error', $result['message']);
         }
-        $equipe->nbJoueur++;
         return back()->with('success', $result['message']);
     }
 
@@ -169,8 +169,13 @@ class EquipeController extends Controller
     }
 
 
-    public function leftJoueur()
+    public function retireJoueur()
     {
+        $result = $this->service->retireJoueur($equipe,$joueur);
+        if(!$result['success']){
+            return back()->with('error', $result['message']);
+        }
+          return back()->with('success', $result['message']);
         
     }
 
