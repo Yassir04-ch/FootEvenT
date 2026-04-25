@@ -11,21 +11,23 @@
 
 <div class="flex min-h-screen">
 
-    <!-- SIDEBAR -->
     <aside class="w-64 bg-gray-950 border-r border-gray-800 flex flex-col fixed top-0 left-0 h-full z-40" style="background:#070a0f">
-        <!-- Logo -->
         <div class="px-6 py-6 border-b border-gray-800">
-            <div class="flex items-center gap-3">
-                <div class="w-8 h-8 bg-green-400 rounded-full flex items-center justify-center text-base">⚽</div>
-                <span class="text-xl text-green-400 tracking-widest" style="font-family:'Bebas Neue',cursive">FootEvenT</span>
-            </div>
-            <div class="mt-3 flex items-center gap-2">
-                <div class="w-2 h-2 bg-green-400 rounded-full"></div>
-                <span class="text-xs text-gray-400">Panel Administrateur</span>
+            <a href="/" class="flex items-center gap-2 group">
+                <div class="w-10 h-10 bg-green-500 rounded-lg flex items-center justify-center rotate-12 group-hover:rotate-0 transition-transform duration-300">
+                     <span class="text-black text-xl italic font-black text-2xl uppercase">F</span>
+                </div>
+                    <span class="text-3xl font-bold tracking-tighter uppercase italic" style="font-family:'Bebas Neue'">Foot<span class="text-green-500">EvenT</span></span>
+            </a>
+            <div class="flex items-center gap-2 px-1">
+                <span class="relative flex h-2 w-2">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                </span>
+                <span class="text-[10px] text-gray-500 font-black uppercase tracking-[0.2em]">Panel Administrateur</span>
             </div>
         </div>
 
-        <!-- Nav -->
         <nav class="flex-1 px-4 py-6 flex flex-col gap-1">
 
             <div class="text-xs text-gray-600 uppercase tracking-widest px-3 mb-2">Principal</div>
@@ -41,16 +43,14 @@
                 <span class="text-base">🏆</span> Tournois
                 <span class="ml-auto bg-gray-700 text-gray-300 text-xs px-2 py-0.5 rounded-full">12</span>
             </a>
-            <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-400 text-sm font-medium hover:bg-gray-800 hover:text-white no-underline">
+            <a href="{{route('equipes.index')}}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-400 text-sm font-medium hover:bg-gray-800 hover:text-white no-underline">
                 <span class="text-base">👥</span> Équipes
                 <span class="ml-auto bg-gray-700 text-gray-300 text-xs px-2 py-0.5 rounded-full">36</span>
             </a>
-            <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-400 text-sm font-medium hover:bg-gray-800 hover:text-white no-underline">
+            <a href="{{route('games.index')}}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-400 text-sm font-medium hover:bg-gray-800 hover:text-white no-underline">
                 <span class="text-base">⚽</span> Matchs
             </a>
-            <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-400 text-sm font-medium hover:bg-gray-800 hover:text-white no-underline">
-                <span class="text-base">📊</span> Résultats
-            </a>
+           
 
             <div class="text-xs text-gray-600 uppercase tracking-widest px-3 mb-2 mt-4">Système</div>
 
@@ -199,40 +199,18 @@
                 <div class="flex flex-col gap-5">            
                     <div class="bg-gray-800 rounded-2xl border border-yellow-700 border-opacity-40 p-6">
                         <div class="flex items-center justify-between mb-4">
-                            <h3 class="text-base font-bold text-white">Équipes en attente</h3>
+                            <h3 class="text-base font-bold text-white">Équipes</h3>
                             <span class="w-6 h-6 bg-yellow-400 rounded-full text-gray-900 text-xs font-bold flex items-center justify-center">4</span>
                         </div>
                         <div class="flex flex-col gap-3">
+                            @foreach($equipes as $equipe)
                             <div class="flex items-center justify-between bg-gray-700 rounded-xl px-3 py-2.5">
                                 <div>
-                                    <div class="text-sm text-white font-medium">FC Casablanca</div>
-                                    <div class="text-xs text-gray-400">Championnat Regional</div>
-                                </div>
-                                <div class="flex gap-2">
-                                    <button class="px-2 py-1 bg-green-400 rounded-lg text-gray-900 text-xs font-bold hover:bg-green-300">✓</button>
-                                    <button class="px-2 py-1 bg-red-900 rounded-lg text-red-400 text-xs font-bold hover:bg-red-800">✗</button>
+                                    <div class="text-sm text-white font-medium">{{$equipe->name_equipe}}</div>
+                                    <div class="text-xs text-gray-400">{{$equipe->capitaine->firstname}}  {{$equipe->capitaine->lastname}}</div>
                                 </div>
                             </div>
-                            <div class="flex items-center justify-between bg-gray-700 rounded-xl px-3 py-2.5">
-                                <div>
-                                    <div class="text-sm text-white font-medium">Raja Fes</div>
-                                    <div class="text-xs text-gray-400">Coupe de Printemps</div>
-                                </div>
-                                <div class="flex gap-2">
-                                    <button class="px-2 py-1 bg-green-400 rounded-lg text-gray-900 text-xs font-bold hover:bg-green-300">✓</button>
-                                    <button class="px-2 py-1 bg-red-900 rounded-lg text-red-400 text-xs font-bold hover:bg-red-800">✗</button>
-                                </div>
-                            </div>
-                            <div class="flex items-center justify-between bg-gray-700 rounded-xl px-3 py-2.5">
-                                <div>
-                                    <div class="text-sm text-white font-medium">Wydad Marrakech</div>
-                                    <div class="text-xs text-gray-400">Tournoi de l'Été</div>
-                                </div>
-                                <div class="flex gap-2">
-                                    <button class="px-2 py-1 bg-green-400 rounded-lg text-gray-900 text-xs font-bold hover:bg-green-300">✓</button>
-                                    <button class="px-2 py-1 bg-red-900 rounded-lg text-red-400 text-xs font-bold hover:bg-red-800">✗</button>
-                                </div>
-                            </div>
+                            @endforeach
                         </div>
                     </div>
 

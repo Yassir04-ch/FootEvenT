@@ -21,9 +21,10 @@ class AdminController extends Controller
        $nbequipes = Equipe::count();
        $nbtournois = Tournoi::count();
        $notifications = $this->service->getNotifications(Auth::id());
+       $equipes = $this->service->equipes();
        $users = User::where('id','!=',Auth::id())->with('role')->get();
        $gemecount = Game::where('statut','termine')->count();
-       return view('admin.index',compact('users','nbequipes','nbtournois','notifications','gemecount'));
+       return view('admin.index',compact('users','nbequipes','nbtournois','notifications','gemecount','equipes'));
     }
 
     public function tournois(){

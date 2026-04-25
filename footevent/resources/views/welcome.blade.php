@@ -22,6 +22,7 @@
       <a href="{{route('equipes.index')}}" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-gray-100 hover:bg-gray-800 transition-colors">Équipes</a>
       <a href="{{route('games.index')}}" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-gray-100 hover:bg-gray-800 transition-colors">Matchs</a>
       <a href="{{route('joueurs.joueurs')}}" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-gray-100 hover:bg-gray-800 transition-colors">Joueurs</a>
+      <a href="{{route('rankings.index')}}" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-gray-100 hover:bg-gray-800 transition-colors">Ranking</a>
       @if(auth()->user())
       <a href="{{route('auth.profile')}}" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-gray-100 hover:bg-gray-800 transition-colors">Profile</a>
       @endif
@@ -54,12 +55,16 @@
             </p>
 
             <div class="flex flex-col md:flex-row gap-6 justify-center items-center">
-                <button class="skew-btn w-full md:w-auto bg-green-500 px-12 py-5 text-black font-black uppercase tracking-widest text-lg hover:bg-white hover:scale-105 transition-all shadow-[0_20px_50px_rgba(34,200,94,0.2)]">
-                    <span>Créer un Tournoi</span>
-                </button>
-                <button class="skew-btn w-full md:w-auto border-2 border-white/20 px-12 py-5 text-white font-black uppercase tracking-widest text-lg hover:bg-white/10 transition-all">
-                    <span>Explorer</span>
-                </button>
+                <a href="{{ route('auth.create') }}">
+                  <button class="skew-btn w-full md:w-auto bg-green-500 px-12 py-5 text-black font-black uppercase tracking-widest text-lg hover:bg-white hover:scale-105 transition-all shadow-[0_20px_50px_rgba(34,200,94,0.2)]">
+                    <span>Login</span>
+                  </button>
+                </a>
+                <a href="{{ route('auth.index') }}"> 
+                  <button class="skew-btn w-full md:w-auto border-2 border-white/20 px-12 py-5 text-white font-black uppercase tracking-widest text-lg hover:bg-white/10 transition-all">
+                    <span>S'inscrire</span>
+                  </button>
+                </a>
             </div>
         </div>
 

@@ -3,6 +3,7 @@
 namespace App\Service;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\Equipe;
 use App\Models\Notification;
 
 class AdminService {
@@ -30,6 +31,12 @@ class AdminService {
   public function getNotifications($user_id){
      $notifications = Notification::where('user_id',$user_id)->orwhere('user_id',null)->get();
      return $notifications;
+  }
+
+  public function equipes()
+  {
+       $equipes = Equipe::with('capitaine')->take(4)->get();
+       return $equipes;
   }
 
 }

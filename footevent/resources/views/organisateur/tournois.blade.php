@@ -40,6 +40,9 @@
             <a href="{{ route('organisateur.matchs') }}" class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-400 text-sm font-bold hover:bg-white/5 hover:text-white transition-all group">
                 <span class="group-hover:scale-125 transition-transform">⚽</span> Matchs
             </a>
+            <a href="{{ route('rankings.index') }}"  class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-400 text-sm font-bold hover:bg-white/5 hover:text-white transition-all group">
+                <span class="scale-125">⚽</span> Classement
+            </a>
         </nav>
 
         <div class="p-4 border-t border-white/5 space-y-3">
@@ -72,11 +75,6 @@
                 <a href="{{ route('tournois.create') }}" class="group relative px-6 py-2.5 bg-white text-black font-black text-[10px] uppercase tracking-widest rounded-sm transform skew-x-[-12deg] hover:bg-green-500 transition-colors">
                     <span class="inline-block transform skew-x-[12deg]">+ Créer un tournoi</span>
                 </a>
-                
-                <div class="relative group cursor-pointer">
-                    <div class="w-10 h-10 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center text-xl group-hover:bg-white/10 transition-all">🔔</div>
-                    <span class="absolute -top-1 -right-1 w-5 h-5 bg-green-500 border-4 border-[#0a0c10] rounded-full text-black text-[9px] font-black flex items-center justify-center">2</span>
-                </div>
             </div>
         </header>
 

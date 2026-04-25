@@ -4,7 +4,6 @@ namespace App\Service;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Tournoi;
 use App\Models\Equipe;
-use App\Models\Ranking;
 use App\Models\Notification;
 use App\Repositories\TournoiRepository;
 use Illuminate\Http\Request;
@@ -135,7 +134,7 @@ class TournoiService
 
         Ranking::create([
                 "equipe_id"=>$equipe->id,
-                "tournoi_id"=>$tournoi->id
+                "tournoi_id"=>$tournoi_id
         ]);
 
         return ['success' => true, 'message' => 'Équipe validée avec succès.'];
