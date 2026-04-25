@@ -3,63 +3,24 @@
 namespace App\Http\Controllers;
 
 use App\Models\Ranking;
+use App\Models\Tournoi;
 use Illuminate\Http\Request;
+use App\Service\RankingService;
 
 class RankingController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    private RankingService $sevice;
+        
+    public function __construct(RankingService $service){
+        $this->service = $service;
+    }
+   
+    public function index(Request $request)
     {
-        //
+        $tournois = Tournoi::all();
+        $tournoi = $this->service->getTournoi($request);
+        $rankings = $this->service->rankings($tournoi);
+        return view('ranking.index',compact('tournois','rankings'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Ranking $ranking)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Ranking $ranking)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Ranking $ranking)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Ranking $ranking)
-    {
-        //
-    }
 }

@@ -18,8 +18,9 @@ class ClassementController extends Controller{
 
     public function Niveau(Request $request ,Tournoi $tournoi){
        $niveau = $request->niveau;
+       $tournois = Tournoi::all();
        $equipes = $this->service->equipeNiveau($request , $tournoi);
-        return view('classement.index',compact('equipes','tournoi','niveau'));
+        return view('classement.index',compact('equipes','tournois','tournoi','niveau'));
     }
 
     public function equipeclassement(Request $request, Equipe $equipe)

@@ -2,6 +2,7 @@
 namespace App\Service;
 use App\Repositories\ResultatRepository;
 use App\Models\Resultat;
+use App\Models\Ranking;
 use App\Models\Game;
 use App\Models\Equipe;
 
@@ -108,15 +109,14 @@ class ResultatService{
         $this->updatePositions($tournoi_id);
         $this->repository->create($data);
         $game->update(['statut' => 'termine']);
-
-        dd($game);
-
         return ['success' => true, "message" => "Résultat ajouté"];
     }
 
 
     public function updateRanking($equipe_id,$tournoi_id,$gols,$points){
         $ranking = Ranking::where('equipe_id',$equipe_id)->where('tournoi_id',$tournoi_id)->first();
+        $matchWin = 0;
+        $matchlos = 0;
         if(!$ranking){
             Ranking::create([
                 "equipe_id"=>$equipe_id,
@@ -124,10 +124,10 @@ class ResultatService{
             ]);
         }
         else{
-        if ($points == 3) {
-            $ranking->matchWin += 1;
-         } elseif ($points == 0) {
-            $ranking->matchlos += 1;
+        if ($points == 3){
+           $matchWin = $ranking->matchWin + 1;
+         } elseif ($points == 0){
+           $matchlos = $ranking->matchlos += 1;
          }
           $goals_scored = $ranking->goals_scored + $gols;
           $points = $ranking->points + $points;

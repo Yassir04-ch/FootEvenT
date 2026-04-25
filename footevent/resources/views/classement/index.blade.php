@@ -37,7 +37,6 @@
 
   <div class="flex min-h-screen">
 
-    {{-- SIDEBAR --}}
     <aside class="w-56 flex-shrink-0 bg-gray-900 border-r border-gray-800 pt-8">
       <p class="px-5 text-xs text-gray-600 uppercase tracking-widest font-medium mb-3">Tournois</p>
 

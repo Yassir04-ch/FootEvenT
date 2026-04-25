@@ -10,18 +10,21 @@
 <body class="bg-[#0a0c10] text-gray-100 font-outfit min-h-screen bg-grid">
 
     <nav class="sticky top-0 z-50 flex items-center justify-between px-8 h-20 bg-black/60 backdrop-blur-xl border-b border-white/5">
+     <a href="{{ route('tournois.index') }}" class="flex items-center gap-3">
         <div class="flex items-center gap-3">
             <div class="w-10 h-10 bg-green-500 skew-element flex items-center justify-center shadow-[0_0_15px_rgba(34,197,94,0.3)]">
                 <span class="skew-inner text-black font-black text-xl italic uppercase">F</span>
             </div>
             <span class="font-bebas text-3xl text-white tracking-widest italic">Foot<span class="text-green-500">EvenT</span></span>
         </div>
+     </a>
 
         <div class="hidden md:flex items-center gap-2">
             <a href="#" class="px-5 py-2 rounded-full text-xs font-bold uppercase tracking-widest bg-green-500/10 text-green-500 border border-green-500/20">Tournois</a>
             <a href="{{route('equipes.index')}}" class="px-5 py-2 rounded-full text-xs font-bold uppercase tracking-widest text-gray-400 hover:text-white transition-all">Équipes</a>
             <a href="{{route('games.index')}}" class="px-5 py-2 rounded-full text-xs font-bold uppercase tracking-widest text-gray-400 hover:text-white transition-all">Matchs</a>
             <a href="{{route('joueurs.joueurs')}}" class="px-5 py-2 rounded-full text-xs font-bold uppercase tracking-widest text-gray-400 hover:text-white transition-all">Joueurs</a>
+            <a href="{{route('rankings.index')}}" class="px-5 py-2 rounded-full text-xs font-bold uppercase tracking-widest text-gray-400 hover:text-white transition-all">Classement</a>
             @if(auth()->user())
             <a href="{{route('auth.profile')}}" class="px-5 py-2 rounded-full text-xs font-bold uppercase tracking-widest text-gray-400 hover:text-white transition-all">Profile</a>
             @endif
