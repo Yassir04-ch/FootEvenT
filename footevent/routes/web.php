@@ -72,5 +72,4 @@ Route::post('/resultats/{game}/create',[ResultatController::class,'store'])->nam
 Route::get('/classement/{tournoi}/niveau',[ClassementController::class,'Niveau'])->name('classement.index');
 Route::get('/equipes/{equipe}/classement', [ClassementController::class, 'equipeclassement'])->name('equipes.classement');
 
-
 Route::get('/rankings/index',[RankingController::class,'index'])->name('rankings.index');
