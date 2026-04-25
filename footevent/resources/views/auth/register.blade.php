@@ -33,7 +33,6 @@
         <form method="POST" action="{{ route('auth.store') }}" class="space-y-5">
             @csrf
 
-            <!-- Firstname -->
             <div>
                 <label class="text-gray-400 text-xs font-medium uppercase tracking-widest mb-2 block">Prénom</label>
                 <input
@@ -45,7 +44,6 @@
                 
             </div>
 
-            <!-- Lastname -->
             <div>
                 <label class="text-gray-400 text-xs font-medium uppercase tracking-widest mb-2 block">Nom</label>
                 <input
@@ -57,7 +55,6 @@
                 
             </div>
 
-            <!-- Email -->
             <div>
                 <label class="text-gray-400 text-xs font-medium uppercase tracking-widest mb-2 block">Email</label>
                 <input
@@ -69,7 +66,6 @@
                 
             </div>
 
-            <!-- Password -->
             <div>
                 <label class="text-gray-400 text-xs font-medium uppercase tracking-widest mb-2 block">Mot de passe</label>
                 <input
@@ -81,7 +77,6 @@
                
             </div>
 
-            <!-- Role -->
             <div>
                 <label class="text-gray-400 text-xs font-medium uppercase tracking-widest mb-2 block">Rôle</label>
                 <select name="role_id" required class="w-full bg-gray-900 border border-gray-700 text-white rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-green-400 transition-all appearance-none cursor-pointer">
@@ -94,7 +89,6 @@
               
             </div>
 
-            <!-- Submit -->
             <button
                 type="submit"
                 class="w-full bg-green-400 hover:bg-green-300 text-gray-900 font-semibold rounded-xl py-3 text-sm transition-all">

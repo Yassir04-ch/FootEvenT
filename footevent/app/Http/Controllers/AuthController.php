@@ -32,7 +32,11 @@ class AuthController extends Controller
 
      public function store(RegisterRequest $request)
     {
-        $this->service->register($request->validated());
+        $result = $this->service->register($request->validated());
+         if(!$result['success'])
+         {
+              return back()->with('error',$result['message']);
+         }
         $user = Auth::user();
          if($user->role->name == "Organisateur" ){
                 return redirect()->route('organisateur.index');

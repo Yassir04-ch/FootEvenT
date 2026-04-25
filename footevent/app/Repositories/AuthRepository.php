@@ -21,7 +21,7 @@ class AuthRepository
 
     public function findByEmail(string $email)
     {
-        $user = User::where('email', $email)->first();
+        $user = User::where('email', $email)->exists();
         return $user;
     }
     

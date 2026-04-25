@@ -22,9 +22,12 @@ class AuthService
     public function register($validated)
     {
         $validated['password'] = bcrypt($validated['password']);
+        $chekuser = $this->repository->findByEmail($validated['email']);
+        if($chekuser){
+            return ['success' => false,'message'=>'Email est déja existe'];
+        }
         $user = $this->repository->createUser($validated);
         Auth::login($user);
-
         return ['success' => true, 'user' => $user];
     }
 
