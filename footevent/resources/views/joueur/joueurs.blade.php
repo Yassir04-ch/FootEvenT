@@ -1,43 +1,7 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FootEvenT — Joueurs</title>
+@extends('layouts.app')
+@section('title', 'Joueurs — FootEvenT')
 
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
-<script src="https://cdn.tailwindcss.com"></script>
-</head>
-
-<body class="bg-gray-950 text-gray-100 font-outfit min-h-screen">
-
-<nav class="sticky top-0 z-50 flex items-center justify-between px-8 h-16 bg-gray-950/80 backdrop-blur border-b border-gray-800">
-
-  <div class="flex items-center gap-3">
-      <div class="w-10 h-10 bg-green-500 skew-element flex items-center justify-center shadow-[0_0_15px_rgba(34,197,94,0.3)]">
-          <span class="skew-inner text-black font-black text-xl italic uppercase">F</span>
-      </div>
-      <span class="font-bebas text-3xl text-white tracking-widest italic">Foot<span class="text-green-500">EvenT</span></span>
-    </div>
-
-    <div class="hidden md:flex items-center gap-2">
-        <a href="{{route('tournois.index')}}" class="px-5 py-2 rounded-full text-xs font-bold uppercase tracking-widest text-gray-400 hover:text-white transition-all">Tournois</a>
-        <a href="{{route('equipes.index')}}"class="px-5 py-2 rounded-full text-xs font-bold uppercase tracking-widest text-gray-400 hover:text-white transition-all">Équipes</a>
-        <a href="{{route('games.index')}}" class="px-5 py-2 rounded-full text-xs font-bold uppercase tracking-widest text-gray-400 hover:text-white transition-all">Matchs</a>
-        <a href="" class="px-5 py-2 rounded-full text-xs font-bold uppercase tracking-widest bg-green-500/10 text-green-500 border border-green-500/20">Joueurs</a>
-        <a href="{{route('rankings.index')}}" class="px-5 py-2 rounded-full text-xs font-bold uppercase tracking-widest text-gray-400 hover:text-white transition-all">Classement</a>
-        @if(auth()->user())
-        <a href="{{route('auth.profile')}}" class="px-5 py-2 rounded-full text-xs font-bold uppercase tracking-widest text-gray-400 hover:text-white transition-all">Profile</a>
-        @endif
-    </div>
-
-  <div class="flex items-center gap-3">
-      @if(!auth()->user())
-        <a href="{{route('auth.create')}}" class="text-xs font-black uppercase tracking-[0.2em] hover:text-green-500 transition-colors italic">Connexion</a>
-      @endif
-  </div>
-
-</nav>
+@section('content')
 
 <section class="px-8 pt-14 pb-8 flex items-end justify-between">
 
@@ -130,5 +94,4 @@
 @endforelse
 
 </div>
-</body>
-</html>
+@endsection

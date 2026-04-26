@@ -29,7 +29,7 @@
         <nav class="flex-1 px-4 flex flex-col gap-2">
             <p class="text-[10px] text-gray-600 font-black uppercase tracking-[0.3em] px-4 mb-2 italic">Principal</p>
             
-            <a href="{{ route('organisateur.index') }}" class="flex items-center gap-3 px-4 py-3 rounded-xl bg-green-500/10 border border-green-500/20 text-green-500 text-sm font-bold shadow-lg shadow-green-500/5 transition-all">
+            <a href="{{ route('organisateurs.index') }}" class="flex items-center gap-3 px-4 py-3 rounded-xl bg-green-500/10 border border-green-500/20 text-green-500 text-sm font-bold shadow-lg shadow-green-500/5 transition-all">
                 <span class="scale-125">📊</span> Dashboard
             </a>
             
