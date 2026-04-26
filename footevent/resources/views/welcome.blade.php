@@ -27,22 +27,46 @@
       <a href="{{route('auth.profile')}}" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-gray-100 hover:bg-gray-800 transition-colors">Profile</a>
       @endif
     </div>
-
+      @if(!auth()->check())
         <div class="flex items-center gap-4">
            <a href="{{ route('auth.create') }}"><button class="text-sm font-bold uppercase tracking-widest hover:text-green-400">Login</button></a>
            <a href="{{ route('auth.index') }}"><button class="skew-btn bg-green-500 px-6 py-2 text-black font-black uppercase text-xs hover:bg-white transition-colors"><span>S'inscrire</span></button></a>
         </div>
+    @else
+       <form action="{{ route('auth.destroy') }}" method="POST">
+            @csrf
+            <button type="submit" class="px-4 py-2 border border-gray-700 rounded-lg text-gray-400 text-sm hover:border-red-500 hover:text-red-400 transition-colors">
+                Déconnexion
+            </button>
+        </form>
+    @endif
     </nav>
-
+     
     <section class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
         <div class="absolute inset-0 z-0">
-            <div class="absolute inset-0 bg-gradient-to-b from-[#0a0c10]/60 via-[#0a0c10]/90 to-[#0a0c10] z-10"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-[#0a0c10]/60 via-[#0a0c10]/90 to-[#0a0c10] z-10"></div>
             <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&q=80&w=2000" 
                  class="w-full h-full object-cover opacity-40 scale-110" alt="Stadium">
         </div>
+      <div class="absolute top-24 left-0 right-0 z-30 px-10">
+        @if(session('success'))
+        <div class="max-w-lg mx-auto flex items-center gap-3 px-5 py-4 bg-green-950 border border-green-800 rounded-2xl">
+            <svg class="w-4 h-4 text-green-400 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+            </svg>
+            <p class="text-sm text-green-300 font-medium">{{ session('success') }}</p>
+        </div>
+        @endif
 
-        <div class="football-grid absolute inset-0"></div>
-
+        @if(session('error'))
+        <div class="max-w-lg mx-auto flex items-center gap-3 px-5 py-4 bg-red-950 border border-red-800 rounded-2xl">
+            <svg class="w-4 h-4 text-red-400 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+            <p class="text-sm text-red-300 font-medium">{{ session('error') }}</p>
+        </div>
+        @endif
+    </div>
         <div class="relative z-20 text-center px-4">
 
             <h1 class="text-7xl md:text-[10rem] leading-[0.8] font-black italic uppercase tracking-tighter mb-8" style="font-family:'Bebas Neue'">

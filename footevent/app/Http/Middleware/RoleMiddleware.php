@@ -16,7 +16,7 @@ class RoleMiddleware
     public function handle(Request $request, Closure $next ,$role): Response
     {
         if (auth()->user()->role->name  != $role) {
-          return redirect('/')->with('error', 'accés pas autoriser');
+          abort(403, 'Accés non autorisé');
         }
         return $next($request);
     }

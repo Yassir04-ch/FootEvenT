@@ -11,6 +11,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ResultatController;
 use App\Http\Controllers\ClassementController;
 use App\Http\Controllers\RankingController;
+use App\Http\Controllers\InvitationController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -44,7 +45,10 @@ Route::middleware(['auth','role:Organisateur'])->group(function(){
     Route::post('/tournois/store', [TournoiController::class, 'store'])->name('tournois.store');
     Route::get("/organisateur/index", [OrganisateurController::class,'index'])->name('organisateurs.index');
     Route::get('/resultats/{game}/create',[ResultatController::class,'create'])->name('resultats.create');
+    
 });
+
+    Route::post('/equipes/{equipe}/invite', [InvitationController::class, 'store'])->name('invitations.store');
 
 
 Route::middleware(['auth','role:Joueur'])->group(function(){
@@ -67,8 +71,12 @@ Route::middleware(['auth','role:Joueur'])->group(function(){
     Route::post('/joueurs/store', [JoueurController::class, 'store'])->name('joueurs.store');
     Route::get('/joueurs/index', [JoueurController::class, 'index'])->name('joueurs.index');
     Route::get('/classement/{tournoi}/niveau',[ClassementController::class,'Niveau'])->name('classement.index');
+
+    
 });
     
+    Route::get('/invitations/accept/{token}', [InvitationController::class, 'accept'])->name('invitations.accept');
+    Route::get('/invitations/refuse/{token}', [InvitationController::class, 'refuse'])->name('invitations.refuse');
     
 Route::middleware(['auth','role:Administrateur'])->group(function(){
     Route::put('/admin/{user}/banni',[AdminController::class,'banniUser'])->name('user.banni');

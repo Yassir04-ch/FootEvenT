@@ -9,21 +9,20 @@
 </head>
 <body class="bg-gray-950 text-gray-100 font-outfit min-h-screen">
 
-  <nav class="sticky top-0 z-50 flex items-center justify-between px-8 h-16 bg-gray-950/80 backdrop-blur border-b border-gray-800">
-    <div class="flex items-center gap-3">
-      <div class="w-9 h-9 bg-green-400 rounded-lg flex items-center justify-center">
-        <svg class="w-5 h-5 fill-gray-950" viewBox="0 0 24 24">
-          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 2c1.85 0 3.56.56 4.97 1.52L5.52 16.97A7.963 7.963 0 0 1 4 12c0-4.42 3.58-8 8-8zm0 16c-1.85 0-3.56-.56-4.97-1.52L18.48 7.03A7.963 7.963 0 0 1 20 12c0 4.42-3.58 8-8 8z"/>
-        </svg>
-      </div>
-      <span class="font-bebas text-2xl text-green-400 tracking-widest">FootEvenT</span>
-    </div>
-    <div class="flex items-center gap-1">
-      <a href="{{ route('tournois.index') }}" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-gray-100 hover:bg-gray-800 transition-colors">Tournois</a>
-      <a href="{{ route('equipes.index') }}" class="px-4 py-2 rounded-lg text-sm font-medium bg-gray-800 text-gray-100">Équipes</a>
-    </div>
-    <div class="w-32"></div>
-  </nav>
+  <nav class="sticky top-0 z-50 flex items-center justify-between px-10 h-20 border-b border-white/5 glass-nav">
+      <a href="{{ route('tournois.index') }}" class="flex items-center gap-3">
+        <div class="flex items-center gap-3">
+        <div class="w-10 h-10 bg-green-500 skew-element flex items-center justify-center shadow-[0_0_15px_rgba(34,197,94,0.3)]">
+            <span class="skew-inner text-black font-black text-xl italic uppercase">F</span>
+        </div>
+        <span class="font-bebas text-3xl text-white tracking-widest italic">Foot<span class="text-green-500">EvenT</span></span>
+        </div>
+      </a>
+        <div class="flex items-center gap-2">
+            <a href="{{ route('tournois.index') }}" class="px-5 py-2 rounded-xl text-[11px] font-black uppercase tracking-widest text-gray-400 hover:text-white transition-all">Tournois</a>
+            <a href="{{ route('equipes.index') }}" class="px-5 py-2 rounded-xl text-[11px] font-black uppercase tracking-widest bg-green-500/10 text-green-500 border border-green-500/20 shadow-lg shadow-green-500/5">Équipes</a>
+        </div>
+    </nav>
 
   @if(session('success'))
   <div class="px-8 pt-4">
@@ -49,19 +48,21 @@
 
   <div class="px-8 pt-10 pb-16 max-w-4xl mx-auto">
 
-    <div class="flex items-center gap-2 text-xs text-gray-500 mb-8">
-      <a href="{{ route('equipes.index') }}" class="hover:text-green-400 transition-colors">Équipes</a>
-      <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
-      <a href="{{ route('equipes.show', $equipe) }}" class="hover:text-green-400 transition-colors">{{ $equipe->name_equipe }}</a>
-      <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
-      <span class="text-gray-300">Joueurs</span>
-    </div>
-
     <div class="mb-8">
       <h1 class="font-bebas text-5xl tracking-wide leading-none mb-2">
         Joueurs de <span class="text-green-400">{{ $equipe->name_equipe }}</span>
       </h1>
-      <p class="text-sm text-gray-400">{{ $equipe->nbJoueur }} joueurs</p>
+      @if(auth()->check() && auth()->id() == $equipe->capitaine_id)
+        <form action="{{ route('invitations.store', $equipe) }}" method="POST" class="flex items-center gap-2">
+            @csrf
+            <input type="email" name="email" placeholder="Email du joueur..."
+                  class="px-4 py-2 bg-gray-800 border border-gray-700 text-white text-xs rounded-xl focus:outline-none focus:border-green-500 placeholder-gray-500 w-56"/>
+            <button type="submit"
+                    class="flex items-center gap-2 px-4 py-2 bg-green-500/10 border border-green-500/20 text-green-400 text-xs font-bold uppercase tracking-widest rounded-xl hover:bg-green-500/20 transition-colors whitespace-nowrap">
+                + Inviter
+            </button>
+        </form>
+      @endif
     </div>
 
     <div class="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden mb-6">

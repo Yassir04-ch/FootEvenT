@@ -30,5 +30,10 @@ class Equipe extends Model
         return $this->belongsToMany(Game::class, 'equipe_game')->withPivot('winner')->withTimestamps();
     }
 
+    public function invitations()
+    {
+        return $this->hasMany(Invitation::class);
+    }
+
     
 }

@@ -6,5 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Invitation extends Model
 {
-    //
+    protected $fillable = ['email','token','statut','user_id','equipe_id'];
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
+
+    public function equipe(){
+        return $this->belongsTo(Equipe::class);
+    }
 }

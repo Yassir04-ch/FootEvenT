@@ -8,6 +8,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use App\Models\Equipe;
 
 class InvitationMail extends Mailable
 {
@@ -16,7 +17,7 @@ class InvitationMail extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct(public string $token)
+    public function __construct(public string $token,public Equipe $equipe)
     {
         //
     }
@@ -37,9 +38,10 @@ class InvitationMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'invitation.accepte',
+            view: 'invitations.accepte',
             with:[
                 'token'=>$this->token,
+                'equipe'=>$this->equipe,
             ],
         );
     }

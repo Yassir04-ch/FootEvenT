@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\InvitationRequest;
+use App\Http\Requests\InvitationRequest;
+use App\Service\InvitationService;
+use App\Models\Equipe;
 
 class InvitationController extends Controller
 {
@@ -17,5 +19,26 @@ class InvitationController extends Controller
         $this->service->create($request,$equipe);
         
         return back()->with('invitation',"Invitation envoyée");
+    }
+
+    public function accept($token) 
+    {
+        $result = $this->service->accepteInvitation($token);
+
+        if (!$result['success']) {
+            return redirect('/')->with('error', $result['message']);
+        }
+        return redirect()->route('joueurs.index')->with('success', $result['message']);
+    }
+
+    public function refuse($token)
+    {
+        $result = $this->service->refuseeInvitation($token);
+
+        if (!$result['success']) {
+            return redirect('/')->with('error', $result['message']);
+        }
+
+        return redirect()->route('joueurs.index')->with('success', $result['message']);
     }
 }
