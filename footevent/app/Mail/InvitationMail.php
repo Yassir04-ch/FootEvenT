@@ -16,7 +16,7 @@ class InvitationMail extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public function __construct(public string $token)
     {
         //
     }
@@ -37,7 +37,10 @@ class InvitationMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'view.name',
+            view: 'invitation.accepte',
+            with:[
+                'token'=>$this->token,
+            ],
         );
     }
 

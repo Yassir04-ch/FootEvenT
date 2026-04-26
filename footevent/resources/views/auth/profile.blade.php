@@ -24,7 +24,7 @@
 
         <nav class="flex-1 px-4 py-6 flex flex-col gap-1">
           @if(auth()->user()->role->name == 'Organisateur')
-            <a href="{{route('organisateur.index')}}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-400 hover:bg-gray-800">Dashboard</a>
+            <a href="{{route('organisateurs.index')}}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-400 hover:bg-gray-800">Dashboard</a>
           @elseif(auth()->user()->role->name == 'Administrateur')
             <a href="{{route('admin.index')}}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-400 hover:bg-gray-800">Dashboard</a>
           @else

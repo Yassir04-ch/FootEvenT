@@ -65,7 +65,7 @@ class AuthController extends Controller
         $request->session()->regenerate();
 
        if($result['role'] == "Organisateur" ){
-         return redirect()->route('organisateur.index');
+         return redirect()->route('organisateurs.index');
        }
        else if($result['role'] == "Administrateur" ){
          return redirect()->route('admin.index');

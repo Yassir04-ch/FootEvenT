@@ -173,7 +173,6 @@ class EquipeService
           'message'=>"Vous avez été retiré de équipe " . $equipe->name_equipe ." par organisateur",
           'user_id'=>$joueur->user->id
         ]);
-        dd($notifi);
         return ['success' => true, 'message' => 'Joueur est Retirer.'];
 
     }

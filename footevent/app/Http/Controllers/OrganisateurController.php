@@ -47,10 +47,6 @@ class OrganisateurController extends Controller
       return view('tournoi.matchs',compact('matchs'));
     }
 
-    public function show(){
-      echo "jjjj";
-    }
-
     public function organisateurMatchs(){
       $organisateur = Auth::user();
       $games = $this->service->organisateurMatchs($organisateur);

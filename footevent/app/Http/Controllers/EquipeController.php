@@ -129,21 +129,6 @@ class EquipeController extends Controller
         return redirect()->route('equipes.index')->with('success', $result['message']);
     }
 
- 
-     public function valider(Equipe $equipe)
-    {
-        $this->service->validerEquipe($equipe);
-        return back()->with('success',"Equipe validée");
-    }
-
-
-     public function refuser(Equipe $equipe)
-    {
-        $this->service->refuserEquipe($equipe);
-        return back()->with('success',"Equipe refusée");
-    }
-
-
     public function validerJoueur(Equipe $equipe, Joueur $joueur)
     {
         $result = $this->service->validerJoueur($equipe, $joueur);
@@ -163,13 +148,8 @@ class EquipeController extends Controller
         return back()->with('success', $result['message']);
     }
 
-    public function classement(Equipe $equipe)
-    {
-       echo 'here we go';
-    }
 
-
-    public function retireJoueur()
+    public function retireJoueur(Equipe $equipe,Joueur $joueur)
     {
         $result = $this->service->retireJoueur($equipe,$joueur);
         if(!$result['success']){

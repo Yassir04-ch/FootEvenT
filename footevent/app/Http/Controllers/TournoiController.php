@@ -157,8 +157,4 @@ class TournoiController extends Controller
       }
         return back()->with('success',$result['message']);
     }
-
-    public function eliminerEquipe(){
-        
-    }
  }

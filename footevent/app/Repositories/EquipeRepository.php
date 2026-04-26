@@ -84,7 +84,7 @@ class EquipeRepository
 
      public function retireJoueur(Equipe $equipe, Joueur $joueur){
 
-      $equipe->joueurs()->updateExistingPivot($joueur->id,['status'=>'left']);
+      $equipe->joueurs()->updateExistingPivot($joueur->id,['statut'=>'left']);
       
      }
 
