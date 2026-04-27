@@ -45,6 +45,8 @@ Route::middleware(['auth','role:Organisateur'])->group(function(){
     Route::post('/tournois/store', [TournoiController::class, 'store'])->name('tournois.store');
     Route::get("/organisateur/index", [OrganisateurController::class,'index'])->name('organisateurs.index');
     Route::get('/resultats/{game}/create',[ResultatController::class,'create'])->name('resultats.create');
+    Route::get('/tournois/{tournoi}/edit', [TournoiController::class, 'edit'])->name('tournois.edit');
+    Route::put('/tournois/{tournoi}/update', [TournoiController::class, 'update'])->name('tournois.update');
     
 });
 

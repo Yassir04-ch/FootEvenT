@@ -29,7 +29,7 @@
         <nav class="flex-1 px-4 flex flex-col gap-2">
             <p class="text-[10px] text-gray-600 font-black uppercase tracking-[0.3em] px-4 mb-2 italic">Menu Principal</p>
             
-            <a href="{{ route('organisateur.index') }}" class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-400 text-sm font-bold hover:bg-white/5 hover:text-white transition-all group">
+            <a href="{{ route('organisateurs.index') }}" class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-400 text-sm font-bold hover:bg-white/5 hover:text-white transition-all group">
                 <span class="group-hover:scale-125 transition-transform">📊</span> Dashboard
             </a>
             
@@ -146,7 +146,9 @@
                                     <span class="inline-block transform skew-x-[12deg]">+ Match</span>
                                 </a>
                             @endif
-                            
+                            <a href="{{ route('tournois.show', $tournoi) }}" class="p-3 bg-white/5 border border-white/10 hover:bg-white/10 text-white rounded-xl transition-all" title="Voir tournoi">
+                                👁️
+                            </a>
                             <a href="{{ route('tournoi.equipe', $tournoi->id) }}" class="p-3 bg-blue-600 hover:bg-blue-500 text-white rounded-xl shadow-lg shadow-blue-900/20 transition-all">
                                 👥
                             </a>

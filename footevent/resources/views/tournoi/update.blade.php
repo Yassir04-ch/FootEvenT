@@ -9,7 +9,6 @@
 </head>
 <body class="bg-gray-950 text-gray-100 min-h-screen" style="font-family:'Outfit',sans-serif">
 
-<!-- Navbar -->
 <nav class="sticky top-0 z-50 flex items-center justify-between px-8 h-16 bg-gray-950/80 backdrop-blur border-b border-gray-800">
   <div class="flex items-center gap-3">
     <div class="w-9 h-9 bg-green-400 rounded-lg flex items-center justify-center">
@@ -34,7 +33,6 @@
 
 <div class="max-w-2xl mx-auto px-8 py-12">
 
-  <!-- Breadcrumb -->
   <div class="flex items-center gap-2 text-xs text-gray-500 mb-8">
     <a href="{{ route('tournois.index') }}" class="hover:text-green-400 transition-colors">Tournois</a>
     <span>/</span>
@@ -43,7 +41,6 @@
     <span class="text-gray-300">Modifier</span>
   </div>
 
-  <!-- Header -->
   <div class="mb-8">
     <h1 class="leading-none tracking-wide mb-2" style="font-family:'Bebas Neue',cursive;font-size:3.5rem">
       Modifier le <span class="text-green-400">tournoi</span>
@@ -54,55 +51,43 @@
   <form method="POST" action="{{ route('tournois.update', $tournoi) }}" class="space-y-5">
     @csrf
     @method('PUT')
-
-    <!-- Nom -->
     <div class="bg-gray-900 border border-gray-800 rounded-2xl p-5">
       <label class="block text-xs font-medium text-gray-400 uppercase tracking-widest mb-3">Nom du tournoi <span class="text-green-400">*</span></label>
       <input type="text" name="name_tournoi" value="{{ old('name_tournoi', $tournoi->name_tournoi) }}" placeholder="ex: Coupe du Printemps 2025" required
         class="w-full bg-gray-950 border text-gray-100 placeholder-gray-600 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500/20 transition-all" />
     </div>
 
-    <!-- Lieu -->
     <div class="bg-gray-900 border border-gray-800 rounded-2xl p-5">
       <label class="block text-xs font-medium text-gray-400 uppercase tracking-widest mb-3">Lieu <span class="text-green-400">*</span></label>
       <input type="text" name="lieu" value="{{ old('lieu', $tournoi->lieu) }}" placeholder="ex: Casablanca, Stade Ibn Batouta" required
-        class="w-full bg-gray-950 border text-gray-100 placeholder-gray-600 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500/20 transition-all
-        {{ $errors->has('lieu') ? 'border-red-700' : 'border-gray-700' }}" />
+        class="w-full bg-gray-950 border text-gray-100 placeholder-gray-600 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500/20 transition-all" />
      </div>
 
-    <!-- Dates -->
     <div class="bg-gray-900 border border-gray-800 rounded-2xl p-5">
       <label class="block text-xs font-medium text-gray-400 uppercase tracking-widest mb-3">Dates <span class="text-green-400">*</span></label>
       <div class="grid grid-cols-2 gap-4">
         <div>
           <p class="text-xs text-gray-500 mb-2">Début</p>
           <input type="date" name="date_debut" value="{{$tournoi->date_debut}}" required
-            class="w-full bg-gray-950 border text-gray-100 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500/20 transition-all [color-scheme:dark]
-            {{ $errors->has('date_debut') ? 'border-red-700' : 'border-gray-700' }}" />
+            class="w-full bg-gray-950 border text-gray-100 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500/20 transition-all [color-scheme:dark]" />
           @error('date_debut')<p class="text-red-400 text-xs mt-2">{{ $message }}</p>@enderror
         </div>
         <div>
           <p class="text-xs text-gray-500 mb-2">Fin</p>
           <input type="date" name="date_fin" value="{{$tournoi->date_fin}}" required
-            class="w-full bg-gray-950 border text-gray-100 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500/20 transition-all [color-scheme:dark]
-            {{ $errors->has('date_fin') ? 'border-red-700' : 'border-gray-700' }}" />
+            class="w-full bg-gray-950 border text-gray-100 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500/20 transition-all [color-scheme:dark]" />
         </div>
       </div>
     </div>
 
-    <!-- Statut -->
     <div class="bg-gray-900 border border-gray-800 rounded-2xl p-5">
       <label class="block text-xs font-medium text-gray-400 uppercase tracking-widest mb-3">Statut</label>
       <div class="grid grid-cols-3 gap-3">
         @foreach(['en_attente','en_cours','termine'] as $status)
         <label class="cursor-pointer">
-          <input type="radio" name="status" value="{{ $status }}" class="peer sr-only"
-            {{ old('status', $tournoi->status) == $status ? 'checked' : '' }} />
-          <div class="border border-gray-700 rounded-xl py-3 px-4 flex items-center gap-2.5 transition-all
-          peer-checked:border-{{ $status=='en_attente'?'green-500':($status=='en_cours'?'amber-500':'gray-500') }}
-          peer-checked:bg-{{ $status=='en_attente'?'green-950/40':($status=='en_cours'?'amber-950/40':'gray-800/60') }}">
-            <span class="w-2 h-2 rounded-full flex-shrink-0
-            {{ $status=='en_attente'?'bg-green-400':($status=='en_cours'?'bg-amber-400':'bg-gray-500') }}"></span>
+          <input type="radio" name="status" value="{{ $status }}" class="peer sr-only"/>
+          <div class="border border-gray-700 rounded-xl py-3 px-4 flex items-center gap-2.5 transition-all">
+            <span class="w-2 h-2 rounded-full flex-shrink-0"></span>
             <div>
               <p class="text-xs font-semibold text-gray-100">{{ $status }}</p>
             </div>

@@ -8,7 +8,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
 </head>
 <body class="bg-[#0a0c10] text-gray-100 font-outfit flex min-h-screen">
-
     <aside class="w-64 border-r border-white/5 flex flex-col fixed top-0 left-0 h-full z-40 glass-sidebar">
         <div class="px-8 py-8">
             <div class="flex items-center gap-3 mb-2">
@@ -46,6 +45,8 @@
                 <span class="group-hover:scale-125 transition-transform">📈</span> Classement
             </a>
         </nav>
+
+        
 
         <div class="p-4 border-t border-white/5 space-y-3">
             <div class="flex items-center gap-3 bg-white/5 rounded-2xl p-3 border border-white/5">

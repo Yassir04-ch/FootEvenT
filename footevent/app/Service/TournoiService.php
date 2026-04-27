@@ -48,7 +48,7 @@ class TournoiService
             return ['success' => false, 'message' => 'Action non autorisée.'];
         }
 
-        if ($tournoi->status != 'en_attent') {
+        if ($tournoi->status != 'en_attente') {
             return ['success' => false, 'message' => 'Impossible midifier une tournoi en cours ou terminer.'];
         }
 

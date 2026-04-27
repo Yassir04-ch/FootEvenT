@@ -86,9 +86,11 @@ class TournoiController extends Controller
 
     public function update(UpdateTournoiRequest $request, Tournoi $tournoi)
     {
-        $result = $this->service->update($request->validated(), $tournoi, Auth::id());
+        $validated = $request->validated();
+        $user_id = Auth::id();
+        $result = $this->service->update($validated, $tournoi,$user_id);
 
-        if (!$result['success']) {
+        if(!$result['success']) {
             return back()->with('error', $result['message']);
         }
 
@@ -98,13 +100,19 @@ class TournoiController extends Controller
 
     public function destroy(Tournoi $tournoi)
     {
+        $user = Auth::user();
         $result = $this->service->delete($tournoi);
 
         if (!$result['success']) {
-            return back()->with('error', $result['message']);
+            return redirect()->with('error', $result['message']);
+        }
+        if($user->role->name == 'Administrateur'){
+         return back()->with('success', $result['message']);
         }
 
-        return back()->with('success', $result['message']);
+        if($user->role->name == 'Organisateur'){
+         return redirect()->route('organisateurs.index')->with('success', $result['message']);
+        }
     }
 
     public function joinTournoi(Tournoi $tournoi, Request $request)

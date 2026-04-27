@@ -57,6 +57,9 @@ class ResultatService{
             $equipe1->tournois()->updateExistingPivot($tournoi_id, ['niveau' => $newNiveau]);
 
             $equipe2->tournois()->updateExistingPivot($tournoi_id, ['statut' => 'eliminate']);
+
+            $equipe1->games()->updateExistingPivot($game->id,['winner'=>true]);
+
             $this->updateRanking($equipe1->id, $tournoi_id, $score1,3);
             $this->updateRanking($equipe2->id, $tournoi_id, $score2,0);
         }
@@ -68,6 +71,8 @@ class ResultatService{
             $equipe2->tournois()->updateExistingPivot($tournoi_id, ['niveau' => $newNiveau]);
 
             $equipe1->tournois()->updateExistingPivot($tournoi_id, ['statut' => 'eliminate']);
+
+            $equipe2->games()->updateExistingPivot($game->id,['winner'=>true]);
 
             $this->updateRanking($equipe1->id, $tournoi_id, $score1,0);
             $this->updateRanking($equipe2->id, $tournoi_id, $score2,3);
@@ -90,6 +95,8 @@ class ResultatService{
 
                 $equipe2->tournois()->updateExistingPivot($tournoi_id, ['statut' => 'eliminate']);
 
+                $equipe1->games()->updateExistingPivot($game->id,['winner'=>true]);
+
                 $this->updateRanking($equipe1->id, $tournoi_id, $score1,3);
                 $this->updateRanking($equipe2->id, $tournoi_id, $score2,0);
 
@@ -99,8 +106,9 @@ class ResultatService{
                 $newNiveau = $this->updateNiveau($niveau);
 
                 $equipe2->tournois()->updateExistingPivot($tournoi_id, ['niveau' => $newNiveau]);
-
                 $equipe1->tournois()->updateExistingPivot($tournoi_id, ['statut' => 'eliminate']);
+                
+                $equipe2->games()->updateExistingPivot($game->id,['winner'=>true]);
 
                 $this->updateRanking($equipe1->id, $tournoi_id, $score1,0);
                 $this->updateRanking($equipe2->id, $tournoi_id, $score2,3);

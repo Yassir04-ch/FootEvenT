@@ -25,7 +25,7 @@ class UpdateTournoiRequest extends FormRequest
             'name_tournoi' => "required|string|max:100",
             'date_debut' => "required|date",
             'date_fin' => "required|date",
-            'statut' => "nullable|in:en_attente,en_cours,termine",
+            'status' => "nullable|in:en_attente,en_cours,termine",
             'lieu' => "nullable|string|max:200",
             'nbEquipes' => "required|integer|min:2",
         ];

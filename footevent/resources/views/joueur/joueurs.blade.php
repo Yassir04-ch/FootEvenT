@@ -55,8 +55,7 @@
 
     <div class="bg-gradient-to-b from-gray-900 to-black border border-green-700 rounded-2xl p-4 shadow-lg hover:scale-105 transition duration-300">
 
-        <!-- TOP -->
-        <div class="flex justify-between items-center text-green-400 text-xs font-bold mb-3">
+    <div class="flex justify-between items-center text-green-400 text-xs font-bold mb-3">
             <span class="uppercase">{{ $joueur->poste }}</span>
         </div>
 
