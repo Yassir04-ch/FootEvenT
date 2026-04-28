@@ -65,7 +65,7 @@ Route::middleware(['auth','role:Joueur'])->group(function(){
     Route::get('/equipes/create', [EquipeController::class, 'create'])->name('equipes.create');
     Route::post('/equipes/store', [EquipeController::class, 'create'])->name('equipes.store');
     Route::get('/equipes/{equipe}/edit', [EquipeController::class, 'edit'])->name('equipes.edit');
-    Route::post('/equipes/{equipe}/update', [EquipeController::class, 'update'])->name('equipes.update');
+    Route::put('/equipes/{equipe}/update', [EquipeController::class, 'update'])->name('equipes.update');
     Route::delete('/equipes/{equipe}/destroy', [EquipeController::class, 'destroy'])->name('equipes.destroy');
     Route::get('/joueurs/{joueur}/edit', [JoueurController::class, 'edit'])->name('joueurs.edit');
     Route::put('/joueurs/{joueur}/update', [JoueurController::class, 'update'])->name('joueurs.update');

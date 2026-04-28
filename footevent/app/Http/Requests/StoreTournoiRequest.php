@@ -23,11 +23,11 @@ class StoreTournoiRequest extends FormRequest
     {
         return [
             'name_tournoi' => "required|string|max:100",
-            'description'  => "nullable|string|max:1000",
+            'description'  => "required|string|max:1000",
             'date_debut' => "required|date",
             'date_fin' => "required|date",
             'statut' => "nullable|in:en_attente,en_cours,termine",
-            'lieu' => "nullable|string|max:200",
+            'lieu' => "required|string|max:200",
             'nbEquipes' => "required|integer|min:2",
         ];
     }

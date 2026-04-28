@@ -13,15 +13,15 @@
         <div class="flex-shrink-0 grid grid-cols-3 gap-1 bg-white/5 p-1 rounded-2xl border border-white/10 backdrop-blur-sm">
             <div class="px-8 py-6 text-center">
                 <div class="font-bebas text-5xl text-white leading-none mb-1">{{$countTour}}</div>
-                <div class="text-[9px] text-green-500 font-black uppercase tracking-[0.2em]">Events</div>
+                <div class="text-[9px] text-green-500 font-black uppercase tracking-[0.2em]">Tournois</div>
             </div>
             <div class="px-8 py-6 text-center bg-white/5 rounded-xl">
                 <div class="font-bebas text-5xl text-white leading-none mb-1">{{$countEqui}}</div>
-                <div class="text-[9px] text-green-500 font-black uppercase tracking-[0.2em]">Teams</div>
+                <div class="text-[9px] text-green-500 font-black uppercase tracking-[0.2em]">Equipes</div>
             </div>
             <div class="px-8 py-6 text-center">
                 <div class="font-bebas text-5xl text-white leading-none mb-1">{{$countMatch}}</div>
-                <div class="text-[9px] text-green-500 font-black uppercase tracking-[0.2em]">Games</div>
+                <div class="text-[9px] text-green-500 font-black uppercase tracking-[0.2em]">Matches</div>
             </div>
         </div>
     </section>
