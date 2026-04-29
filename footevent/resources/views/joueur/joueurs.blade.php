@@ -35,7 +35,7 @@
         <a href="?poste=defenseur" class="skew-element group">
             <span class="skew-inner px-6 py-2 text-[10px] uppercase tracking-widest border border-white/10 bg-white/5 text-gray-400 group-hover:border-green-500 group-hover:text-white transition-all">Défenseur</span>
         </a>
-        <a href="?statut=milieu" class="skew-element group">
+        <a href="?poste=milieu" class="skew-element group">
             <span class="skew-inner px-6 py-2 text-[10px] uppercase tracking-widest border border-white/10 bg-white/5 text-gray-400 group-hover:border-green-500 group-hover:text-white transition-all">Milieu</span>
         </a>
         <a href="?poste=defenseur" class="skew-element group">

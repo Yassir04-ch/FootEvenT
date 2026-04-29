@@ -9,7 +9,6 @@
 </head>
 <body class="bg-gray-900 text-gray-100 min-h-screen">
 
-  {{-- NAVBAR --}}
   <nav class="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-10 py-4 bg-gray-900 border-b border-gray-800">
     <a href="{{ route('tournois.index') }}" class="flex items-center gap-3">
       <div class="flex items-center gap-3 mb-2">

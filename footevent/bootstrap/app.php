@@ -16,6 +16,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'role' => \App\Http\Middleware\RoleMiddleware::class,
             'auth' => \App\Http\Middleware\AuthMiddleware::class,
+            'status' => \App\Http\Middleware\CheckBann::class,
 
         ]);
     })

@@ -23,14 +23,14 @@ Route::get('/auth/index', [AuthController::class, 'index'])->name('auth.index');
 Route::get('/auth/create', [AuthController::class, 'create'])->name('auth.create');
 Route::post("/auth/login",[AuthController::class,'login'])->name("login");
 
-Route::middleware('auth')->group(function(){
+Route::middleware('auth','status')->group(function(){
     Route::post('/auth/logout', [AuthController::class, 'destroy'])->name('auth.destroy');
     Route::get('/auth/profile', [AuthController::class, 'profile'])->name('auth.profile');
     Route::get('/auth/edit', [AuthController::class, 'profile'])->name('auth.edit');
     Route::put('/auth/update', [ProfileController::class, 'update'])->name('profile.update');
 });
 
-Route::middleware(['auth','role:Organisateur'])->group(function(){
+Route::middleware(['auth','role:Organisateur','status'])->group(function(){
     Route::put('/tournois/{tournoi}/demarer', [TournoiController::class, 'demarerTournoi'])->name('tournois.demarer');
     Route::put('/tournois/{tournoi}/terminer', [TournoiController::class, 'terminerTournoi'])->name('tournois.terminer');
     Route::post('/tournois/{tournoi}/equipes/{equipe}/refuser', [TournoiController::class, 'refuserEquipe'])->name('tournois.equipes.refuser');
@@ -53,7 +53,7 @@ Route::middleware(['auth','role:Organisateur'])->group(function(){
     Route::post('/equipes/{equipe}/invite', [InvitationController::class, 'store'])->name('invitations.store');
 
 
-Route::middleware(['auth','role:Joueur'])->group(function(){
+Route::middleware(['auth','role:Joueur','status'])->group(function(){
     Route::post('/tournois/{tournoi}/join', [TournoiController::class, 'joinTournoi'])->name('tournois.join');
     Route::post('/equipes/{equipe}/joueurs/{joueur}/valider', [EquipeController::class, 'validerJoueur'])->name('equipes.joueurs.valider');
     Route::put('/equipes/{equipe}/joueurs/{joueur}/refuser', [EquipeController::class, 'refuserJoueur'])->name('equipes.joueurs.refuser');
@@ -80,7 +80,7 @@ Route::middleware(['auth','role:Joueur'])->group(function(){
     Route::get('/invitations/accept/{token}', [InvitationController::class, 'accept'])->name('invitations.accept');
     Route::get('/invitations/refuse/{token}', [InvitationController::class, 'refuse'])->name('invitations.refuse');
     
-Route::middleware(['auth','role:Administrateur'])->group(function(){
+Route::middleware(['auth','role:Administrateur','status'])->group(function(){
     Route::put('/admin/{user}/banni',[AdminController::class,'banniUser'])->name('user.banni');
     Route::put('/admin/{user}/active',[AdminController::class,'activeUser'])->name('user.active');
     Route::get('/admin/tournois',[AdminController::class,'tournois'])->name('admin.tournois');

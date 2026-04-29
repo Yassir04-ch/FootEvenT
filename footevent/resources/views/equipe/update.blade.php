@@ -11,14 +11,14 @@
 
 
   <nav class="sticky top-0 z-50 flex items-center justify-between px-8 h-16 bg-gray-950/80 backdrop-blur border-b border-gray-800">
-    <div class="flex items-center gap-3">
-      <div class="w-9 h-9 bg-green-400 rounded-lg flex items-center justify-center">
-        <svg class="w-5 h-5 fill-gray-950" viewBox="0 0 24 24">
-          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 2c1.85 0 3.56.56 4.97 1.52L5.52 16.97A7.963 7.963 0 0 1 4 12c0-4.42 3.58-8 8-8zm0 16c-1.85 0-3.56-.56-4.97-1.52L18.48 7.03A7.963 7.963 0 0 1 20 12c0 4.42-3.58 8-8 8z"/>
-        </svg>
+     <a href="{{ route('tournois.index') }}" class="flex items-center gap-3">
+      <div class="flex items-center gap-3 mb-2">
+          <div class="w-9 h-9 bg-green-500 flex items-center justify-center rounded-lg rotate-12 shadow-[0_0_15px_rgba(34,197,94,0.3)]">
+              <span class="text-black font-black text-xl italic uppercase font-bebas">F</span>
+          </div>
+          <span class="text-2xl font-bebas tracking-widest uppercase italic">Foot<span class="text-green-500">EvenT</span></span>
       </div>
-      <span class="font-bebas text-2xl text-green-400 tracking-widest">FootEvenT</span>
-    </div>
+    </a>
 
     <div class="flex items-center gap-1">
       <a href="{{route('tournois.index')}}" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-gray-100 hover:bg-gray-800 transition-colors">Tournois</a>

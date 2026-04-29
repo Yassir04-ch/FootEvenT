@@ -22,6 +22,7 @@
     <div class="flex items-center gap-1">
         <a href="{{ route('tournois.index') }}"class="px-5 py-2 rounded-full text-xs font-bold uppercase tracking-widest text-gray-400 hover:text-white transition-all">Tournois</a>
         <a href="{{ route('equipes.index') }}" class="px-5 py-2 rounded-full text-xs font-bold uppercase tracking-widest text-gray-400 hover:text-white transition-all">Équipes</a>
+        <a href="{{ route('joueurs.joueurs') }}" class="px-5 py-2 rounded-full text-xs font-bold uppercase tracking-widest text-gray-400 hover:text-white transition-all">Joueurs</a>
         @if($equipe)
         <a href="{{route('equipes.games',$equipe)}}" class="px-5 py-2 rounded-full text-xs font-bold uppercase tracking-widest text-gray-400 hover:text-white transition-all">Matchs</a>
         <a href="{{ route('equipes.classement',$equipe) }}" class="px-5 py-2 rounded-full text-xs font-bold uppercase tracking-widest text-gray-400 hover:text-white transition-all">Equipe Classement</a>
