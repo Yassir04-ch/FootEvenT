@@ -4,6 +4,7 @@ namespace App\Service;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Tournoi;
 use App\Models\Equipe;
+use App\Models\Ranking;
 use App\Models\Notification;
 use App\Repositories\TournoiRepository;
 use Illuminate\Http\Request;

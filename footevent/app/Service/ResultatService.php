@@ -44,84 +44,84 @@ class ResultatService{
         $tournoi_id = $tournoi->id;
 
         $equipe1pivot = $equipe1->tournois()->where('tournoi_id', $tournoi_id)->first();
+
         $equipe2pivot = $equipe2->tournois()->where('tournoi_id', $tournoi_id)->first();
+
+        if (!$equipe1pivot || !$equipe2pivot) {
+            return ['success' => false,'message' => 'équipe introuvable dans ce tournoi'];
+        }
 
         $score1 = $data['scoreEq1'];
         $score2 = $data['scoreEq2'];
 
         if ($score1 > $score2) {
-
-            $niveau = $equipe1pivot->pivot->niveau;
-            $newNiveau = $this->updateNiveau($niveau);
-
-            $equipe1->tournois()->updateExistingPivot($tournoi_id, ['niveau' => $newNiveau]);
-
-            $equipe2->tournois()->updateExistingPivot($tournoi_id, ['statut' => 'eliminate']);
-
-            $equipe1->games()->updateExistingPivot($game->id,['winner'=>true]);
-
-            $this->updateRanking($equipe1->id, $tournoi_id, $score1,3);
-            $this->updateRanking($equipe2->id, $tournoi_id, $score2,0);
+            $this->handleWinner($equipe1,$equipe2,$equipe1pivot,$tournoi_id,$game,$score1,$score2);
         }
         elseif ($score2 > $score1) {
-
-            $niveau = $equipe2pivot->pivot->niveau;
-            $newNiveau = $this->updateNiveau($niveau);
-
-            $equipe2->tournois()->updateExistingPivot($tournoi_id, ['niveau' => $newNiveau]);
-
-            $equipe1->tournois()->updateExistingPivot($tournoi_id, ['statut' => 'eliminate']);
-
-            $equipe2->games()->updateExistingPivot($game->id,['winner'=>true]);
-
-            $this->updateRanking($equipe1->id, $tournoi_id, $score1,0);
-            $this->updateRanking($equipe2->id, $tournoi_id, $score2,3);
+            $this->handleWinner($equipe2,$equipe1,$equipe2pivot,$tournoi_id,$game,$score2,$score1);
         }
         else {
-
             $pen1 = $data['penaltyE1'];
             $pen2 = $data['penaltyE2'];
 
             if ($pen1 == $pen2) {
-                return ['success' => false, "message" => "Les penalties ne peuvent pas étre égaux"];
+                return ['success' => false,'message' => 'les penalties ne peuvent pas étre égaux'];
             }
 
             if ($pen1 > $pen2) {
-
-                $niveau = $equipe1pivot->pivot->niveau;
-                $newNiveau = $this->updateNiveau($niveau);
-
-                $equipe1->tournois()->updateExistingPivot($tournoi_id, ['niveau' => $newNiveau]);
-
-                $equipe2->tournois()->updateExistingPivot($tournoi_id, ['statut' => 'eliminate']);
-
-                $equipe1->games()->updateExistingPivot($game->id,['winner'=>true]);
-
-                $this->updateRanking($equipe1->id, $tournoi_id, $score1,3);
-                $this->updateRanking($equipe2->id, $tournoi_id, $score2,0);
-
+                $this->handleWinner($equipe1,$equipe2,$equipe1pivot,$tournoi_id,$game,$score1,$score2);
             } else {
-
-                $niveau = $equipe2pivot->pivot->niveau;
-                $newNiveau = $this->updateNiveau($niveau);
-
-                $equipe2->tournois()->updateExistingPivot($tournoi_id, ['niveau' => $newNiveau]);
-                $equipe1->tournois()->updateExistingPivot($tournoi_id, ['statut' => 'eliminate']);
-                
-                $equipe2->games()->updateExistingPivot($game->id,['winner'=>true]);
-
-                $this->updateRanking($equipe1->id, $tournoi_id, $score1,0);
-                $this->updateRanking($equipe2->id, $tournoi_id, $score2,3);
+                $this->handleWinner($equipe2,$equipe1,$equipe2pivot,$tournoi_id,$game,$score2,$score1);
             }
         }
+
         $this->updatePositions($tournoi_id);
+
         $this->repository->create($data);
-        $game->update(['statut' => 'termine']);
-        return ['success' => true, "message" => "Résultat ajouté"];
+
+        $game->update([
+            'statut' => 'termine'
+        ]);
+        $equipevalide = $tournoi->equipes()->wherePivot('statut', 'validee')->count();
+        if ($equipevalide == 1)
+        {
+            $equipe = $tournoi->equipes()->wherePivot('statut', 'validee')->first();
+            $equipe->tournois()->updateExistingPivot($tournoi_id, ['statut' => 'winner']);
+            $tournoi->update(['status','termine']);
+        }
+         return ['success' => true,'message' => 'Résultat ajouté'];
     }
 
 
-    public function updateRanking($equipe_id,$tournoi_id,$gols,$points){
+    private function handleWinner($winner,$loser,$winnerPivot,$tournoi_id,$game,$winnerScore,$loserScore)
+    {
+        $niveau = $winnerPivot->pivot->niveau;
+
+        $newNiveau = $this->updateNiveau($niveau);
+
+        $winner->tournois()->updateExistingPivot($tournoi_id, [
+            'niveau' => $newNiveau
+        ]);
+
+        $loser->tournois()->updateExistingPivot($tournoi_id, [
+            'statut' => 'eliminate'
+        ]);
+
+        $winner->games()->updateExistingPivot($game->id, [
+            'winner' => true
+        ]);
+
+        $loser->games()->updateExistingPivot($game->id, [
+            'winner' => false
+        ]);
+
+        $this->updateRanking($winner->id,$tournoi_id,$winnerScore,$loserScore,3);
+
+        $this->updateRanking($loser->id,$tournoi_id,$loserScore,$winnerScore,0);
+    }
+
+
+    public function updateRanking($equipe_id,$tournoi_id,$gols,$goals_con,$points){
         $ranking = Ranking::where('equipe_id',$equipe_id)->where('tournoi_id',$tournoi_id)->first();
         $matchWin = 0;
         $matchlos = 0;
@@ -138,12 +138,15 @@ class ResultatService{
            $matchlos = $ranking->matchlos += 1;
          }
           $goals_scored = $ranking->goals_scored + $gols;
+          $goals_conceded = $ranking->goals_conceded + $goals_con;
           $points = $ranking->points + $points;
+        //   dd($goals_conceded);
             $ranking->update([
                 'points'=>$points,
                 'matchWin'=>$matchWin,
                 'matchlos'=>$matchlos,
-                'goals_scored'=>$goals_scored
+                'goals_scored'=>$goals_scored,
+                'goals_conceded'=>$goals_conceded
             ]);
         }
     }

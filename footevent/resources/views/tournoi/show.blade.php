@@ -9,14 +9,13 @@
 </head>
 <body class="bg-gray-950 text-gray-100 font-outfit min-h-screen">
 
-  <!-- Navbar -->
   <nav class="sticky top-0 z-50 flex items-center justify-between px-8 h-16 bg-gray-950/80 backdrop-blur border-b border-gray-800">
-    <div class="flex items-center gap-3">
-      <div class="w-9 h-9 bg-green-400 rounded-lg flex items-center justify-center">
-        
-      </div>
-      <span class="font-bebas text-2xl text-green-400 tracking-widest">FootEvenT</span>
-    </div>
+      <div class="flex items-center gap-3 mb-2">
+          <span class="text-black font-black text-xl italic uppercase font-bebas">F</span>
+          <div class="w-9 h-9 bg-green-500 flex items-center justify-center rounded-lg rotate-12 shadow-[0_0_15px_rgba(34,197,94,0.3)]">
+            <span class="text-2xl font-bebas tracking-widest uppercase italic">Foot<span class="text-green-500">EvenT</span></span>
+          </div>
+        </div>
 
     <div class="flex items-center gap-2 text-sm text-gray-400">
       @if(auth()->check())

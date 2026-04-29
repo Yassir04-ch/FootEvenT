@@ -10,14 +10,12 @@
 <body class="bg-gray-950 text-gray-100 font-outfit min-h-screen">
 
   <nav class="sticky top-0 z-50 flex items-center justify-between px-8 h-16 bg-gray-950/80 backdrop-blur border-b border-gray-800">
-    <div class="flex items-center gap-3">
-      <div class="w-9 h-9 bg-green-400 rounded-lg flex items-center justify-center">
-        <svg class="w-5 h-5 fill-gray-950" viewBox="0 0  24 24">
-          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 2c1.85 0 3.56.56 4.97 1.52L5.52 16.97A7.963 7.963 0 0 1 4 12c0-4.42 3.58-8 8-8zm0 16c-1.85 0-3.56-.56-4.97-1.52L18.48 7.03A7.963 7.963 0 0 1 20 12c0 4.42-3.58 8-8 8z"/>
-        </svg>
+     <div class="flex items-center gap-3 mb-2">
+          <div class="w-9 h-9 bg-green-500 flex items-center justify-center rounded-lg rotate-12 shadow-[0_0_15px_rgba(34,197,94,0.3)]">
+            <span class="text-black font-black text-xl italic uppercase font-bebas">F</span>
+          </div>
+            <span class="text-2xl font-bebas tracking-widest uppercase italic">Foot<span class="text-green-500">EvenT</span></span>
       </div>
-      <span class="font-bebas text-2xl text-green-400 tracking-widest">FootEvenT</span>
-    </div>
     <div class="flex items-center gap-1">
       <a href="{{ route('tournois.index') }}" class="px-4 py-2 rounded-lg text-sm font-medium bg-gray-800 text-gray-100">Tournois</a>
       <a href="{{ route('equipes.index') }}" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-gray-100 hover:bg-gray-800 transition-colors">Équipes</a>
@@ -49,15 +47,6 @@
   @endif
 
   <div class="px-8 pt-10 pb-16 max-w-5xl mx-auto">
-
-    <!-- Breadcrumb -->
-    <div class="flex items-center gap-2 text-xs text-gray-500 mb-8">
-      <a href="{{ route('tournois.index') }}" class="hover:text-green-400 transition-colors">Tournois</a>
-      <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
-      <a href="{{ route('tournois.show', $tournoi) }}" class="hover:text-green-400 transition-colors">{{ $tournoi->name_tournoi }}</a>
-      <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
-      <span class="text-gray-300">Équipes</span>
-    </div>
 
     <div class="mb-8 flex items-end justify-between gap-6">
       <div>
@@ -140,14 +129,14 @@
         <p class="text-sm">Aucune demande en attente</p>
       </div>
       @endforelse
-    </div>
-    @endif
+      </div>
+      @endif
 
      <div class="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden">
       <div class="px-6 py-4 border-b border-gray-800">
         <h2 class="font-bebas text-xl tracking-wide">Équipes refusées <span class="text-red-400">({{ $equipes->where('pivot.statut', 'refusee')->count() }})</span></h2>
       </div>
-      @foreach($equipes->where('pivot.statut', 'refusee') as $equipe)
+      @forelse($equipes->where('pivot.statut', 'refusee') as $equipe)
       <div class="px-6 py-4 flex items-center gap-4 border-b border-gray-800 hover:bg-gray-800/50 transition-colors">
         <div class="w-10 h-10 rounded-full bg-red-950 border border-red-800 flex items-center justify-center text-red-400 font-bold">
           {{ strtoupper(substr($equipe->name_equipe, 0, 1)) }}
@@ -158,7 +147,33 @@
         </div>
         <span class="text-xs text-red-400 bg-red-950 border border-red-800 px-2.5 py-1 rounded-full font-semibold">Refusée</span>
       </div>
-      @endforeach
+      @empty
+      <div class="flex flex-col items-center justify-center py-12 text-gray-600">
+        <p class="text-sm">Aucune équipe refusee</p>
+      </div>
+      @endforelse
+    </div>
+     <div class="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden">
+      <div class="px-6 py-4 border-b border-gray-800">
+        <h2 class="font-bebas text-xl tracking-wide">Équipes eliminate <span class="text-red-400">({{ $equipes->where('pivot.statut', 'eliminate')->count() }})</span></h2>
+      </div>
+
+      @forelse($equipes->where('pivot.statut', 'eliminate') as $equipe)
+      <div class="px-6 py-4 flex items-center gap-4 border-b border-gray-800 hover:bg-gray-800/50 transition-colors">
+        <div class="w-10 h-10 rounded-full bg-red-950 border border-red-800 flex items-center justify-center text-red-400 font-bold">
+          {{ strtoupper(substr($equipe->name_equipe, 0, 1)) }}
+        </div>
+        <div class="flex-1">
+          <p class="text-sm font-medium">{{ $equipe->name_equipe }}</p>
+          <p class="text-xs text-gray-500">{{ $equipe->joueurs->count() }} joueurs</p>
+        </div>
+        <span class="text-xs text-red-400 bg-red-950 border border-red-800 px-2.5 py-1 rounded-full font-semibold">Eliminate</span>
+      </div>
+      @empty
+      <div class="flex flex-col items-center justify-center py-12 text-gray-600">
+        <p class="text-sm">Aucune équipe éliminée</p>
+      </div>
+      @endforelse
     </div>
  
   </div>

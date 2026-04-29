@@ -44,12 +44,14 @@ class JoueurService
      public function update(array $data,Joueur $joueur)
     {
 
-        if($joueur->image && Storage::disk('public')->exists($joueur->image)){
-            Storage::disk('public')->delete($joueur->image);
+        if (isset($data['image']) && $data['image']) {
+
+            if ($joueur->image && Storage::disk('public')->exists($joueur->image)) {
+                Storage::disk('public')->delete($joueur->image);
+            }
+            $data['image'] = $data['image']->store('joueurs', 'public');
         }
-        if(isset($data['image'])){
-            $data['image'] = $data['image']->store('joueurs','public');
-        }
+
         $joueur->update($data);
     }
 
