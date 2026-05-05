@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Game;
 use Illuminate\Http\Request;
 use App\Http\Requests\GameRequest;
+use App\Http\Requests\GameUpdateRequest;
 use App\Service\GameService;
 use App\Models\Tournoi;
 use App\Models\Equipe;
@@ -59,7 +60,10 @@ class GameController extends Controller
 
     public function demarerGame(Game $game)
     {
-      $this->service->demarerGame($game);
+     $result = $this->service->demarerGame($game);
+      if(!$result['success']){
+      return back()->with('error',$result['message']);
+      }
       return back()->with('success','Match est Démarer');
     }
 
@@ -70,19 +74,30 @@ class GameController extends Controller
         return view('games.show', compact('game'));
     }
 
-    public function edit(Game $game)
+   public function edit(Game $game)
     {
-        //
+        if ($game->statut !== 'programme') {
+            return redirect()->route('games.index')->with('error', 'Ce match ne peut pas étre modifié');
+        }
+
+        return view('games.update', compact('game'));
     }
 
-
-    public function update(Request $request, Game $game)
+    public function update(GameUpdateRequest $request, Game $game)
     {
-        //
+        if ($game->statut !== 'programme') {
+            return back()->with('error', 'Ce Match ne peut pas étre modifié');
+        }
+
+        $validated = $request->validated();
+
+        $game->update([
+            'dateMatch' => $validated['dateMatch'],
+            'heure' => $validated['heure'],
+            'terrain' => $validated['terrain'],
+        ]);
+
+        return redirect()->back()->with('success', 'Match modifié avec succès');
     }
 
-    public function destroy(Game $game)
-    {
-        //
-    }
 }

@@ -5,6 +5,7 @@ use App\Repositories\GameRepository;
 use Illuminate\Http\Request;
 use App\Models\Equipe;
 use App\Models\Tournoi;
+use DateTime;
 use App\Models\Notification;
 
 class GameService
@@ -64,7 +65,7 @@ class GameService
         }
 
 
-        return ['success' => true,'message' => 'équipe a été crée'];
+        return ['success' => true,'message' => 'Matche est crée'];
 
 
     }
@@ -82,6 +83,12 @@ class GameService
 
 
     public function demarerGame($game){
+        $matchDate = new DateTime($game->dateMatch . ' ' . $game->heure);
+        $now = new DateTime();
+
+        if ($now < $matchDate) {
+            return ['success' => false,'message' => 'Match pas encore commencé'];
+        }
         $this->repository->UpdateStatut($game,'en_cours');
     }
 

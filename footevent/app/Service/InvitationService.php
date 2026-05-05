@@ -2,8 +2,10 @@
 
 namespace App\Service;
 use App\Models\Invitation;
+use App\Models\Notification;
 use App\Models\Equipe;
 use App\Models\Joueur;
+use App\Models\User;
 use App\Mail\InvitationMail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -25,9 +27,16 @@ class InvitationService {
         'token'=>$token,
         'statut'=> 'pending',
         ]);
-
-        // dd($invitation->token, $token);
         Mail::to($request->email)->send(new InvitationMail($token,$equipe));
+
+        $user = User::where('email', $request->email)->first();
+
+        if ($user) {
+            Notification::create([
+            'message'=>"vous inviter dans equipe ".$equipe->name_equipe,
+            'user_id'=>$user->id
+            ]);       
+        }
     }
 
     public function accepteInvitation($token)
@@ -54,11 +63,15 @@ class InvitationService {
             return ['success'=>false , 'message'=>'Vous avez déja joueur active dans équipe '.$equipe->name_equipe];
         } 
 
-        $invitation->update(['statut'=>'accepted']);
+        
         $joueur = Joueur::where('user_id',$user_id)->first();
-        $invitation->equipe->joueurs()->attach($joueur->id, ['statut' => 'actif']);
-        return ['success'=>true , 'message'=>'Invitation acceptée avec succès'];
+        if (!$joueur) {
+            return ['success'=>false , 'message'=>'Joueur non trouvé'];
+            }
+        $invitation->equipe->joueurs()->syncWithoutDetaching([$joueur->id => ['statut' => 'actif']]);
 
+        $invitation->update(['statut'=>'accepted']);
+        return ['success'=>true , 'message'=>'Invitation acceptée avec succès'];
         
     }
 

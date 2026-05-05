@@ -24,7 +24,6 @@ class GameUpdateRequest extends FormRequest
         return [
             'dateMatch' => 'required',
             'terrain' => 'required|string|max:255',
-            'equipes' => 'required|array|min:2',
             'heure' => 'required',
         ];
     }

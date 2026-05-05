@@ -68,6 +68,11 @@
                     <p class="text-sm text-green-200 font-bold uppercase italic tracking-wide">{{ session('success') }}</p>
                 </div>
             @endif
+            @if(session('error'))
+                <div class="mb-8 flex items-center gap-4 px-6 py-4 bg-red-500/10 border-l-4 border-red-500 rounded-r-xl">
+                    <p class="text-sm text-red-200 font-bold uppercase italic tracking-wide">{{ session('error') }}</p>
+                </div>
+            @endif
 
             <div class="grid grid-cols-1 gap-4">
                 @forelse($games as $game)
@@ -124,6 +129,9 @@
                                         <span class="inline-block transform skew-x-[12deg]">Démarrer</span>
                                     </button>
                                 </form>
+                                  <a href="{{route('games.edit',$game)}}"><button type="submit" class="w-full py-2.5 bg-white hover:bg-green-500 text-black font-black text-[10px] uppercase tracking-widest transition-all rounded-sm transform skew-x-[-12deg]">
+                                        <span class="inline-block transform skew-x-[12deg]">Modifier</span>
+                                 </button>
                             @endif
                         </div>
 
