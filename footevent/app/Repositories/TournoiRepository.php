@@ -57,9 +57,9 @@ class TournoiRepository
          $equipe->tournois()->updateExistingPivot($tournoi_id, ['niveau' => 'refusee']);
     }
     
-    public function getEquipesValidees(Tournoi $tournoi)
+    public function getEquipestournoi(Tournoi $tournoi)
     {
-        $equipesvalide = $tournoi->equipes()->wherePivot('statut', 'validee')->with('capitaine')->get();
+        $equipesvalide = $tournoi->equipes()->wherePivot('statut',"!=", 'en_attente')->wherePivot('statut',"!=", 'refusee')->with('capitaine')->get();
         return $equipesvalide;
     }
 

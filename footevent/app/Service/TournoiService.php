@@ -157,9 +157,9 @@ class TournoiService
         return ['success' => true, 'message' => 'Équipe refusée.'];
     }
 
-    public function getEquipesValidees(Tournoi $tournoi)
+    public function getEquipestournoi(Tournoi $tournoi)
     {
-        return $this->repository->getEquipesValidees($tournoi);
+        return $this->repository->getEquipestournoi($tournoi);
     }
 
     public function getEquipesEnAttente(Tournoi $tournoi)

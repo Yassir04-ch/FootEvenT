@@ -52,7 +52,7 @@ class TournoiController extends Controller
     {
         $tournoi = $this->service->show($tournoi);
 
-        $equipesValidees = $this->service->getEquipesValidees($tournoi);
+        $equipesValidees = $this->service->getEquipestournoi($tournoi);
         $equipesEnAttente = $this->service->getEquipesEnAttente($tournoi);
 
         $monEquipe = null;

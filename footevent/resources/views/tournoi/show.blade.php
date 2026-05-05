@@ -186,7 +186,7 @@
                 <p class="text-xs text-gray-500 mt-0.5">{{ $equipe->nbJoueur }} joueurs • Cap: {{ $equipe->capitaine->firstname }}</p>
               </div>
             </div>
-            <span class="text-xs px-2.5 py-1 rounded-full bg-green-950 text-green-400 border border-green-800">Validée</span>
+            <span class="text-xs px-2.5 py-1 rounded-full bg-gray-950 text-gray-400 border border-gray-800">{{$equipe->pivot->statut}}</span>
           </div>
         </div>
         @empty
