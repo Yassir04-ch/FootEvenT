@@ -56,13 +56,11 @@ class AuthController extends Controller
     {
         $validated = $request->validated();
 
-        $result = $this->service->login($validated);
+        $result = $this->service->login($validated , $request);
 
         if (!$result['success']) {
             return back()->with('error', $result['message']);
         }
-
-        $request->session()->regenerate();
 
        if($result['role'] == "Organisateur" ){
          return redirect()->route('organisateurs.index');
@@ -80,8 +78,7 @@ class AuthController extends Controller
 
      public function destroy(Request $request)
     {
-        $this->service->logout();
-        $request->session()->invalidate();
+        $this->service->logout($request);
         return redirect('/');
     }
 

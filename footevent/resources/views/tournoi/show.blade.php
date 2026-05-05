@@ -299,7 +299,7 @@
              @elseif($statutInscription == 'eliminate')
               <div class="w-full py-3 rounded-xl bg-red-950 border border-red-800 text-red-400 text-sm font-semibold text-center">Eliminate</div>
             @elseif($statutInscription == 'winner')
-              <div class="w-full py-3 rounded-xl bg-yellow-950 border border-yellow-800 text-yellow-400 text-sm font-semibold text-center">gagne</div>
+              <div class="w-full py-3 rounded-xl bg-yellow-950 border border-yellow-800 text-yellow-400 text-sm font-semibold text-center">winner</div>
             @else
               <div class="w-full py-3 rounded-xl bg-red-950 border border-red-800 text-red-400 text-sm font-semibold text-center">Refusé</div>
             @endif
