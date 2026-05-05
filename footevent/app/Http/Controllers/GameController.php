@@ -30,6 +30,7 @@ class GameController extends Controller
         $gameter = $this->service->gamesbystatut('termine')->count();
         $gamecour = $this->service->gamesbystatut('en_cours')->count();
         $countMatch = Game::count();
+        // dd($games);
         return view('games.index', compact('games','gamepro','gameter','gamecour','countMatch'));
     }
 

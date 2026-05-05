@@ -65,7 +65,7 @@
                 <div class="flex items-center justify-center gap-6">
                     <div class="flex-1 flex flex-col items-center">
                         <div class="w-16 h-16 bg-white/5 rounded-full flex items-center justify-center mb-3 border border-white/10 group-hover:scale-110 transition-transform">
-                          @if($game->equipe1->image)
+                          @if(isset($game->equipe1->image))
                               <img src="{{ asset('storage/' . $game->equipe1->image) }}" alt="{{ $game->equipe1->name_equipe }}" class="w-full h-full object-cover opacity-70">
                               <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-gray-900"></div>
                           @else

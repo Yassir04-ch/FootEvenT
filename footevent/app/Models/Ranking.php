@@ -6,8 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Ranking extends Model
 {
-    protected $fillable = ['points','position','matchWin','matchlos','goals_scored','goals_conceded','equipe_id','tournoi_id',
-    ];
+    protected $fillable = ['points','position','matchWin','matchlos','goals_scored','goals_conceded','equipe_id','tournoi_id'];
 
 
     public function equipe()

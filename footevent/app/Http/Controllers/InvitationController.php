@@ -18,7 +18,7 @@ class InvitationController extends Controller
     public function store(InvitationRequest $request,Equipe $equipe){
         $this->service->create($request,$equipe);
         
-        return back()->with('invitation',"Invitation envoyée");
+        return back()->with('success',"Invitation envoyée");
     }
 
     public function accept($token) 

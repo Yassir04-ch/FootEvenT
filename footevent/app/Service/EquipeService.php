@@ -77,7 +77,7 @@ class EquipeService
             return ['success' => false, 'message' => 'Action non autorisée.'];
         }
 
-        if($validated['image']){
+        if(isset($validated['image'])){
             if($equipe->image && Storage::disk('public')->exists($equipe->image)){
                 Storage::disk('public')->delete($equipe->image);
             }

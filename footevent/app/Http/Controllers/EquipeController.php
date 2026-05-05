@@ -36,7 +36,6 @@ class EquipeController extends Controller
      public function store(EquipeRequest $request)
     {
         $validated = $request->validated();
-
         if ($request->hasFile('image')) {
             $validated['image'] = $request->file('image');
         }

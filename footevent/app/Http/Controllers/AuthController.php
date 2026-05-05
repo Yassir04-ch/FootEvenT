@@ -39,7 +39,7 @@ class AuthController extends Controller
          }
         $user = Auth::user();
          if($user->role->name == "Organisateur" ){
-                return redirect()->route('organisateur.index');
+                return redirect()->route('organisateurs.index');
             }
             else if($user->role->name  == "Administrateur" ){
                 return redirect()->route('admin.index');
