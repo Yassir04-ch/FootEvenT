@@ -59,6 +59,13 @@ class TournoiController extends Controller
         $dejaInscrit = false;
         $statutInscription = null;
         $user_id = Auth::id();
+        if($tournoi->status == 'termine'){
+            $winner = $tournoi->equipes()->wherePivot('statut','winner')->first();
+        }
+        else {
+            $winner = null; 
+        }
+
 
         if (Auth::check() && Auth::user()->role->name == 'Joueur') {
             $monEquipe = Equipe::where('capitaine_id',$user_id)->first();
@@ -74,7 +81,7 @@ class TournoiController extends Controller
             }
         }
 
-        return view('tournoi.show', compact('tournoi','equipesValidees','equipesEnAttente','monEquipe','dejaInscrit','statutInscription'));
+        return view('tournoi.show', compact('tournoi','equipesValidees','equipesEnAttente','monEquipe','dejaInscrit','statutInscription','winner'));
     }
 
 

@@ -77,7 +77,7 @@
             <p class="max-w-xl mx-auto text-gray-400 text-lg md:text-xl font-light mb-12">
                 Organisez vos tournois avec une précision professionnelle. Statistiques en temps réel, gestion d'équipes et trophées digitaux.
             </p>
-
+      @if(!auth()->check())
             <div class="flex flex-col md:flex-row gap-6 justify-center items-center">
                 <a href="{{ route('auth.create') }}">
                   <button class="skew-btn w-full md:w-auto bg-green-500 px-12 py-5 text-black font-black uppercase tracking-widest text-lg hover:bg-white hover:scale-105 transition-all shadow-[0_20px_50px_rgba(34,200,94,0.2)]">
@@ -90,6 +90,7 @@
                   </button>
                 </a>
             </div>
+        @endif
         </div>
 
         <div class="absolute bottom-10 left-10 hidden lg:block opacity-20">

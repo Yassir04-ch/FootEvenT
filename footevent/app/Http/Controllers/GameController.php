@@ -64,7 +64,7 @@ class GameController extends Controller
       if(!$result['success']){
       return back()->with('error',$result['message']);
       }
-      return back()->with('success','Match est Démarer');
+      return back()->with('success',$result['message']);
     }
 
     public function show(Game $game)

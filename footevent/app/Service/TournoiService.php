@@ -188,14 +188,23 @@ class TournoiService
         if($tournoi->status == 'termine'){
             return['success'=>false , 'message'=>'tournoi est déja terminée'];
         }
+
+         $chekequipes = $tournoi->equipes()->where('statut', 'validee')->exists();
+
+        if($chekequipes){
+            return['success'=>false , 'message'=>'Impossible de terminer le tournoi des équipes sont encore validées'];
+        }
+
+        $chekmatchs = $tournoi->games()->where('statut', 'programme')->orWhere('statut', 'en_cours')->exists();
+
+        if($chekmatchs){
+            return['success'=>false , 'message'=>'Des matchs ne sont pas encore terminés'];
+        }
+
     
         $this->repository->terminerTournoi($tournoi);
         return['success'=>true,'message'=>'tournoi est terminée'];
 
-    }
-
-    public function eliminerEquipe(){
-       
     }
 
 

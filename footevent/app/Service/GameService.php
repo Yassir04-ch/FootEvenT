@@ -90,6 +90,7 @@ class GameService
             return ['success' => false,'message' => 'Match pas encore commencé'];
         }
         $this->repository->UpdateStatut($game,'en_cours');
+        return ['success' => true,'message' => 'Match est Démarer'];
     }
 
    
