@@ -82,9 +82,6 @@
           </div>
 
           <div class="flex flex-col gap-2 flex-shrink-0">
-            <a href="{{ route('classement.index', $tournoi) }}" class="flex items-center gap-2 px-4 py-2 rounded-xl border border-gray-700 text-sm text-gray-300 hover:border-green-600 hover:text-green-400 transition-colors">
-              Classement
-            </a>
             @if(auth()->check() && auth()->id() == $tournoi->user_id)
               @if($tournoi->status == 'en_attente')
                 <a href="{{ route('tournois.edit', $tournoi) }}" class="flex items-center gap-2 px-4 py-2 rounded-xl border border-gray-700 text-sm text-gray-300 hover:border-green-600 hover:text-green-400 transition-colors">
